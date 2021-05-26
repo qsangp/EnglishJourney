@@ -100,10 +100,10 @@
             </objects>
             <point key="canvasLocation" x="1853.6231884057972" y="-605.35714285714278"/>
         </scene>
-        <!--View Controller-->
+        <!--Card LessonVC-->
         <scene sceneID="XCn-e9-5bo">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="pKq-Mx-dBh" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="pKq-Mx-dBh" customClass="CardLessonVC" customModule="EnglishJourney_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GPC-qc-2Bn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -114,13 +114,13 @@
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jKs-Ec-LPP">
                                         <rect key="frame" x="30" y="40" width="354" height="435"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <mutableString key="text">I personally think it is necessary for parents to limit the time children use computer.
+                                        <string key="text">I personally think it is necessary for parents to limit the time children use computer.
 
 If children spend too much time sitting in front of a computer, their health can be negatively affected.
 
 They should be encouraged to do more physical activities for better health.
 
-*be negatively affected = bị ảnh hưởng xấu</mutableString>
+*be negatively affected = bị ảnh hưởng xấu</string>
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -128,6 +128,9 @@ They should be encouraged to do more physical activities for better health.
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rD9-i8-pwH">
                                         <rect key="frame" x="171.5" y="5" width="71" height="30"/>
                                         <state key="normal" title="Play audio"/>
+                                        <connections>
+                                            <action selector="audioBackPressed:" destination="pKq-Mx-dBh" eventType="touchUpInside" id="otb-D8-hzz"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -152,6 +155,9 @@ They should be encouraged to do more physical activities for better health.
                                         <state key="normal" title="Lặp lại">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="againButtonPressed:" destination="pKq-Mx-dBh" eventType="touchUpInside" id="sUa-im-jYK"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWy-NM-4b9">
                                         <rect key="frame" x="198" y="0.0" width="156" height="40"/>
@@ -159,6 +165,9 @@ They should be encouraged to do more physical activities for better health.
                                         <state key="normal" title="Hoàn thành">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="completeButtonPressed:" destination="pKq-Mx-dBh" eventType="touchUpInside" id="aqi-xj-7PS"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -177,6 +186,9 @@ They should be encouraged to do more physical activities for better health.
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBV-rK-nRK">
                                         <rect key="frame" x="0.0" y="40" width="354" height="30"/>
                                         <state key="normal" title="Play audio"/>
+                                        <connections>
+                                            <action selector="audioFrontPressed:" destination="pKq-Mx-dBh" eventType="touchUpInside" id="hky-Je-XnS"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fC9-vs-DRx">
                                         <rect key="frame" x="0.0" y="80" width="354" height="30"/>
@@ -190,6 +202,9 @@ They should be encouraged to do more physical activities for better health.
                                         <state key="normal" title="Show/ hide sample">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="showHideButtonPressed:" destination="pKq-Mx-dBh" eventType="touchUpInside" id="fhl-Ka-WmY"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -204,6 +219,9 @@ They should be encouraged to do more physical activities for better health.
                                     <constraint firstAttribute="height" constant="40" id="a0f-kR-dQZ"/>
                                 </constraints>
                                 <state key="normal" title="Back to lessons"/>
+                                <connections>
+                                    <action selector="backToLessonButtonPressed:" destination="pKq-Mx-dBh" eventType="touchUpInside" id="bak-pt-yDh"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ysH-98-F8x"/>
@@ -225,6 +243,17 @@ They should be encouraged to do more physical activities for better health.
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="eXf-fC-AWS"/>
+                    <connections>
+                        <outlet property="againButtonLabel" destination="SsX-fJ-FRl" id="3Ka-S9-7pR"/>
+                        <outlet property="audioBackLabel" destination="rD9-i8-pwH" id="2nC-Sl-Ubc"/>
+                        <outlet property="audioFrontLabel" destination="jBV-rK-nRK" id="SP6-4r-VXO"/>
+                        <outlet property="backToLessonButtonLabel" destination="Doc-g7-28r" id="Bkj-2g-i6Q"/>
+                        <outlet property="completeButtonLabel" destination="WWy-NM-4b9" id="ofH-tH-a25"/>
+                        <outlet property="lessonLabel" destination="UUs-Tu-O9y" id="qiY-Zg-AcZ"/>
+                        <outlet property="questionFrontLabel" destination="fC9-vs-DRx" id="qZk-rD-bgO"/>
+                        <outlet property="showHideButtonLabel" destination="4t2-Ec-YIX" id="2h3-g8-Ddl"/>
+                        <outlet property="textBackField" destination="jKs-Ec-LPP" id="7Hi-Du-PWe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mVK-xP-mjM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
