@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 class CardViewModel {
     var flashcard = [CardModel]()
     var flashcardData = [CardData]()
@@ -64,7 +63,7 @@ class CardViewModel {
                 do {
                     let decodedData = try JSONDecoder().decode(FlashCardData.self, from: data!)
                     for card in decodedData.result {
-                        self.flashcardData.append(CardData(cardName: card.flashCardCategoryName, frontCardAudio: card.audioFileName, backCardAudio: card.audioFileNameBack, frontCardText: card.audioFileName, backCardText: card.backDeck))
+                        self.flashcardData.append(CardData(cardName: card.flashCardCategoryName, frontCardAudio: card.audioFileName, backCardAudio: card.audioFileNameBack, frontCardText: card.audioFileName, backCardText: card.backDeck, id: card.id))
                     }
                     DispatchQueue.main.async {
                         completion()

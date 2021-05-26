@@ -31,6 +31,7 @@ struct Data: Codable {
     let flashCardCategoryName: String
     let audioFileName, audioFileNameBack: String
     let textToAudio, backDeck: String
+    let id: Int
 }
 
 

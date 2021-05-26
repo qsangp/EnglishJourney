@@ -34,6 +34,10 @@ class ViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool){
+           tableView.reloadData()
+       }
+    
     /// Init table view
     private func initTableView() {
         tableView.register(UINib(nibName: "MyTableViewCell", bundle: nil), forCellReuseIdentifier: "MyTableViewCell")
@@ -67,9 +71,14 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         }
     
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            if cardViewModel.flashcard[indexPath.row].id == 58 {
-                self.performSegue(withIdentifier: "GoToCardData", sender: self)
+            let selectedID = cardViewModel.flashcard[indexPath.row].id
+            
+            self.cardViewModel.fetchFlashCardsData(id: selectedID) {
+                let vc = self.storyboard?.instantiateViewController(identifier: "CardLesson") as! CardLessonVC
+                    vc.cardLesson = self.cardViewModel.flashcardData
+                    self.present(vc, animated: true)
             }
+            
         }
     
 }

@@ -72,7 +72,6 @@
 			children = (
 				FAB5EB03265C267800A83569 /* AppDelegate.swift */,
 				FAB5EB05265C267800A83569 /* SceneDelegate.swift */,
-				FAB5EB07265C267800A83569 /* ViewController.swift */,
 				FAB5EB09265C267800A83569 /* Main.storyboard */,
 				FAB5EB0C265C267900A83569 /* Assets.xcassets */,
 				FAB5EB0E265C267900A83569 /* LaunchScreen.storyboard */,
@@ -83,6 +82,7 @@
 				FAB5EB21265C2BC000A83569 /* MyTableViewCell.swift */,
 				FAB5EB22265C2BC000A83569 /* MyTableViewCell.xib */,
 				FAB5EB56265CD38500A83569 /* CustomTabBar.swift */,
+				FAB5EB07265C267800A83569 /* ViewController.swift */,
 				FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */,
 			);
 			path = EnglishJourney_2;

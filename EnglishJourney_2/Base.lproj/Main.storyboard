@@ -103,7 +103,7 @@
         <!--Card LessonVC-->
         <scene sceneID="XCn-e9-5bo">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="pKq-Mx-dBh" customClass="CardLessonVC" customModule="EnglishJourney_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CardLesson" modalPresentationStyle="fullScreen" id="pKq-Mx-dBh" customClass="CardLessonVC" customModule="EnglishJourney_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GPC-qc-2Bn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

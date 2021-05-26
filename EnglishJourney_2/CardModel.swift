@@ -19,4 +19,5 @@ struct CardData {
     let backCardAudio: String
     let frontCardText: String
     let backCardText: String
+    let id: Int
 }
