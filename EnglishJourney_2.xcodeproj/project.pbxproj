@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA280221265DDA2E00BE51E3 /* CardDataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA280220265DDA2E00BE51E3 /* CardDataVC.swift */; };
 		FAB5EB04265C267800A83569 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB03265C267800A83569 /* AppDelegate.swift */; };
 		FAB5EB06265C267800A83569 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB05265C267800A83569 /* SceneDelegate.swift */; };
 		FAB5EB08265C267800A83569 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB07265C267800A83569 /* ViewController.swift */; };
@@ -18,9 +19,11 @@
 		FAB5EB1F265C270D00A83569 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB1E265C270D00A83569 /* CardViewModel.swift */; };
 		FAB5EB23265C2BC000A83569 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB21265C2BC000A83569 /* MyTableViewCell.swift */; };
 		FAB5EB24265C2BC000A83569 /* MyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB5EB22265C2BC000A83569 /* MyTableViewCell.xib */; };
+		FAB5EB57265CD38500A83569 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB56265CD38500A83569 /* CustomTabBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA280220265DDA2E00BE51E3 /* CardDataVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDataVC.swift; sourceTree = "<group>"; };
 		FAB5EB00265C267800A83569 /* EnglishJourney_2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnglishJourney_2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAB5EB03265C267800A83569 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAB5EB05265C267800A83569 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -34,6 +37,7 @@
 		FAB5EB1E265C270D00A83569 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		FAB5EB21265C2BC000A83569 /* MyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
 		FAB5EB22265C2BC000A83569 /* MyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyTableViewCell.xib; sourceTree = "<group>"; };
+		FAB5EB56265CD38500A83569 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,8 @@
 				FAB5EB1E265C270D00A83569 /* CardViewModel.swift */,
 				FAB5EB21265C2BC000A83569 /* MyTableViewCell.swift */,
 				FAB5EB22265C2BC000A83569 /* MyTableViewCell.xib */,
+				FAB5EB56265CD38500A83569 /* CustomTabBar.swift */,
+				FA280220265DDA2E00BE51E3 /* CardDataVC.swift */,
 			);
 			path = EnglishJourney_2;
 			sourceTree = "<group>";
@@ -155,8 +161,10 @@
 			files = (
 				FAB5EB23265C2BC000A83569 /* MyTableViewCell.swift in Sources */,
 				FAB5EB08265C267800A83569 /* ViewController.swift in Sources */,
+				FA280221265DDA2E00BE51E3 /* CardDataVC.swift in Sources */,
 				FAB5EB19265C26C100A83569 /* CardData.swift in Sources */,
 				FAB5EB1F265C270D00A83569 /* CardViewModel.swift in Sources */,
+				FAB5EB57265CD38500A83569 /* CustomTabBar.swift in Sources */,
 				FAB5EB04265C267800A83569 /* AppDelegate.swift in Sources */,
 				FAB5EB06265C267800A83569 /* SceneDelegate.swift in Sources */,
 				FAB5EB1C265C26EA00A83569 /* CardModel.swift in Sources */,

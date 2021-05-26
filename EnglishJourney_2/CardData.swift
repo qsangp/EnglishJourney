@@ -7,19 +7,33 @@
 
 import Foundation
 
-import Foundation
-
 // MARK: - FlashCard
 struct FlashCard: Codable {
-    let result: [Result]
+    let result: [Category]
     
 }
 
 // MARK: - Result
-struct Result: Codable {
+struct Category: Codable {
     let title: String
     let parentId: Int?
     let numOfLession: Int
     let id: Int
-
 }
+
+// MARK: - FlashCardData
+
+struct FlashCardData: Codable {
+    let result: [Data]
+}
+
+struct Data: Codable {
+    let flashCardCategoryName: String
+    let audioFileName, audioFileNameBack: String
+    let textToAudio, backDeck: String
+}
+
+
+
+
+

@@ -27,14 +27,12 @@ class ViewController: UIViewController {
         greetButton.layer.cornerRadius = 10
         greetButton.backgroundColor = UIColor(red: 0.96, green: 0.48, blue: 0.19, alpha: 1.00)
 
-        
         initTableView()
         cardViewModel = CardViewModel()
         cardViewModel.fetchFlashCards {
             self.tableView.reloadData()
         }
     }
-    
     
     /// Init table view
     private func initTableView() {
@@ -68,7 +66,12 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             return 120
         }
     
-        
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            if cardViewModel.flashcard[indexPath.row].id == 58 {
+                self.performSegue(withIdentifier: "GoToCardData", sender: self)
+            }
+        }
+    
 }
 
 
