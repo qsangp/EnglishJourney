@@ -109,11 +109,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6OF-nT-YfD" userLabel="Back Card View">
-                                <rect key="frame" x="0.0" y="250" width="414" height="475"/>
+                                <rect key="frame" x="0.0" y="294" width="414" height="458"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jKs-Ec-LPP">
-                                        <rect key="frame" x="30" y="40" width="354" height="435"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <rect key="frame" x="30" y="40" width="354" height="418"/>
                                         <string key="text">I personally think it is necessary for parents to limit the time children use computer.
 
 If children spend too much time sitting in front of a computer, their health can be negatively affected.
@@ -147,7 +146,7 @@ They should be encouraged to do more physical activities for better health.
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="42" translatesAutoresizingMaskIntoConstraints="NO" id="1fw-0x-SSx">
-                                <rect key="frame" x="30" y="745" width="354" height="40"/>
+                                <rect key="frame" x="30" y="762" width="354" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SsX-fJ-FRl">
                                         <rect key="frame" x="0.0" y="0.0" width="156" height="40"/>
@@ -175,30 +174,34 @@ They should be encouraged to do more physical activities for better health.
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5Gd-vv-9eS">
-                                <rect key="frame" x="30" y="94" width="354" height="150"/>
+                                <rect key="frame" x="30" y="94" width="354" height="190"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUs-Tu-O9y">
-                                        <rect key="frame" x="0.0" y="0.0" width="41.5" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="41.5" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBV-rK-nRK">
-                                        <rect key="frame" x="0.0" y="40" width="354" height="30"/>
+                                        <rect key="frame" x="0.0" y="50" width="354" height="40"/>
                                         <state key="normal" title="Play audio"/>
                                         <connections>
                                             <action selector="audioFrontPressed:" destination="pKq-Mx-dBh" eventType="touchUpInside" id="hky-Je-XnS"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fC9-vs-DRx">
-                                        <rect key="frame" x="0.0" y="80" width="354" height="30"/>
+                                        <rect key="frame" x="0.0" y="100" width="354" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4t2-Ec-YIX">
-                                        <rect key="frame" x="0.0" y="120" width="354" height="30"/>
+                                        <rect key="frame" x="0.0" y="150" width="354" height="40"/>
                                         <color key="backgroundColor" red="0.89722228049999997" green="0.50462478399999999" blue="0.26264664529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="16U-p5-CEJ"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.89722228049999997" green="0.50462478399999999" blue="0.26264664529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" title="Show/ hide sample">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -214,7 +217,7 @@ They should be encouraged to do more physical activities for better health.
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Doc-g7-28r">
-                                <rect key="frame" x="30" y="795" width="354" height="40"/>
+                                <rect key="frame" x="30" y="812" width="354" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="a0f-kR-dQZ"/>
                                 </constraints>
@@ -227,19 +230,20 @@ They should be encouraged to do more physical activities for better health.
                         <viewLayoutGuide key="safeArea" id="ysH-98-F8x"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="ysH-98-F8x" firstAttribute="bottom" secondItem="1fw-0x-SSx" secondAttribute="bottom" constant="60" id="1qt-TT-rvk"/>
                             <constraint firstItem="5Gd-vv-9eS" firstAttribute="leading" secondItem="ysH-98-F8x" secondAttribute="leading" constant="30" id="5Pw-xY-j6S"/>
                             <constraint firstItem="ysH-98-F8x" firstAttribute="trailing" secondItem="5Gd-vv-9eS" secondAttribute="trailing" constant="30" id="6hj-CH-8un"/>
                             <constraint firstItem="ysH-98-F8x" firstAttribute="trailing" secondItem="Doc-g7-28r" secondAttribute="trailing" constant="30" id="FI1-Jq-Mx3"/>
                             <constraint firstItem="5Gd-vv-9eS" firstAttribute="top" secondItem="ysH-98-F8x" secondAttribute="top" constant="50" id="IPy-LB-nfp"/>
                             <constraint firstItem="1fw-0x-SSx" firstAttribute="leading" secondItem="ysH-98-F8x" secondAttribute="leading" constant="30" id="PPs-kp-KyR"/>
-                            <constraint firstItem="Doc-g7-28r" firstAttribute="top" secondItem="1fw-0x-SSx" secondAttribute="bottom" constant="10" id="SRf-tX-zNA"/>
-                            <constraint firstItem="6OF-nT-YfD" firstAttribute="top" secondItem="GPC-qc-2Bn" secondAttribute="top" constant="250" id="ZGl-dC-VLg"/>
+                            <constraint firstItem="6OF-nT-YfD" firstAttribute="top" secondItem="5Gd-vv-9eS" secondAttribute="bottom" constant="10" id="ShW-IO-xqi"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="5Gd-vv-9eS" secondAttribute="bottom" priority="250" constant="300" id="eH5-XM-7Sm"/>
                             <constraint firstItem="ysH-98-F8x" firstAttribute="trailing" secondItem="1fw-0x-SSx" secondAttribute="trailing" constant="30" id="jld-bf-D9W"/>
                             <constraint firstItem="6OF-nT-YfD" firstAttribute="leading" secondItem="ysH-98-F8x" secondAttribute="leading" id="nkg-ba-zLF"/>
-                            <constraint firstAttribute="bottom" secondItem="6OF-nT-YfD" secondAttribute="bottom" constant="171" id="sVF-vB-l3e"/>
+                            <constraint firstItem="1fw-0x-SSx" firstAttribute="top" secondItem="6OF-nT-YfD" secondAttribute="bottom" constant="10" id="oZB-kz-WqD"/>
                             <constraint firstItem="Doc-g7-28r" firstAttribute="leading" secondItem="ysH-98-F8x" secondAttribute="leading" constant="30" id="svM-oA-biN"/>
                             <constraint firstItem="6OF-nT-YfD" firstAttribute="trailing" secondItem="ysH-98-F8x" secondAttribute="trailing" id="vc0-Ix-jbZ"/>
-                            <constraint firstItem="1fw-0x-SSx" firstAttribute="top" secondItem="6OF-nT-YfD" secondAttribute="bottom" constant="20" id="zSl-wP-P54"/>
+                            <constraint firstItem="Doc-g7-28r" firstAttribute="top" secondItem="1fw-0x-SSx" secondAttribute="bottom" constant="10" id="zCK-MS-4jf"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="eXf-fC-AWS"/>
@@ -249,15 +253,45 @@ They should be encouraged to do more physical activities for better health.
                         <outlet property="audioFrontLabel" destination="jBV-rK-nRK" id="SP6-4r-VXO"/>
                         <outlet property="backToLessonButtonLabel" destination="Doc-g7-28r" id="Bkj-2g-i6Q"/>
                         <outlet property="completeButtonLabel" destination="WWy-NM-4b9" id="ofH-tH-a25"/>
+                        <outlet property="constraintFrontCardBackCard" destination="ShW-IO-xqi" id="74t-uf-NB7"/>
+                        <outlet property="constraintFrontCardViewBottom" destination="eH5-XM-7Sm" id="771-Cx-Hqp"/>
+                        <outlet property="constraintFrontCardViewTop" destination="IPy-LB-nfp" id="5FR-cw-sVp"/>
                         <outlet property="lessonLabel" destination="UUs-Tu-O9y" id="qiY-Zg-AcZ"/>
-                        <outlet property="questionFrontLabel" destination="fC9-vs-DRx" id="qZk-rD-bgO"/>
                         <outlet property="showHideButtonLabel" destination="4t2-Ec-YIX" id="2h3-g8-Ddl"/>
                         <outlet property="textBackField" destination="jKs-Ec-LPP" id="7Hi-Du-PWe"/>
+                        <outlet property="textFrontLabel" destination="fC9-vs-DRx" id="qkt-QJ-pqp"/>
+                        <segue destination="6J7-kA-Qf7" kind="show" identifier="GoToComplete" id="uRE-hF-gM6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mVK-xP-mjM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2576.811594202899" y="-605.35714285714278"/>
+        </scene>
+        <!--Lesson CompleteVC-->
+        <scene sceneID="2sx-kp-y2g">
+            <objects>
+                <viewController id="6J7-kA-Qf7" customClass="LessonCompleteVC" customModule="EnglishJourney_2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Fyf-WA-orJ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIL-6o-cui">
+                                <rect key="frame" x="184" y="406" width="47" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Học lại"/>
+                                <connections>
+                                    <action selector="learnAgainPressed:" destination="6J7-kA-Qf7" eventType="touchUpInside" id="c7p-4F-Zrg"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="iPc-x9-CpI"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="glj-Ys-yPi"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="raX-Dg-XYg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3284" y="-605"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="nvg-eR-wvb">

@@ -72,11 +72,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             let selectedID = cardViewModel.flashcard[indexPath.row].id
-            
+            self.cardViewModel.flashcardData = [CardData]()
             self.cardViewModel.fetchFlashCardsData(id: selectedID) {
                 let vc = self.storyboard?.instantiateViewController(identifier: "CardLesson") as! CardLessonVC
-                    vc.cardLesson = self.cardViewModel.flashcardData
-                    self.present(vc, animated: true)
+                vc.cardLesson = self.cardViewModel.flashcardData
+                self.present(vc, animated: true)
             }
             
         }

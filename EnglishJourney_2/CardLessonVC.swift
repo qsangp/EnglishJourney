@@ -12,7 +12,7 @@ class CardLessonVC: UIViewController {
     
     @IBOutlet weak var lessonLabel: UILabel!
     @IBOutlet weak var audioFrontLabel: UIButton!
-    @IBOutlet weak var questionFrontLabel: UILabel!
+    @IBOutlet weak var textFrontLabel: UILabel!
     @IBOutlet weak var showHideButtonLabel: UIButton!
     
     @IBOutlet weak var audioBackLabel: UIButton!
@@ -21,6 +21,11 @@ class CardLessonVC: UIViewController {
     @IBOutlet weak var againButtonLabel: UIButton!
     @IBOutlet weak var completeButtonLabel: UIButton!
     @IBOutlet weak var backToLessonButtonLabel: UIButton!
+    
+    @IBOutlet weak var constraintFrontCardViewTop: NSLayoutConstraint!
+    @IBOutlet weak var constraintFrontCardBackCard: NSLayoutConstraint!
+    @IBOutlet weak var constraintFrontCardViewBottom: NSLayoutConstraint!
+    
     
     var cardLesson = [CardData]()
     var cardIndex = 0
@@ -36,8 +41,20 @@ class CardLessonVC: UIViewController {
     }
     
     func updateUI() {
-        let label = cardLesson[cardIndex].cardName
-            lessonLabel.text = label
+        textFrontLabel.isHidden = true
+        audioBackLabel.isHidden = true
+        textBackField.isHidden = true
+        
+        constraintFrontCardBackCard.priority = UILayoutPriority.defaultLow
+        constraintFrontCardViewBottom.priority = UILayoutPriority.defaultHigh
+        constraintFrontCardViewTop.constant = 200
+        constraintFrontCardViewBottom.constant = 400
+        
+        showHideButtonLabel.setTitle("Show Sample", for: .normal)
+        
+        let cardName = cardLesson[cardIndex].cardName
+            lessonLabel.text = cardName
+        print("updateUI: \(cardIndex), \(cardLesson.count)")
         
         // Render HTML
         let htmlString = cardLesson[cardIndex].backCardText
@@ -89,13 +106,60 @@ class CardLessonVC: UIViewController {
 //MARK: - Lesson Section
     
     @IBAction func showHideButtonPressed(_ sender: UIButton) {
-        
+        sender.isSelected = !sender.isSelected
+        if sender.isSelected {
+            showHideButtonLabel.setTitle("Hide Sample", for: .normal)
+
+            audioBackLabel.isHidden = false
+            textBackField.isHidden = false
+            
+            constraintFrontCardBackCard.priority = UILayoutPriority.defaultHigh
+            constraintFrontCardViewBottom.priority =
+                UILayoutPriority.defaultLow
+            constraintFrontCardViewTop.constant = 50
+
+        } else {
+            showHideButtonLabel.setTitle("Show Sample", for: .normal)
+
+            audioBackLabel.isHidden = true
+            textBackField.isHidden = true
+            
+            constraintFrontCardBackCard.priority = UILayoutPriority.defaultLow
+            constraintFrontCardViewBottom.priority = UILayoutPriority.defaultHigh
+            constraintFrontCardViewTop.constant = 200
+        }
     }
     @IBAction func againButtonPressed(_ sender: UIButton) {
+        
+        switch cardIndex {
+            case cardLesson.count - 1:
+                cardIndex = -1
+                cardIndex += 1
+                updateUI()
+            default:
+                cardIndex += 1
+                updateUI()
+        }
     }
+    
     @IBAction func completeButtonPressed(_ sender: UIButton) {
+        
+        switch cardLesson.count - 1 {
+            case 1:
+                cardLesson.remove(at: cardIndex)
+                cardIndex = 0
+                updateUI()
+            case 0:
+                performSegue(withIdentifier: "GoToComplete", sender: self)
+            default:
+                cardLesson.remove(at: cardIndex)
+                updateUI()
+        }
+        
     }
+    
     @IBAction func backToLessonButtonPressed(_ sender: UIButton) {
+        cardLesson = [CardData]()
         dismiss(animated: true, completion: nil)
     }
 

@@ -28,7 +28,7 @@ struct FlashCardData: Codable {
 }
 
 struct Data: Codable {
-    let flashCardCategoryName: String
+    let title: String
     let audioFileName, audioFileNameBack: String
     let textToAudio, backDeck: String
     let id: Int
