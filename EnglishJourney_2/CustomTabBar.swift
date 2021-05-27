@@ -26,6 +26,8 @@ class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
         
         self.delegate = self
         self.selectedIndex = 0
+        
+        UITabBar.appearance().barTintColor = UIColor.white
 
         setupLeftButton()
         setupRightButton()
@@ -39,6 +41,7 @@ class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
         
         leftLabel.text = "Lessons"
         leftLabel.font = leftLabel.font.withSize(14)
+        leftLabel.textColor = .black
         
         leftButton.setBackgroundImage(UIImage(named: "tabBarIcon1Colored"), for: .normal)
         
@@ -67,6 +70,7 @@ class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
         
         rightLabel.text = "Chart"
         rightLabel.font = rightLabel.font.withSize(14)
+        rightLabel.textColor = .black
         
         rightButton.setBackgroundImage(UIImage(named: "tabBarIcon2"), for: .normal)
         

@@ -19,6 +19,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        overrideUserInterfaceStyle = .light
+
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         greetView.backgroundColor = UIColor(red: 0.98, green: 0.74, blue: 0.35, alpha: 1.00)

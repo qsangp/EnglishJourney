@@ -41,10 +41,19 @@ class CardLessonVC: UIViewController {
     }
     
     func updateUI() {
+        // UI
+        overrideUserInterfaceStyle = .light
+
         textFrontLabel.isHidden = true
         audioBackLabel.isHidden = true
         textBackField.isHidden = true
+        textBackField.isScrollEnabled = true
         
+        showHideButtonLabel.layer.cornerRadius = 10
+        againButtonLabel.layer.cornerRadius = 10
+        completeButtonLabel.layer.cornerRadius = 10
+ 
+        // Animation
         constraintFrontCardBackCard.priority = UILayoutPriority.defaultLow
         constraintFrontCardViewBottom.priority = UILayoutPriority.defaultHigh
         constraintFrontCardViewTop.constant = 200
@@ -102,6 +111,7 @@ class CardLessonVC: UIViewController {
             print(error.localizedDescription)
         }
     }
+
     
 //MARK: - Lesson Section
     
@@ -130,6 +140,7 @@ class CardLessonVC: UIViewController {
         }
     }
     @IBAction func againButtonPressed(_ sender: UIButton) {
+        avPlayer?.replaceCurrentItem(with: nil)
         
         switch cardIndex {
             case cardLesson.count - 1:
@@ -143,7 +154,8 @@ class CardLessonVC: UIViewController {
     }
     
     @IBAction func completeButtonPressed(_ sender: UIButton) {
-        
+        avPlayer?.replaceCurrentItem(with: nil)
+
         switch cardLesson.count - 1 {
             case 1:
                 cardLesson.remove(at: cardIndex)
@@ -169,14 +181,36 @@ class CardLessonVC: UIViewController {
 // MARK: - Render HTML
 extension String {
     func htmlAttributedString() -> NSAttributedString? {
-        guard let data = self.data(using: .utf8) else {
-            return nil
-        }
+        let htmlTemplate = """
+            <!doctype html>
+            <html>
+              <head>
+                <style>
+                  body {
+                    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+                    font-size: 3.5vw;
+                    line-height: 1.4;
+                  }
+                </style>
+              </head>
+              <body>
+                \(self)
+              </body>
+            </html>
+            """
 
-        return try? NSAttributedString(
-            data: data,
-            options: [.documentType: NSAttributedString.DocumentType.html],
-            documentAttributes: nil
-        )
+            guard let data = htmlTemplate.data(using: .utf8) else {
+                return nil
+            }
+
+            guard let attributedString = try? NSAttributedString(
+                data: data,
+                options: [.documentType: NSAttributedString.DocumentType.html],
+                documentAttributes: nil
+                ) else {
+                return nil
+            }
+
+            return attributedString
     }
 }
