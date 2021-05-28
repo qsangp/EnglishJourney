@@ -11,28 +11,34 @@ import AVFoundation
 class CardLessonVC: UIViewController {
     
     @IBOutlet weak var lessonLabel: UILabel!
-    @IBOutlet weak var audioFrontLabel: UIButton!
+    @IBOutlet weak var audioFrontButton: UIButton!
     @IBOutlet weak var textFrontLabel: UILabel!
-    @IBOutlet weak var showHideButtonLabel: UIButton!
+    @IBOutlet weak var showHideButton: UIButton!
     
-    @IBOutlet weak var audioBackLabel: UIButton!
+    @IBOutlet weak var audioBackButton: UIButton!
     @IBOutlet weak var textBackField: UITextView!
     
-    @IBOutlet weak var againButtonLabel: UIButton!
-    @IBOutlet weak var completeButtonLabel: UIButton!
-    @IBOutlet weak var backToLessonButtonLabel: UIButton!
+    @IBOutlet weak var againButton: UIButton!
+    @IBOutlet weak var completeButton: UIButton!
+    @IBOutlet weak var backToLessonButton: UIButton!
     
     @IBOutlet weak var constraintFrontCardViewTop: NSLayoutConstraint!
     @IBOutlet weak var constraintFrontCardBackCard: NSLayoutConstraint!
     @IBOutlet weak var constraintFrontCardViewBottom: NSLayoutConstraint!
     
-    
+    // Card Lesson
     var cardLesson = [CardData]()
     var temporaryCardLesson = [CardData]()
     var cardIndex = 0
     
+    // Audio
     var avPlayer: AVPlayer?
     var avPlayerItem: AVPlayerItem?
+    
+    // Chart Data
+    var againButtonPressedLog = 0
+    var completeButtonPressedLog = 0
+    var chartData: ChartData?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,21 +52,21 @@ class CardLessonVC: UIViewController {
         overrideUserInterfaceStyle = .light
 
         textFrontLabel.isHidden = true
-        audioBackLabel.isHidden = true
+        audioBackButton.isHidden = true
         textBackField.isHidden = true
         textBackField.isScrollEnabled = true
         
-        showHideButtonLabel.layer.cornerRadius = 10
-        againButtonLabel.layer.cornerRadius = 10
-        completeButtonLabel.layer.cornerRadius = 10
- 
+        showHideButton.layer.cornerRadius = 10
+        againButton.layer.cornerRadius = 10
+        completeButton.layer.cornerRadius = 10
+         
         // Animation
         constraintFrontCardBackCard.priority = UILayoutPriority.defaultLow
         constraintFrontCardViewBottom.priority = UILayoutPriority.defaultHigh
         constraintFrontCardViewTop.constant = 200
         constraintFrontCardViewBottom.constant = 400
         
-        showHideButtonLabel.setTitle("Show Sample", for: .normal)
+        showHideButton.setTitle("Show Sample", for: .normal)
         
         let cardName = cardLesson[cardIndex].cardName
             lessonLabel.text = cardName
@@ -73,7 +79,7 @@ class CardLessonVC: UIViewController {
         
         // Autoplay Front Audio
         if autoPlayAudio {
-            audioFrontLabel.sendActions(for: .touchUpInside)
+            audioFrontButton.sendActions(for: .touchUpInside)
         }
         
     }
@@ -128,9 +134,9 @@ class CardLessonVC: UIViewController {
     @IBAction func showHideButtonPressed(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
-            showHideButtonLabel.setTitle("Hide Sample", for: .normal)
+            showHideButton.setTitle("Hide Sample", for: .normal)
 
-            audioBackLabel.isHidden = false
+            audioBackButton.isHidden = false
             textBackField.isHidden = false
             
             constraintFrontCardBackCard.priority = UILayoutPriority.defaultHigh
@@ -139,9 +145,9 @@ class CardLessonVC: UIViewController {
             constraintFrontCardViewTop.constant = 50
 
         } else {
-            showHideButtonLabel.setTitle("Show Sample", for: .normal)
+            showHideButton.setTitle("Show Sample", for: .normal)
 
-            audioBackLabel.isHidden = true
+            audioBackButton.isHidden = true
             textBackField.isHidden = true
             
             constraintFrontCardBackCard.priority = UILayoutPriority.defaultLow
@@ -151,6 +157,7 @@ class CardLessonVC: UIViewController {
     }
     @IBAction func againButtonPressed(_ sender: UIButton) {
         avPlayer?.replaceCurrentItem(with: nil)
+        againButtonPressedLog += 1
         
         switch cardIndex {
             case cardLesson.count - 1:
@@ -165,20 +172,22 @@ class CardLessonVC: UIViewController {
     
     @IBAction func completeButtonPressed(_ sender: UIButton) {
         avPlayer?.replaceCurrentItem(with: nil)
+        completeButtonPressedLog += 1
         
-        switch cardLesson.count - 1 {
-            case 1:
-                cardLesson.remove(at: cardIndex)
-                cardIndex = 0
-                updateUI(autoPlayAudio: true)
-            case 0:
-                // Go to Complete Screen and Reset cardLesson
-                resetCardLesson()
-                updateUI(autoPlayAudio: false)
-                performSegue(withIdentifier: "GoToComplete", sender: self)
-            default:
-                cardLesson.remove(at: cardIndex)
-                updateUI(autoPlayAudio: true)
+        if cardIndex == 0 && cardLesson.count == 1 {
+            resetCardLesson()
+            updateUI(autoPlayAudio: false)
+            let vc = self.storyboard?.instantiateViewController(identifier: "LessonComplete") as! LessonCompleteVC
+            vc.cardLessonComplete = self.cardLesson
+            self.present(vc, animated: true)
+            
+        } else if cardIndex == cardLesson.count - 1 {
+            cardLesson.remove(at: cardIndex)
+            cardIndex = 0
+            updateUI(autoPlayAudio: true)
+        } else {
+            cardLesson.remove(at: cardIndex)
+            updateUI(autoPlayAudio: true)
         }
         
     }

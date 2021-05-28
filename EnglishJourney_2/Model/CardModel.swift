@@ -21,3 +21,8 @@ struct CardData {
     let backCardText: String
     let id: Int
 }
+
+struct ChartData {
+    let againButtonPressedLog: Int
+    let completeButtonPressedLog: Int
+}

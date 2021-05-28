@@ -13,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="EnglishJourney_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="overFullScreen" id="BYZ-38-t0r" customClass="ViewController" customModule="EnglishJourney_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -32,11 +32,12 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0oe-8B-aHL">
                                         <rect key="frame" x="19" y="119" width="107" height="47"/>
-                                        <color key="backgroundColor" red="0.95686274509803915" green="0.4823529411764706" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.95686274510000002" green="0.4823529412" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="47" id="XOV-la-1vS"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <color key="tintColor" red="0.95686274510000002" green="0.4823529412" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" title="Bắt đầu học">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -90,6 +91,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" id="Add-lh-SVZ"/>
+                    <navigationItem key="navigationItem" id="h9k-8Y-DWa"/>
                     <connections>
                         <outlet property="greetButton" destination="0oe-8B-aHL" id="bIU-Bt-i7D"/>
                         <outlet property="greetMessage" destination="iTD-wc-0rd" id="gM6-Sb-osM"/>
@@ -155,7 +157,7 @@ They should be encouraged to do more physical activities for better health.
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SsX-fJ-FRl">
                                         <rect key="frame" x="0.0" y="0.0" width="166" height="45"/>
-                                        <color key="backgroundColor" red="0.89722228049999997" green="0.50462478399999999" blue="0.26264664529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" red="0.95686274510000002" green="0.4823529412" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="Again">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -183,8 +185,14 @@ They should be encouraged to do more physical activities for better health.
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5Gd-vv-9eS">
                                 <rect key="frame" x="20" y="94" width="374" height="118.5"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fC9-vs-DRx">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="25"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBV-rK-nRK">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="28"/>
+                                        <rect key="frame" x="0.0" y="35" width="374" height="28.5"/>
                                         <state key="normal">
                                             <color key="titleColor" name="AccentColor"/>
                                             <imageReference key="image" image="speaker.wave.3.fill" catalog="system" symbolScale="large" renderingMode="original"/>
@@ -193,20 +201,14 @@ They should be encouraged to do more physical activities for better health.
                                             <action selector="audioFrontPressed:" destination="pKq-Mx-dBh" eventType="touchUpInside" id="hky-Je-XnS"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fC9-vs-DRx">
-                                        <rect key="frame" x="0.0" y="38" width="374" height="25.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4t2-Ec-YIX">
                                         <rect key="frame" x="0.0" y="73.5" width="374" height="45"/>
-                                        <color key="backgroundColor" red="0.95686274509803915" green="0.4823529411764706" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" red="0.95686274509803915" green="0.4823529411764706" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="dyZ-DZ-3zB"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="tintColor" red="0.89722228049999997" green="0.50462478399999999" blue="0.26264664529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="tintColor" red="0.95686274510000002" green="0.4823529412" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" title="Show/ hide sample">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -262,16 +264,16 @@ They should be encouraged to do more physical activities for better health.
                     </view>
                     <navigationItem key="navigationItem" id="eXf-fC-AWS"/>
                     <connections>
-                        <outlet property="againButtonLabel" destination="SsX-fJ-FRl" id="3Ka-S9-7pR"/>
-                        <outlet property="audioBackLabel" destination="rD9-i8-pwH" id="2nC-Sl-Ubc"/>
-                        <outlet property="audioFrontLabel" destination="jBV-rK-nRK" id="SP6-4r-VXO"/>
-                        <outlet property="backToLessonButtonLabel" destination="Doc-g7-28r" id="Bkj-2g-i6Q"/>
-                        <outlet property="completeButtonLabel" destination="WWy-NM-4b9" id="ofH-tH-a25"/>
+                        <outlet property="againButton" destination="SsX-fJ-FRl" id="3Ka-S9-7pR"/>
+                        <outlet property="audioBackButton" destination="rD9-i8-pwH" id="2nC-Sl-Ubc"/>
+                        <outlet property="audioFrontButton" destination="jBV-rK-nRK" id="SP6-4r-VXO"/>
+                        <outlet property="backToLessonButton" destination="Doc-g7-28r" id="Bkj-2g-i6Q"/>
+                        <outlet property="completeButton" destination="WWy-NM-4b9" id="ofH-tH-a25"/>
                         <outlet property="constraintFrontCardBackCard" destination="ShW-IO-xqi" id="74t-uf-NB7"/>
                         <outlet property="constraintFrontCardViewBottom" destination="eH5-XM-7Sm" id="771-Cx-Hqp"/>
                         <outlet property="constraintFrontCardViewTop" destination="IPy-LB-nfp" id="5FR-cw-sVp"/>
                         <outlet property="lessonLabel" destination="UUs-Tu-O9y" id="qiY-Zg-AcZ"/>
-                        <outlet property="showHideButtonLabel" destination="4t2-Ec-YIX" id="2h3-g8-Ddl"/>
+                        <outlet property="showHideButton" destination="4t2-Ec-YIX" id="2h3-g8-Ddl"/>
                         <outlet property="textBackField" destination="jKs-Ec-LPP" id="7Hi-Du-PWe"/>
                         <outlet property="textFrontLabel" destination="fC9-vs-DRx" id="qkt-QJ-pqp"/>
                         <segue destination="6J7-kA-Qf7" kind="show" identifier="GoToComplete" id="uRE-hF-gM6"/>
@@ -284,28 +286,96 @@ They should be encouraged to do more physical activities for better health.
         <!--Lesson CompleteVC-->
         <scene sceneID="2sx-kp-y2g">
             <objects>
-                <viewController modalPresentationStyle="overFullScreen" id="6J7-kA-Qf7" customClass="LessonCompleteVC" customModule="EnglishJourney_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LessonComplete" modalPresentationStyle="overFullScreen" id="6J7-kA-Qf7" customClass="LessonCompleteVC" customModule="EnglishJourney_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fyf-WA-orJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIL-6o-cui">
-                                <rect key="frame" x="184" y="406" width="47" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Học lại"/>
-                                <connections>
-                                    <action selector="learnAgainPressed:" destination="6J7-kA-Qf7" eventType="touchUpInside" id="c7p-4F-Zrg"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="42" translatesAutoresizingMaskIntoConstraints="NO" id="HXX-Ix-Mta">
+                                <rect key="frame" x="20" y="757" width="374" height="45"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIL-6o-cui">
+                                        <rect key="frame" x="0.0" y="0.0" width="166" height="45"/>
+                                        <color key="backgroundColor" red="0.95686274510000002" green="0.4823529412" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="hfX-mU-vhG"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="tintColor" red="0.95686274510000002" green="0.4823529412" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" title="Learn again">
+                                            <color key="titleColor" red="0.98823529409999999" green="0.95686274510000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="learnAgainPressed:" destination="6J7-kA-Qf7" eventType="touchUpInside" id="c7p-4F-Zrg"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6Z-pE-Qhx">
+                                        <rect key="frame" x="208" y="0.0" width="166" height="45"/>
+                                        <color key="backgroundColor" red="0.1058823529" green="0.26274509800000001" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="dyy-Qa-Km4"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Back to Lessons">
+                                            <color key="titleColor" red="0.98823529409999999" green="0.95686274510000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backToLessonsPressed:" destination="6J7-kA-Qf7" eventType="touchUpInside" id="AgS-DE-ZMw"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="30p-ac-6Mv">
+                                <rect key="frame" x="20" y="194" width="374" height="508"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BcZ-31-W6M">
+                                        <rect key="frame" x="0.0" y="233.5" width="374" height="41"/>
+                                        <string key="text">Congratulation! 
+You have completed this lesson.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="congrats" translatesAutoresizingMaskIntoConstraints="NO" id="mMe-g3-i7j">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="183.5"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="mMe-g3-i7j" firstAttribute="leading" secondItem="30p-ac-6Mv" secondAttribute="leading" id="020-n7-yG0"/>
+                                    <constraint firstAttribute="trailing" secondItem="BcZ-31-W6M" secondAttribute="trailing" id="0ph-4i-OOy"/>
+                                    <constraint firstItem="BcZ-31-W6M" firstAttribute="top" secondItem="mMe-g3-i7j" secondAttribute="bottom" constant="50" id="XrV-Tm-fbC"/>
+                                    <constraint firstItem="BcZ-31-W6M" firstAttribute="leading" secondItem="30p-ac-6Mv" secondAttribute="leading" id="icO-oD-fX8"/>
+                                    <constraint firstAttribute="trailing" secondItem="mMe-g3-i7j" secondAttribute="trailing" id="lVp-NV-pYu"/>
+                                    <constraint firstItem="BcZ-31-W6M" firstAttribute="centerY" secondItem="30p-ac-6Mv" secondAttribute="centerY" id="spn-Ns-db0"/>
+                                    <constraint firstItem="mMe-g3-i7j" firstAttribute="top" secondItem="30p-ac-6Mv" secondAttribute="top" id="zT4-Lx-9RX"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iPc-x9-CpI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="30p-ac-6Mv" firstAttribute="top" secondItem="iPc-x9-CpI" secondAttribute="top" constant="150" id="4Wi-jh-i4g"/>
+                            <constraint firstItem="iPc-x9-CpI" firstAttribute="trailing" secondItem="HXX-Ix-Mta" secondAttribute="trailing" constant="20" id="6jx-Lg-32q"/>
+                            <constraint firstItem="30p-ac-6Mv" firstAttribute="centerY" secondItem="Fyf-WA-orJ" secondAttribute="centerY" id="J4q-8t-cr4"/>
+                            <constraint firstItem="30p-ac-6Mv" firstAttribute="centerX" secondItem="Fyf-WA-orJ" secondAttribute="centerX" id="LRo-xj-PSW"/>
+                            <constraint firstItem="HXX-Ix-Mta" firstAttribute="leading" secondItem="iPc-x9-CpI" secondAttribute="leading" constant="20" id="Pny-hf-8WA"/>
+                            <constraint firstItem="30p-ac-6Mv" firstAttribute="leading" secondItem="iPc-x9-CpI" secondAttribute="leading" constant="20" id="TjI-id-CUN"/>
+                            <constraint firstItem="iPc-x9-CpI" firstAttribute="trailing" secondItem="30p-ac-6Mv" secondAttribute="trailing" constant="20" id="Y0x-cf-Gn4"/>
+                            <constraint firstItem="iPc-x9-CpI" firstAttribute="bottom" secondItem="HXX-Ix-Mta" secondAttribute="bottom" constant="60" id="sg5-gg-OrT"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="glj-Ys-yPi"/>
+                    <connections>
+                        <outlet property="backToLessonsButton" destination="W6Z-pE-Qhx" id="dF3-QM-RIh"/>
+                        <outlet property="congratImage" destination="mMe-g3-i7j" id="te2-8Z-1PM"/>
+                        <outlet property="congratMessage" destination="BcZ-31-W6M" id="emQ-TE-E6q"/>
+                        <outlet property="learnAgainButton" destination="HIL-6o-cui" id="iSp-ht-nG6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="raX-Dg-XYg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3284" y="-605"/>
+            <point key="canvasLocation" x="3282.608695652174" y="-605.35714285714278"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="nvg-eR-wvb">
@@ -345,6 +415,7 @@ They should be encouraged to do more physical activities for better health.
     </scenes>
     <resources>
         <image name="Picture1" width="864" height="717"/>
+        <image name="congrats" width="512" height="512"/>
         <image name="playAudio" width="512" height="512"/>
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <namedColor name="AccentColor">
