@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4WB-UV-yeo">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -15,20 +15,20 @@
             <objects>
                 <viewController modalPresentationStyle="overFullScreen" id="BYZ-38-t0r" customClass="ViewController" customModule="EnglishJourney_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="b3V-Td-s2s">
-                                <rect key="frame" x="0.0" y="295" width="414" height="518"/>
+                                <rect key="frame" x="0.0" y="251" width="375" height="367"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="APX-cf-ufv">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRI-WX-NkR">
-                                <rect key="frame" x="20" y="94" width="374" height="186"/>
+                                <rect key="frame" x="20" y="50" width="335" height="186"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0oe-8B-aHL">
                                         <rect key="frame" x="19" y="119" width="107" height="47"/>
@@ -43,7 +43,7 @@
                                         </state>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Picture1" translatesAutoresizingMaskIntoConstraints="NO" id="30Y-e6-pMA">
-                                        <rect key="frame" x="134" y="0.0" width="240" height="186"/>
+                                        <rect key="frame" x="134" y="0.0" width="201" height="186"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iTD-wc-0rd">
                                         <rect key="frame" x="19" y="83.5" width="107" height="27.5"/>
@@ -67,7 +67,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Chào bạn" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ydn-VG-uYx">
-                                <rect key="frame" x="20" y="30" width="374" height="56"/>
+                                <rect key="frame" x="20" y="30" width="335" height="12"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -109,14 +109,14 @@
             <objects>
                 <viewController storyboardIdentifier="CardLesson" modalPresentationStyle="fullScreen" id="pKq-Mx-dBh" customClass="CardLessonVC" customModule="EnglishJourney_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GPC-qc-2Bn">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6OF-nT-YfD" userLabel="Back Card View">
-                                <rect key="frame" x="0.0" y="222.5" width="414" height="524.5"/>
+                                <rect key="frame" x="0.0" y="178.5" width="375" height="373.5"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jKs-Ec-LPP">
-                                        <rect key="frame" x="20" y="60" width="374" height="464.5"/>
+                                        <rect key="frame" x="20" y="60" width="335" height="313.5"/>
                                         <string key="text">I personally think it is necessary for parents to limit the time children use computer.
 
 If children spend too much time sitting in front of a computer, their health can be negatively affected.
@@ -129,7 +129,7 @@ They should be encouraged to do more physical activities for better health.
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rD9-i8-pwH">
-                                        <rect key="frame" x="182" y="5" width="50" height="50"/>
+                                        <rect key="frame" x="162.5" y="5" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="an4-Sg-thd"/>
                                             <constraint firstAttribute="height" constant="50" id="tah-VQ-4CA"/>
@@ -153,10 +153,10 @@ They should be encouraged to do more physical activities for better health.
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="42" translatesAutoresizingMaskIntoConstraints="NO" id="1fw-0x-SSx">
-                                <rect key="frame" x="20" y="757" width="374" height="45"/>
+                                <rect key="frame" x="20" y="562" width="335" height="45"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SsX-fJ-FRl">
-                                        <rect key="frame" x="0.0" y="0.0" width="166" height="45"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="146.5" height="45"/>
                                         <color key="backgroundColor" red="0.95686274510000002" green="0.4823529412" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="Again">
@@ -167,7 +167,7 @@ They should be encouraged to do more physical activities for better health.
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWy-NM-4b9">
-                                        <rect key="frame" x="208" y="0.0" width="166" height="45"/>
+                                        <rect key="frame" x="188.5" y="0.0" width="146.5" height="45"/>
                                         <color key="backgroundColor" red="0.1058823529" green="0.26274509800000001" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="Done">
@@ -183,16 +183,16 @@ They should be encouraged to do more physical activities for better health.
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5Gd-vv-9eS">
-                                <rect key="frame" x="20" y="94" width="374" height="118.5"/>
+                                <rect key="frame" x="20" y="50" width="335" height="118.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fC9-vs-DRx">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="25"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="25"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBV-rK-nRK">
-                                        <rect key="frame" x="0.0" y="35" width="374" height="28.5"/>
+                                        <rect key="frame" x="0.0" y="35" width="335" height="28.5"/>
                                         <state key="normal">
                                             <color key="titleColor" name="AccentColor"/>
                                             <imageReference key="image" image="speaker.wave.3.fill" catalog="system" symbolScale="large" renderingMode="original"/>
@@ -202,7 +202,7 @@ They should be encouraged to do more physical activities for better health.
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4t2-Ec-YIX">
-                                        <rect key="frame" x="0.0" y="73.5" width="374" height="45"/>
+                                        <rect key="frame" x="0.0" y="73.5" width="335" height="45"/>
                                         <color key="backgroundColor" red="0.95686274509803915" green="0.4823529411764706" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="dyZ-DZ-3zB"/>
@@ -224,7 +224,7 @@ They should be encouraged to do more physical activities for better health.
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Doc-g7-28r">
-                                <rect key="frame" x="30" y="812" width="354" height="40"/>
+                                <rect key="frame" x="30" y="617" width="315" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="a0f-kR-dQZ"/>
                                 </constraints>
@@ -234,7 +234,7 @@ They should be encouraged to do more physical activities for better health.
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUs-Tu-O9y">
-                                <rect key="frame" x="20" y="40" width="364" height="26.5"/>
+                                <rect key="frame" x="20" y="50" width="325" height="26.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -252,7 +252,7 @@ They should be encouraged to do more physical activities for better health.
                             <constraint firstItem="ysH-98-F8x" firstAttribute="trailing" secondItem="UUs-Tu-O9y" secondAttribute="trailing" constant="30" id="NrB-Gc-ZOk"/>
                             <constraint firstItem="1fw-0x-SSx" firstAttribute="leading" secondItem="ysH-98-F8x" secondAttribute="leading" constant="20" id="PPs-kp-KyR"/>
                             <constraint firstItem="6OF-nT-YfD" firstAttribute="top" secondItem="5Gd-vv-9eS" secondAttribute="bottom" constant="10" id="ShW-IO-xqi"/>
-                            <constraint firstItem="UUs-Tu-O9y" firstAttribute="top" secondItem="GPC-qc-2Bn" secondAttribute="top" constant="40" id="cmx-pM-Mfb"/>
+                            <constraint firstItem="UUs-Tu-O9y" firstAttribute="top" secondItem="GPC-qc-2Bn" secondAttribute="top" constant="50" id="cmx-pM-Mfb"/>
                             <constraint firstAttribute="bottomMargin" secondItem="5Gd-vv-9eS" secondAttribute="bottom" priority="250" constant="300" id="eH5-XM-7Sm"/>
                             <constraint firstItem="ysH-98-F8x" firstAttribute="trailing" secondItem="1fw-0x-SSx" secondAttribute="trailing" constant="20" id="jld-bf-D9W"/>
                             <constraint firstItem="6OF-nT-YfD" firstAttribute="leading" secondItem="ysH-98-F8x" secondAttribute="leading" id="nkg-ba-zLF"/>
@@ -288,14 +288,14 @@ They should be encouraged to do more physical activities for better health.
             <objects>
                 <viewController storyboardIdentifier="LessonComplete" modalPresentationStyle="overFullScreen" id="6J7-kA-Qf7" customClass="LessonCompleteVC" customModule="EnglishJourney_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fyf-WA-orJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="42" translatesAutoresizingMaskIntoConstraints="NO" id="HXX-Ix-Mta">
-                                <rect key="frame" x="20" y="757" width="374" height="45"/>
+                                <rect key="frame" x="20" y="562" width="335" height="45"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIL-6o-cui">
-                                        <rect key="frame" x="0.0" y="0.0" width="166" height="45"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="146.5" height="45"/>
                                         <color key="backgroundColor" red="0.95686274510000002" green="0.4823529412" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="hfX-mU-vhG"/>
@@ -310,7 +310,7 @@ They should be encouraged to do more physical activities for better health.
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6Z-pE-Qhx">
-                                        <rect key="frame" x="208" y="0.0" width="166" height="45"/>
+                                        <rect key="frame" x="188.5" y="0.0" width="146.5" height="45"/>
                                         <color key="backgroundColor" red="0.1058823529" green="0.26274509800000001" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="dyy-Qa-Km4"/>
@@ -325,43 +325,34 @@ They should be encouraged to do more physical activities for better health.
                                     </button>
                                 </subviews>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="30p-ac-6Mv">
-                                <rect key="frame" x="20" y="194" width="374" height="508"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BcZ-31-W6M">
-                                        <rect key="frame" x="0.0" y="233.5" width="374" height="41"/>
-                                        <string key="text">Congratulation! 
-You have completed this lesson.</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="congrats" translatesAutoresizingMaskIntoConstraints="NO" id="mMe-g3-i7j">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="183.5"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="congrats" translatesAutoresizingMaskIntoConstraints="NO" id="mMe-g3-i7j">
+                                <rect key="frame" x="50" y="65" width="275" height="200"/>
                                 <constraints>
-                                    <constraint firstItem="mMe-g3-i7j" firstAttribute="leading" secondItem="30p-ac-6Mv" secondAttribute="leading" id="020-n7-yG0"/>
-                                    <constraint firstAttribute="trailing" secondItem="BcZ-31-W6M" secondAttribute="trailing" id="0ph-4i-OOy"/>
-                                    <constraint firstItem="BcZ-31-W6M" firstAttribute="top" secondItem="mMe-g3-i7j" secondAttribute="bottom" constant="50" id="XrV-Tm-fbC"/>
-                                    <constraint firstItem="BcZ-31-W6M" firstAttribute="leading" secondItem="30p-ac-6Mv" secondAttribute="leading" id="icO-oD-fX8"/>
-                                    <constraint firstAttribute="trailing" secondItem="mMe-g3-i7j" secondAttribute="trailing" id="lVp-NV-pYu"/>
-                                    <constraint firstItem="BcZ-31-W6M" firstAttribute="centerY" secondItem="30p-ac-6Mv" secondAttribute="centerY" id="spn-Ns-db0"/>
-                                    <constraint firstItem="mMe-g3-i7j" firstAttribute="top" secondItem="30p-ac-6Mv" secondAttribute="top" id="zT4-Lx-9RX"/>
+                                    <constraint firstAttribute="height" constant="200" id="n5K-e8-Xoj"/>
                                 </constraints>
-                            </view>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BcZ-31-W6M">
+                                <rect key="frame" x="30" y="295" width="315" height="41"/>
+                                <string key="text">Congratulation! 
+You have completed this lesson.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iPc-x9-CpI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="30p-ac-6Mv" firstAttribute="top" secondItem="iPc-x9-CpI" secondAttribute="top" constant="150" id="4Wi-jh-i4g"/>
+                            <constraint firstItem="iPc-x9-CpI" firstAttribute="trailing" secondItem="mMe-g3-i7j" secondAttribute="trailing" constant="50" id="1jH-ZP-V2D"/>
                             <constraint firstItem="iPc-x9-CpI" firstAttribute="trailing" secondItem="HXX-Ix-Mta" secondAttribute="trailing" constant="20" id="6jx-Lg-32q"/>
-                            <constraint firstItem="30p-ac-6Mv" firstAttribute="centerY" secondItem="Fyf-WA-orJ" secondAttribute="centerY" id="J4q-8t-cr4"/>
-                            <constraint firstItem="30p-ac-6Mv" firstAttribute="centerX" secondItem="Fyf-WA-orJ" secondAttribute="centerX" id="LRo-xj-PSW"/>
+                            <constraint firstItem="mMe-g3-i7j" firstAttribute="top" secondItem="iPc-x9-CpI" secondAttribute="top" constant="65" id="FaE-xd-CTq"/>
+                            <constraint firstItem="BcZ-31-W6M" firstAttribute="leading" secondItem="iPc-x9-CpI" secondAttribute="leading" constant="30" id="I14-jN-Qem"/>
+                            <constraint firstItem="iPc-x9-CpI" firstAttribute="trailing" secondItem="BcZ-31-W6M" secondAttribute="trailing" constant="30" id="J7B-6V-p44"/>
                             <constraint firstItem="HXX-Ix-Mta" firstAttribute="leading" secondItem="iPc-x9-CpI" secondAttribute="leading" constant="20" id="Pny-hf-8WA"/>
-                            <constraint firstItem="30p-ac-6Mv" firstAttribute="leading" secondItem="iPc-x9-CpI" secondAttribute="leading" constant="20" id="TjI-id-CUN"/>
-                            <constraint firstItem="iPc-x9-CpI" firstAttribute="trailing" secondItem="30p-ac-6Mv" secondAttribute="trailing" constant="20" id="Y0x-cf-Gn4"/>
+                            <constraint firstItem="mMe-g3-i7j" firstAttribute="leading" secondItem="iPc-x9-CpI" secondAttribute="leading" constant="50" id="Vs7-r2-YAt"/>
+                            <constraint firstItem="BcZ-31-W6M" firstAttribute="leading" secondItem="iPc-x9-CpI" secondAttribute="leading" constant="30" id="XFb-Jh-zC4"/>
+                            <constraint firstItem="iPc-x9-CpI" firstAttribute="trailing" secondItem="BcZ-31-W6M" secondAttribute="trailing" constant="30" id="dgM-N8-C6T"/>
+                            <constraint firstItem="BcZ-31-W6M" firstAttribute="top" secondItem="mMe-g3-i7j" secondAttribute="bottom" constant="30" id="jvm-v8-RmZ"/>
                             <constraint firstItem="iPc-x9-CpI" firstAttribute="bottom" secondItem="HXX-Ix-Mta" secondAttribute="bottom" constant="60" id="sg5-gg-OrT"/>
                         </constraints>
                     </view>
@@ -375,14 +366,14 @@ You have completed this lesson.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="raX-Dg-XYg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3282.608695652174" y="-605.35714285714278"/>
+            <point key="canvasLocation" x="3282.4000000000001" y="-605.84707646176912"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="nvg-eR-wvb">
             <objects>
                 <viewController id="OaK-w9-biY" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gRJ-43-NFy">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="X5Q-t9-Kny"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

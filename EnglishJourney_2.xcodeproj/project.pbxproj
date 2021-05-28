@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		FA28022B265E3CEF00BE51E3 /* CardLessonVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */; };
 		FA79E23F265F5D3300483E51 /* LessonCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */; };
-		FA79E24D26609B7B00483E51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA79E24C26609B7B00483E51 /* Assets.xcassets */; };
+		FA79E2542661319500483E51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA79E2532661319500483E51 /* Assets.xcassets */; };
 		FAB5EB04265C267800A83569 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB03265C267800A83569 /* AppDelegate.swift */; };
 		FAB5EB06265C267800A83569 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB05265C267800A83569 /* SceneDelegate.swift */; };
 		FAB5EB08265C267800A83569 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB07265C267800A83569 /* ViewController.swift */; };
@@ -26,7 +26,7 @@
 /* Begin PBXFileReference section */
 		FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardLessonVC.swift; sourceTree = "<group>"; };
 		FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCompleteVC.swift; sourceTree = "<group>"; };
-		FA79E24C26609B7B00483E51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../.Trash/Assets.xcassets; sourceTree = "<group>"; };
+		FA79E2532661319500483E51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FAB5EB00265C267800A83569 /* EnglishJourney_2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnglishJourney_2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAB5EB03265C267800A83569 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAB5EB05265C267800A83569 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 				FAB5EB05265C267800A83569 /* SceneDelegate.swift */,
 				FAB5EB0E265C267900A83569 /* LaunchScreen.storyboard */,
 				FAB5EB11265C267900A83569 /* Info.plist */,
-				FA79E24C26609B7B00483E51 /* Assets.xcassets */,
+				FA79E2532661319500483E51 /* Assets.xcassets */,
 			);
 			path = EnglishJourney_2;
 			sourceTree = "<group>";
@@ -182,7 +182,7 @@
 			files = (
 				FAB5EB10265C267900A83569 /* LaunchScreen.storyboard in Resources */,
 				FAB5EB24265C2BC000A83569 /* MyTableViewCell.xib in Resources */,
-				FA79E24D26609B7B00483E51 /* Assets.xcassets in Resources */,
+				FA79E2542661319500483E51 /* Assets.xcassets in Resources */,
 				FAB5EB0B265C267800A83569 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
