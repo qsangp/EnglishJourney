@@ -38,7 +38,7 @@ class CardLessonVC: UIViewController {
     // Chart Data
     var againButtonPressedLog = 0
     var completeButtonPressedLog = 0
-    var chartData: ChartData?
+    var chartData: ChartData!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -175,10 +175,13 @@ class CardLessonVC: UIViewController {
         completeButtonPressedLog += 1
         
         if cardIndex == 0 && cardLesson.count == 1 {
+            chartData = ChartData(againButtonPressedLog: againButtonPressedLog, completeButtonPressedLog: completeButtonPressedLog)
+            // Reset Card and Show Complete screen
             resetCardLesson()
             updateUI(autoPlayAudio: false)
             let vc = self.storyboard?.instantiateViewController(identifier: "LessonComplete") as! LessonCompleteVC
-            vc.cardLessonComplete = self.cardLesson
+            vc.cardCompleteData = self.cardLesson
+            vc.clickedData = self.chartData
             self.present(vc, animated: true)
             
         } else if cardIndex == cardLesson.count - 1 {
