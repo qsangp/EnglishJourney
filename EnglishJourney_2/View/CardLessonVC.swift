@@ -28,6 +28,7 @@ class CardLessonVC: UIViewController {
     
     
     var cardLesson = [CardData]()
+    var temporaryCardLesson = [CardData]()
     var cardIndex = 0
     
     var avPlayer: AVPlayer?
@@ -36,11 +37,11 @@ class CardLessonVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        updateUI()
+        updateUI(autoPlayAudio: true)
                             
     }
     
-    func updateUI() {
+    func updateUI(autoPlayAudio: Bool) {
         // UI
         overrideUserInterfaceStyle = .light
 
@@ -70,6 +71,15 @@ class CardLessonVC: UIViewController {
         
         textBackField.attributedText = htmlString.htmlAttributedString()
         
+        // Autoplay Front Audio
+        if autoPlayAudio {
+            audioFrontLabel.sendActions(for: .touchUpInside)
+        }
+        
+    }
+    
+    func resetCardLesson() {
+        cardLesson = temporaryCardLesson
     }
     
 //MARK: - Audio Section
@@ -146,26 +156,29 @@ class CardLessonVC: UIViewController {
             case cardLesson.count - 1:
                 cardIndex = -1
                 cardIndex += 1
-                updateUI()
+                updateUI(autoPlayAudio: true)
             default:
                 cardIndex += 1
-                updateUI()
+                updateUI(autoPlayAudio: true)
         }
     }
     
     @IBAction func completeButtonPressed(_ sender: UIButton) {
         avPlayer?.replaceCurrentItem(with: nil)
-
+        
         switch cardLesson.count - 1 {
             case 1:
                 cardLesson.remove(at: cardIndex)
                 cardIndex = 0
-                updateUI()
+                updateUI(autoPlayAudio: true)
             case 0:
+                // Go to Complete Screen and Reset cardLesson
+                resetCardLesson()
+                updateUI(autoPlayAudio: false)
                 performSegue(withIdentifier: "GoToComplete", sender: self)
             default:
                 cardLesson.remove(at: cardIndex)
-                updateUI()
+                updateUI(autoPlayAudio: true)
         }
         
     }

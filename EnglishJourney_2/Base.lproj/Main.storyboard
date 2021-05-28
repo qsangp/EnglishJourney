@@ -3,6 +3,8 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -109,10 +111,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6OF-nT-YfD" userLabel="Back Card View">
-                                <rect key="frame" x="0.0" y="259" width="414" height="488"/>
+                                <rect key="frame" x="0.0" y="222.5" width="414" height="524.5"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jKs-Ec-LPP">
-                                        <rect key="frame" x="15" y="60" width="384" height="428"/>
+                                        <rect key="frame" x="20" y="60" width="374" height="464.5"/>
                                         <string key="text">I personally think it is necessary for parents to limit the time children use computer.
 
 If children spend too much time sitting in front of a computer, their health can be negatively affected.
@@ -143,16 +145,16 @@ They should be encouraged to do more physical activities for better health.
                                     <constraint firstItem="rD9-i8-pwH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6OF-nT-YfD" secondAttribute="leading" id="WWX-BM-lUu"/>
                                     <constraint firstItem="rD9-i8-pwH" firstAttribute="top" secondItem="6OF-nT-YfD" secondAttribute="top" constant="5" id="c76-uS-1f6"/>
                                     <constraint firstItem="jKs-Ec-LPP" firstAttribute="top" secondItem="rD9-i8-pwH" secondAttribute="bottom" constant="5" id="eeS-I1-UlM"/>
-                                    <constraint firstItem="jKs-Ec-LPP" firstAttribute="leading" secondItem="6OF-nT-YfD" secondAttribute="leading" constant="15" id="m8e-bu-tt6"/>
-                                    <constraint firstAttribute="trailing" secondItem="jKs-Ec-LPP" secondAttribute="trailing" constant="15" id="ovI-Pj-cIZ"/>
+                                    <constraint firstItem="jKs-Ec-LPP" firstAttribute="leading" secondItem="6OF-nT-YfD" secondAttribute="leading" constant="20" id="m8e-bu-tt6"/>
+                                    <constraint firstAttribute="trailing" secondItem="jKs-Ec-LPP" secondAttribute="trailing" constant="20" id="ovI-Pj-cIZ"/>
                                     <constraint firstAttribute="bottom" secondItem="jKs-Ec-LPP" secondAttribute="bottom" id="p6q-7d-ecg"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="42" translatesAutoresizingMaskIntoConstraints="NO" id="1fw-0x-SSx">
-                                <rect key="frame" x="30" y="757" width="354" height="45"/>
+                                <rect key="frame" x="20" y="757" width="374" height="45"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SsX-fJ-FRl">
-                                        <rect key="frame" x="0.0" y="0.0" width="156" height="45"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="166" height="45"/>
                                         <color key="backgroundColor" red="0.89722228049999997" green="0.50462478399999999" blue="0.26264664529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="Again">
@@ -163,7 +165,7 @@ They should be encouraged to do more physical activities for better health.
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWy-NM-4b9">
-                                        <rect key="frame" x="198" y="0.0" width="156" height="45"/>
+                                        <rect key="frame" x="208" y="0.0" width="166" height="45"/>
                                         <color key="backgroundColor" red="0.1058823529" green="0.26274509800000001" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="Done">
@@ -175,30 +177,33 @@ They should be encouraged to do more physical activities for better health.
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="1Cd-mC-XWK"/>
+                                    <constraint firstAttribute="height" constant="45" id="fQO-5g-rKS"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5Gd-vv-9eS">
-                                <rect key="frame" x="30" y="94" width="354" height="155"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5Gd-vv-9eS">
+                                <rect key="frame" x="20" y="94" width="374" height="118.5"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBV-rK-nRK">
-                                        <rect key="frame" x="0.0" y="0.0" width="354" height="45"/>
-                                        <state key="normal" title="Play audio"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBV-rK-nRK">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="28"/>
+                                        <state key="normal">
+                                            <color key="titleColor" name="AccentColor"/>
+                                            <imageReference key="image" image="speaker.wave.3.fill" catalog="system" symbolScale="large" renderingMode="original"/>
+                                        </state>
                                         <connections>
                                             <action selector="audioFrontPressed:" destination="pKq-Mx-dBh" eventType="touchUpInside" id="hky-Je-XnS"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fC9-vs-DRx">
-                                        <rect key="frame" x="0.0" y="55" width="354" height="45"/>
+                                        <rect key="frame" x="0.0" y="38" width="374" height="25.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4t2-Ec-YIX">
-                                        <rect key="frame" x="0.0" y="110" width="354" height="45"/>
+                                        <rect key="frame" x="0.0" y="73.5" width="374" height="45"/>
                                         <color key="backgroundColor" red="0.95686274509803915" green="0.4823529411764706" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="16U-p5-CEJ"/>
+                                            <constraint firstAttribute="height" constant="45" id="dyZ-DZ-3zB"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="tintColor" red="0.89722228049999997" green="0.50462478399999999" blue="0.26264664529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -227,8 +232,8 @@ They should be encouraged to do more physical activities for better health.
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUs-Tu-O9y">
-                                <rect key="frame" x="30" y="50" width="354" height="30"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <rect key="frame" x="20" y="40" width="364" height="26.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -237,17 +242,17 @@ They should be encouraged to do more physical activities for better health.
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="ysH-98-F8x" firstAttribute="bottom" secondItem="1fw-0x-SSx" secondAttribute="bottom" constant="60" id="1qt-TT-rvk"/>
-                            <constraint firstItem="UUs-Tu-O9y" firstAttribute="leading" secondItem="ysH-98-F8x" secondAttribute="leading" constant="30" id="2K3-aF-daR"/>
-                            <constraint firstItem="5Gd-vv-9eS" firstAttribute="leading" secondItem="ysH-98-F8x" secondAttribute="leading" constant="30" id="5Pw-xY-j6S"/>
-                            <constraint firstItem="ysH-98-F8x" firstAttribute="trailing" secondItem="5Gd-vv-9eS" secondAttribute="trailing" constant="30" id="6hj-CH-8un"/>
+                            <constraint firstItem="UUs-Tu-O9y" firstAttribute="leading" secondItem="ysH-98-F8x" secondAttribute="leading" constant="20" id="2K3-aF-daR"/>
+                            <constraint firstItem="5Gd-vv-9eS" firstAttribute="leading" secondItem="ysH-98-F8x" secondAttribute="leading" constant="20" id="5Pw-xY-j6S"/>
+                            <constraint firstItem="ysH-98-F8x" firstAttribute="trailing" secondItem="5Gd-vv-9eS" secondAttribute="trailing" constant="20" id="6hj-CH-8un"/>
                             <constraint firstItem="ysH-98-F8x" firstAttribute="trailing" secondItem="Doc-g7-28r" secondAttribute="trailing" constant="30" id="FI1-Jq-Mx3"/>
                             <constraint firstItem="5Gd-vv-9eS" firstAttribute="top" secondItem="ysH-98-F8x" secondAttribute="top" constant="50" id="IPy-LB-nfp"/>
                             <constraint firstItem="ysH-98-F8x" firstAttribute="trailing" secondItem="UUs-Tu-O9y" secondAttribute="trailing" constant="30" id="NrB-Gc-ZOk"/>
-                            <constraint firstItem="1fw-0x-SSx" firstAttribute="leading" secondItem="ysH-98-F8x" secondAttribute="leading" constant="30" id="PPs-kp-KyR"/>
+                            <constraint firstItem="1fw-0x-SSx" firstAttribute="leading" secondItem="ysH-98-F8x" secondAttribute="leading" constant="20" id="PPs-kp-KyR"/>
                             <constraint firstItem="6OF-nT-YfD" firstAttribute="top" secondItem="5Gd-vv-9eS" secondAttribute="bottom" constant="10" id="ShW-IO-xqi"/>
-                            <constraint firstItem="UUs-Tu-O9y" firstAttribute="top" secondItem="GPC-qc-2Bn" secondAttribute="top" constant="50" id="cmx-pM-Mfb"/>
+                            <constraint firstItem="UUs-Tu-O9y" firstAttribute="top" secondItem="GPC-qc-2Bn" secondAttribute="top" constant="40" id="cmx-pM-Mfb"/>
                             <constraint firstAttribute="bottomMargin" secondItem="5Gd-vv-9eS" secondAttribute="bottom" priority="250" constant="300" id="eH5-XM-7Sm"/>
-                            <constraint firstItem="ysH-98-F8x" firstAttribute="trailing" secondItem="1fw-0x-SSx" secondAttribute="trailing" constant="30" id="jld-bf-D9W"/>
+                            <constraint firstItem="ysH-98-F8x" firstAttribute="trailing" secondItem="1fw-0x-SSx" secondAttribute="trailing" constant="20" id="jld-bf-D9W"/>
                             <constraint firstItem="6OF-nT-YfD" firstAttribute="leading" secondItem="ysH-98-F8x" secondAttribute="leading" id="nkg-ba-zLF"/>
                             <constraint firstItem="1fw-0x-SSx" firstAttribute="top" secondItem="6OF-nT-YfD" secondAttribute="bottom" constant="10" id="oZB-kz-WqD"/>
                             <constraint firstItem="Doc-g7-28r" firstAttribute="leading" secondItem="ysH-98-F8x" secondAttribute="leading" constant="30" id="svM-oA-biN"/>
@@ -279,9 +284,9 @@ They should be encouraged to do more physical activities for better health.
         <!--Lesson CompleteVC-->
         <scene sceneID="2sx-kp-y2g">
             <objects>
-                <viewController id="6J7-kA-Qf7" customClass="LessonCompleteVC" customModule="EnglishJourney_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="overFullScreen" id="6J7-kA-Qf7" customClass="LessonCompleteVC" customModule="EnglishJourney_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fyf-WA-orJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIL-6o-cui">
@@ -341,6 +346,10 @@ They should be encouraged to do more physical activities for better health.
     <resources>
         <image name="Picture1" width="864" height="717"/>
         <image name="playAudio" width="512" height="512"/>
+        <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

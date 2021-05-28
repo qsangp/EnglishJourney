@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		FA28022B265E3CEF00BE51E3 /* CardLessonVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */; };
 		FA79E23F265F5D3300483E51 /* LessonCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */; };
+		FA79E24D26609B7B00483E51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA79E24C26609B7B00483E51 /* Assets.xcassets */; };
 		FAB5EB04265C267800A83569 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB03265C267800A83569 /* AppDelegate.swift */; };
 		FAB5EB06265C267800A83569 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB05265C267800A83569 /* SceneDelegate.swift */; };
 		FAB5EB08265C267800A83569 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB07265C267800A83569 /* ViewController.swift */; };
 		FAB5EB0B265C267800A83569 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB5EB09265C267800A83569 /* Main.storyboard */; };
-		FAB5EB0D265C267900A83569 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAB5EB0C265C267900A83569 /* Assets.xcassets */; };
 		FAB5EB10265C267900A83569 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB5EB0E265C267900A83569 /* LaunchScreen.storyboard */; };
 		FAB5EB19265C26C100A83569 /* CardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB18265C26C100A83569 /* CardData.swift */; };
 		FAB5EB1C265C26EA00A83569 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB1B265C26EA00A83569 /* CardModel.swift */; };
@@ -26,12 +26,12 @@
 /* Begin PBXFileReference section */
 		FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardLessonVC.swift; sourceTree = "<group>"; };
 		FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCompleteVC.swift; sourceTree = "<group>"; };
+		FA79E24C26609B7B00483E51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../.Trash/Assets.xcassets; sourceTree = "<group>"; };
 		FAB5EB00265C267800A83569 /* EnglishJourney_2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnglishJourney_2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAB5EB03265C267800A83569 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAB5EB05265C267800A83569 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		FAB5EB07265C267800A83569 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FAB5EB0A265C267800A83569 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		FAB5EB0C265C267900A83569 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FAB5EB0F265C267900A83569 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FAB5EB11265C267900A83569 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAB5EB18265C26C100A83569 /* CardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardData.swift; sourceTree = "<group>"; };
@@ -53,6 +53,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA79E2452660931100483E51 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FAB5EB18265C26C100A83569 /* CardData.swift */,
+				FAB5EB1B265C26EA00A83569 /* CardModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FA79E2462660931900483E51 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FAB5EB07265C267800A83569 /* ViewController.swift */,
+				FAB5EB56265CD38500A83569 /* CustomTabBar.swift */,
+				FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */,
+				FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA79E2472660932000483E51 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FAB5EB1E265C270D00A83569 /* CardViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FA79E2482660933C00483E51 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				FAB5EB21265C2BC000A83569 /* MyTableViewCell.swift */,
+				FAB5EB22265C2BC000A83569 /* MyTableViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		FAB5EAF7265C267700A83569 = {
 			isa = PBXGroup;
 			children = (
@@ -72,21 +109,16 @@
 		FAB5EB02265C267800A83569 /* EnglishJourney_2 */ = {
 			isa = PBXGroup;
 			children = (
+				FA79E2452660931100483E51 /* Model */,
+				FA79E2462660931900483E51 /* View */,
+				FA79E2472660932000483E51 /* ViewModel */,
+				FA79E2482660933C00483E51 /* Cell */,
+				FAB5EB09265C267800A83569 /* Main.storyboard */,
 				FAB5EB03265C267800A83569 /* AppDelegate.swift */,
 				FAB5EB05265C267800A83569 /* SceneDelegate.swift */,
-				FAB5EB09265C267800A83569 /* Main.storyboard */,
-				FAB5EB0C265C267900A83569 /* Assets.xcassets */,
 				FAB5EB0E265C267900A83569 /* LaunchScreen.storyboard */,
 				FAB5EB11265C267900A83569 /* Info.plist */,
-				FAB5EB18265C26C100A83569 /* CardData.swift */,
-				FAB5EB1B265C26EA00A83569 /* CardModel.swift */,
-				FAB5EB1E265C270D00A83569 /* CardViewModel.swift */,
-				FAB5EB21265C2BC000A83569 /* MyTableViewCell.swift */,
-				FAB5EB22265C2BC000A83569 /* MyTableViewCell.xib */,
-				FAB5EB56265CD38500A83569 /* CustomTabBar.swift */,
-				FAB5EB07265C267800A83569 /* ViewController.swift */,
-				FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */,
-				FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */,
+				FA79E24C26609B7B00483E51 /* Assets.xcassets */,
 			);
 			path = EnglishJourney_2;
 			sourceTree = "<group>";
@@ -150,7 +182,7 @@
 			files = (
 				FAB5EB10265C267900A83569 /* LaunchScreen.storyboard in Resources */,
 				FAB5EB24265C2BC000A83569 /* MyTableViewCell.xib in Resources */,
-				FAB5EB0D265C267900A83569 /* Assets.xcassets in Resources */,
+				FA79E24D26609B7B00483E51 /* Assets.xcassets in Resources */,
 				FAB5EB0B265C267800A83569 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
