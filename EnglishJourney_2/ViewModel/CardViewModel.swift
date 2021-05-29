@@ -11,13 +11,90 @@ class CardViewModel {
     var flashcard = [CardModel]()
     var flashcardData = [CardData]()
     
-    let urlString = URL(string:"https://app.ielts-vuive.com/api/services/app/flashCardCategorieService/GetAllCategories")
+    var userData: UserData?
+    var token: String?
+
+    func fetchLogIn(username: String, password: String, completion: @escaping () -> ()) {
+        
+        guard let urlRequestUserLogIn = URL(string: "https://app.ielts-vuive.com/api/Account"),
+              let payLoad = """
+                {
+                "usernameOrEmailAddress": "\(username)",
+                "password": "\(password)"
+                }
+                """.data(using: .utf8) else
+        { return }
+
+        var request = URLRequest(url: urlRequestUserLogIn)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpBody = payLoad
+        
+        let session = URLSession(configuration: .default)
+        let task = session.dataTask(with: request) { (data, response, error) in
+            
+            if error == nil {
+                do {
+                    let decodedData = try JSONDecoder().decode(UserLoginAuthentication.self, from: data!)
+                    let accessToken = decodedData.result
+                    UserDefaults.standard.set(accessToken, forKey: "accessToken")
+
+                    self.checkToken(token: accessToken) { userData in
+                        DispatchQueue.main.async {
+                            completion()
+                        }
+                    }
+                    
+                }
+                catch {
+                    print(error.localizedDescription)
+                }
+            }
+            
+        }
+        task.resume()
+    }
+    
+    func checkToken(token: String, completion: @escaping (UserData?) -> ()) {
+        
+        let urlUserProfile = URL(string: "https://app.ielts-vuive.com/api/services/app/session/GetCurrentLoginInformations")
+        
+        var request = URLRequest(url: urlUserProfile!)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue( "Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+        let session = URLSession(configuration: .default)
+        let task = session.dataTask(with: request) { (data, response, error) in
+            
+            if error == nil {
+                do {
+                    let decodedData = try JSONDecoder().decode(UserProfile.self, from: data!)
+                    let user = decodedData.result.user
+                    self.userData = UserData(userNameOrEmail: user.userName, id: user.id)
+                    DispatchQueue.main.async {
+                        completion(self.userData)
+                    }
+                }
+                catch {
+                    print(error.localizedDescription)
+                }
+            }
+            
+        }
+        task.resume()
+    }
     
     func fetchFlashCards(completion: @escaping () -> ()) {
         
+        let urlString = URL(string:"https://app.ielts-vuive.com/api/services/app/flashCardCategorieService/GetAllCategories")
+        
         var request = URLRequest(url: urlString!)
         request.httpMethod = "POST"
-        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         let session = URLSession(configuration: .default)
         let task = session.dataTask(with: request) { (data, response, error) in
@@ -44,9 +121,9 @@ class CardViewModel {
         
     }
     
-    let urlStringData = "https://app.ielts-vuive.com/api/services/app/flashCardLessionService/GetAllLessionsByCateId?id="
-    
     func fetchFlashCardsData(id: Int, completion: @escaping () -> ()) {
+        
+        let urlStringData = "https://app.ielts-vuive.com/api/services/app/flashCardLessionService/GetAllLessionsByCateId?id="
         
         let stringID = String(id)
         let newUrl = "\(urlStringData)\(stringID)"
@@ -54,7 +131,8 @@ class CardViewModel {
         
         var request = URLRequest(url: urlStringDataID!)
         request.httpMethod = "POST"
-        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         let session = URLSession(configuration: .default)
         let task = session.dataTask(with: request) { (data, response, error) in

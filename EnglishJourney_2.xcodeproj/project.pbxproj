@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA11EE1C26618F4D00B61171 /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA11EE1B26618F4D00B61171 /* LogInVC.swift */; };
 		FA28022B265E3CEF00BE51E3 /* CardLessonVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */; };
 		FA79E23F265F5D3300483E51 /* LessonCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */; };
 		FA79E2542661319500483E51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA79E2532661319500483E51 /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA11EE1B26618F4D00B61171 /* LogInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
 		FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardLessonVC.swift; sourceTree = "<group>"; };
 		FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCompleteVC.swift; sourceTree = "<group>"; };
 		FA79E2532661319500483E51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 		FA79E2462660931900483E51 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FA11EE1B26618F4D00B61171 /* LogInVC.swift */,
 				FAB5EB07265C267800A83569 /* ViewController.swift */,
 				FAB5EB56265CD38500A83569 /* CustomTabBar.swift */,
 				FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */,
@@ -202,6 +205,7 @@
 				FA79E23F265F5D3300483E51 /* LessonCompleteVC.swift in Sources */,
 				FAB5EB57265CD38500A83569 /* CustomTabBar.swift in Sources */,
 				FAB5EB04265C267800A83569 /* AppDelegate.swift in Sources */,
+				FA11EE1C26618F4D00B61171 /* LogInVC.swift in Sources */,
 				FAB5EB06265C267800A83569 /* SceneDelegate.swift in Sources */,
 				FAB5EB1C265C26EA00A83569 /* CardModel.swift in Sources */,
 			);

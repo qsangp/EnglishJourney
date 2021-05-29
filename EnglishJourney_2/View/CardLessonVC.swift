@@ -17,6 +17,7 @@ class CardLessonVC: UIViewController {
     
     @IBOutlet weak var audioBackButton: UIButton!
     @IBOutlet weak var textBackField: UITextView!
+    @IBOutlet weak var textMessage: UILabel!
     
     @IBOutlet weak var againButton: UIButton!
     @IBOutlet weak var completeButton: UIButton!
@@ -48,17 +49,19 @@ class CardLessonVC: UIViewController {
     }
     
     func updateUI(autoPlayAudio: Bool) {
+        
         // UI
         overrideUserInterfaceStyle = .light
 
         textFrontLabel.isHidden = true
         audioBackButton.isHidden = true
         textBackField.isHidden = true
+        textMessage.isHidden = false
         textBackField.isScrollEnabled = true
         
-        showHideButton.layer.cornerRadius = 10
-        againButton.layer.cornerRadius = 10
-        completeButton.layer.cornerRadius = 10
+        showHideButton.layer.cornerRadius = 15
+        againButton.layer.cornerRadius = 15
+        completeButton.layer.cornerRadius = 15
          
         // Animation
         constraintFrontCardBackCard.priority = UILayoutPriority.defaultLow
@@ -67,6 +70,7 @@ class CardLessonVC: UIViewController {
         constraintFrontCardViewBottom.constant = 400
         
         showHideButton.setTitle("Show Sample", for: .normal)
+        showHideButton.setTitleColor(.darkGray, for: .normal)
         
         let cardName = cardLesson[cardIndex].cardName
             lessonLabel.text = cardName
@@ -138,6 +142,7 @@ class CardLessonVC: UIViewController {
 
             audioBackButton.isHidden = false
             textBackField.isHidden = false
+            textMessage.isHidden = true
             
             constraintFrontCardBackCard.priority = UILayoutPriority.defaultHigh
             constraintFrontCardViewBottom.priority =
@@ -149,6 +154,7 @@ class CardLessonVC: UIViewController {
 
             audioBackButton.isHidden = true
             textBackField.isHidden = true
+            textMessage.isHidden = false
             
             constraintFrontCardBackCard.priority = UILayoutPriority.defaultLow
             constraintFrontCardViewBottom.priority = UILayoutPriority.defaultHigh

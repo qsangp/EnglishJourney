@@ -26,3 +26,10 @@ struct ChartData {
     let againButtonPressedLog: Int
     let completeButtonPressedLog: Int
 }
+
+struct UserData {
+    let userNameOrEmail: String
+    let id: Int
+}
+
+

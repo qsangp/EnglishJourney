@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var hiUser: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var greetView: UIView!
     @IBOutlet weak var greetMessage: UILabel!
@@ -28,16 +29,20 @@ class ViewController: UIViewController {
     func updataUI() {
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
-        greetView.backgroundColor = UIColor(red: 0.98, green: 0.74, blue: 0.35, alpha: 1.00)
-        greetView.layer.cornerRadius = 10
+        greetView.layer.cornerRadius = 20
         greetMessage.text = "Chúng ta sẽ học gì hôm nay?"
         greetButton.layer.cornerRadius = 10
-        greetButton.backgroundColor = UIColor(red: 0.96, green: 0.48, blue: 0.19, alpha: 1.00)
         
         cardViewModel = CardViewModel()
         cardViewModel.fetchFlashCards {
             self.tableView.reloadData()
         }
+        if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
+        cardViewModel.checkToken(token: accessToken) { userData in
+            self.hiUser.text = "Chào \(userData?.userNameOrEmail ?? "bạn")"
+            }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool){

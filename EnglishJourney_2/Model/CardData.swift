@@ -34,7 +34,25 @@ struct Data: Codable {
     let id: Int
 }
 
+// MARK: - User Login
 
+struct UserLoginAuthentication: Codable {
+    let result: String
+}
+
+struct UserProfile: Codable {
+    let result: Result
+}
+
+struct Result: Codable {
+    let user: User
+}
+
+// MARK: - User
+struct User: Codable {
+    let name, surname, userName, emailAddress: String
+    let id: Int
+}
 
 
 
