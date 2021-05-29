@@ -33,4 +33,12 @@ struct UserData {
     let id: Int
 }
 
+struct CreateUser {
+    let name: String
+    let surname: String
+    let username: String
+    let email: String
+    let password: String
+}
+
 

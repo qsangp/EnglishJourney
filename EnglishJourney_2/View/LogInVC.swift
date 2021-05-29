@@ -40,7 +40,7 @@ class LogInVC: UIViewController {
     }
     
     @IBAction func signUpPressed(_ sender: UIButton) {
-        
+        performSegue(withIdentifier: "GoToSignUp", sender: self)
     }
     
     @IBAction func logInButtonPressed(_ sender: UIButton) {

@@ -54,5 +54,9 @@ struct User: Codable {
     let id: Int
 }
 
+struct CreateNewUser: Codable {
+    let success: Bool
+}
+
 
 
