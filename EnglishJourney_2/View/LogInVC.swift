@@ -13,6 +13,7 @@ class LogInVC: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var errorMessage: UILabel!
     
     var cardViewModel: CardViewModel!
 
@@ -43,11 +44,11 @@ class LogInVC: UIViewController {
     }
     
     @IBAction func logInButtonPressed(_ sender: UIButton) {
-        
+        checkLogInError()
+
         if let username = usernameTextField.text, let password = passwordTextField.text {
             cardViewModel.fetchLogIn(username: username, password: password) {
-                
-                self.performSegue(withIdentifier: "LogInSuccess", sender: nil)
+                self.performSegue(withIdentifier: "LogInSuccess", sender: self)
             }
         }
     }
@@ -62,6 +63,12 @@ class LogInVC: UIViewController {
             cardViewModel.checkToken(token: accessToken) { userData in
                 self.performSegue(withIdentifier: "LogInSuccess", sender: nil)
             }
+        }
+    }
+    
+    func checkLogInError() {
+        if let error = cardViewModel.errorMessage {
+            self.errorMessage.text = error
         }
     }
 }

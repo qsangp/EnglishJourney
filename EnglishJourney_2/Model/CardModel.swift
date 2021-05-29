@@ -29,6 +29,7 @@ struct ChartData {
 
 struct UserData {
     let userNameOrEmail: String
+    let userEmail: String
     let id: Int
 }
 

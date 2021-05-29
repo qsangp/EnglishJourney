@@ -55,7 +55,10 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
     }
-
+    
+    @IBAction func profileButtonPressed(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "GoToProfile", sender: self)
+    }
 }
     
 

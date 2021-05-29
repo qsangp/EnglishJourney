@@ -13,6 +13,7 @@ class CardViewModel {
     
     var userData: UserData?
     var token: String?
+    var errorMessage: String?
 
     func fetchLogIn(username: String, password: String, completion: @escaping () -> ()) {
         
@@ -22,8 +23,8 @@ class CardViewModel {
                 "usernameOrEmailAddress": "\(username)",
                 "password": "\(password)"
                 }
-                """.data(using: .utf8) else
-        { return }
+                """.data(using: .utf8) else 
+        { return  }
 
         var request = URLRequest(url: urlRequestUserLogIn)
         request.httpMethod = "POST"
@@ -48,6 +49,7 @@ class CardViewModel {
                     
                 }
                 catch {
+                    self.errorMessage = "Failed to login, please check your username and password!"
                     print(error.localizedDescription)
                 }
             }
@@ -73,7 +75,7 @@ class CardViewModel {
                 do {
                     let decodedData = try JSONDecoder().decode(UserProfile.self, from: data!)
                     let user = decodedData.result.user
-                    self.userData = UserData(userNameOrEmail: user.userName, id: user.id)
+                    self.userData = UserData(userNameOrEmail: user.name + " " + user.surname, userEmail: user.emailAddress, id: user.id)
                     DispatchQueue.main.async {
                         completion(self.userData)
                     }
