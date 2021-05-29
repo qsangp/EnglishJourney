@@ -15,7 +15,7 @@ class MyTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        cellBody.layer.cornerRadius = 10
+        cellBody.layer.cornerRadius = 15
         cellBody.backgroundColor = UIColor.random()
     }
 

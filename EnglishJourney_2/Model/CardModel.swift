@@ -19,4 +19,17 @@ struct CardData {
     let backCardAudio: String
     let frontCardText: String
     let backCardText: String
+    let id: Int
 }
+
+struct ChartData {
+    let againButtonPressedLog: Int
+    let completeButtonPressedLog: Int
+}
+
+struct UserData {
+    let userNameOrEmail: String
+    let id: Int
+}
+
+

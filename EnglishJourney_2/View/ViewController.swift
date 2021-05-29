@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var hiUser: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var greetView: UIView!
     @IBOutlet weak var greetMessage: UILabel!
@@ -19,20 +20,34 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        
-        greetView.backgroundColor = UIColor(red: 0.98, green: 0.74, blue: 0.35, alpha: 1.00)
-        greetView.layer.cornerRadius = 10
-        greetMessage.text = "Chúng ta sẽ học gì hôm nay?"
-        greetButton.layer.cornerRadius = 10
-        greetButton.backgroundColor = UIColor(red: 0.96, green: 0.48, blue: 0.19, alpha: 1.00)
+        overrideUserInterfaceStyle = .light
 
         initTableView()
+        updataUI()
+    }
+    
+    func updataUI() {
+        self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        
+        greetView.layer.cornerRadius = 20
+        greetMessage.text = "Chúng ta sẽ học gì hôm nay?"
+        greetButton.layer.cornerRadius = 10
+        
         cardViewModel = CardViewModel()
         cardViewModel.fetchFlashCards {
             self.tableView.reloadData()
         }
+        if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
+        cardViewModel.checkToken(token: accessToken) { userData in
+            self.hiUser.text = "Chào \(userData?.userNameOrEmail ?? "bạn")"
+            }
+        }
+        
     }
+    
+    override func viewWillAppear(_ animated: Bool){
+           tableView.reloadData()
+       }
     
     /// Init table view
     private func initTableView() {
@@ -67,9 +82,15 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         }
     
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            if cardViewModel.flashcard[indexPath.row].id == 58 {
-                self.performSegue(withIdentifier: "GoToCardData", sender: self)
+            let selectedID = cardViewModel.flashcard[indexPath.row].id
+            self.cardViewModel.flashcardData = [CardData]()
+            self.cardViewModel.fetchFlashCardsData(id: selectedID) {
+                let vc = self.storyboard?.instantiateViewController(identifier: "CardLesson") as! CardLessonVC
+                vc.cardLesson = self.cardViewModel.flashcardData
+                vc.temporaryCardLesson = self.cardViewModel.flashcardData
+                self.present(vc, animated: true)
             }
+            
         }
     
 }

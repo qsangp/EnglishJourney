@@ -26,19 +26,30 @@ class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
         
         self.delegate = self
         self.selectedIndex = 0
+        
+        UITabBar.appearance().barTintColor = UIColor.white
 
         setupLeftButton()
         setupRightButton()
 
     }
     
-    func setupLeftButton() {
-        self.leftButton = UIButton(frame: CGRect(x: self.view.bounds.width / 5, y: 5, width: 40, height: 40))
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        let customHeight: CGFloat = 80
         
-        self.leftLabel = UILabel(frame: CGRect(x: self.view.bounds.width / 5.4, y: 34, width: 120, height: 40))
+        UITabBar.appearance().frame.size.height = customHeight
+
+    }
+    
+    func setupLeftButton() {
+        self.leftButton = UIButton(frame: CGRect(x: (self.view.bounds.width / 2) - 120, y: 3, width: 30, height: 30))
+        
+        self.leftLabel = UILabel(frame: CGRect(x: (self.view.bounds.width / 2) - 128, y: 19, width: 120, height: 40))
         
         leftLabel.text = "Lessons"
-        leftLabel.font = leftLabel.font.withSize(14)
+        leftLabel.font = leftLabel.font.withSize(12)
+        leftLabel.textColor = .black
         
         leftButton.setBackgroundImage(UIImage(named: "tabBarIcon1Colored"), for: .normal)
         
@@ -61,12 +72,13 @@ class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
     }
     
     func setupRightButton() {
-        self.rightButton = UIButton(frame: CGRect(x: 290, y: 0, width: 40, height: 40))
+        self.rightButton = UIButton(frame: CGRect(x: (self.view.bounds.width / 2) + 85, y: 0, width: 35, height: 35))
         
-        self.rightLabel = UILabel(frame: CGRect(x: 290, y: 27, width: 120, height: 40))
+        self.rightLabel = UILabel(frame: CGRect(x: (self.view.bounds.width / 2) + 85, y: 19, width: 120, height: 40))
         
         rightLabel.text = "Chart"
-        rightLabel.font = rightLabel.font.withSize(14)
+        rightLabel.font = rightLabel.font.withSize(12)
+        rightLabel.textColor = .black
         
         rightButton.setBackgroundImage(UIImage(named: "tabBarIcon2"), for: .normal)
         

@@ -28,12 +28,31 @@ struct FlashCardData: Codable {
 }
 
 struct Data: Codable {
-    let flashCardCategoryName: String
+    let title: String
     let audioFileName, audioFileNameBack: String
     let textToAudio, backDeck: String
+    let id: Int
 }
 
+// MARK: - User Login
 
+struct UserLoginAuthentication: Codable {
+    let result: String
+}
+
+struct UserProfile: Codable {
+    let result: Result
+}
+
+struct Result: Codable {
+    let user: User
+}
+
+// MARK: - User
+struct User: Codable {
+    let name, surname, userName, emailAddress: String
+    let id: Int
+}
 
 
 
