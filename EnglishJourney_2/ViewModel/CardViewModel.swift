@@ -13,33 +13,36 @@ class CardViewModel {
     
     var userData: UserData?
     var errorMessage: String?
-
+    
     func createUser(name: String, surname: String, username: String, email: String, password: String, completion: @escaping () -> ()) {
+
+        requestToken { accessToken in
+
         guard let urlRequestUserLogIn = URL(string: "https://app.ielts-vuive.com/api/services/app/user/CreateOrUpdateUser"),
               let payLoad = """
                 {
                   "user": {
-                    "name": \(name),
-                    "surname": \(surname),
-                    "userName": \(name + surname),
-                    "emailAddress": \(email),
-                    "password": \(password),
+                    "name": "\(name)",
+                    "surname": "\(surname)",
+                    "userName": "\(name + surname)",
+                    "emailAddress": "\(email)",
+                    "password": "\(password)",
                     "isActive": true,
                   },
                   "assignedRoleNames": [
-                    "admin"
+                    "ExternalUser"
                   ],
                   "sendActivationEmail": false,
                   "setRandomPassword": false
                 }
                 """.data(using: .utf8) else
-        { return  }
+        { return }
 
         var request = URLRequest(url: urlRequestUserLogIn)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue( "Bearer \(UserDefaults.standard.string(forKey: "accessToken") ?? "")", forHTTPHeaderField: "Authorization")
+        request.setValue( "Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         request.httpBody = payLoad
         
         let session = URLSession(configuration: .default)
@@ -48,18 +51,20 @@ class CardViewModel {
             if error == nil {
                 do {
                     let decodedData = try JSONDecoder().decode(CreateNewUser.self, from: data!)
-                    let success = decodedData.success
-                    print(success)
-                    completion()
+                    let message = decodedData.error.message
+                    self.errorMessage = message
                 }
                 catch {
-                    self.errorMessage = "Failed to login, please check your username and password!"
-                    print(error.localizedDescription)
+                    print(error)
+                    DispatchQueue.main.async {
+                        completion()
+                    }
                 }
             }
             
         }
         task.resume()
+        }
     }
     
     func fetchLogIn(username: String, password: String, completion: @escaping () -> ()) {
@@ -71,7 +76,7 @@ class CardViewModel {
                 "password": "\(password)"
                 }
                 """.data(using: .utf8) else 
-        { return  }
+        { return }
 
         var request = URLRequest(url: urlRequestUserLogIn)
         request.httpMethod = "POST"
@@ -89,15 +94,52 @@ class CardViewModel {
                     UserDefaults.standard.set(accessToken, forKey: "accessToken")
 
                     self.checkToken(token: accessToken) { userData in
-                        DispatchQueue.main.async {
-                            completion()
-                        }
+                        completion()
                     }
                     
                 }
                 catch {
-                    self.errorMessage = "Failed to login, please check your username and password!"
-                    print(error.localizedDescription)
+                    let err = error.localizedDescription
+                    self.errorMessage = err
+                    print(err)
+                    
+                }
+            }
+            
+        }
+        task.resume()
+    }
+    
+    func requestToken(completion: @escaping (String) -> ()) {
+        
+        guard let urlRequestUserLogIn = URL(string: "https://app.ielts-vuive.com/api/Account"),
+              let payLoad = """
+                {
+                "usernameOrEmailAddress": "admin",
+                "password": "admin123"
+                }
+                """.data(using: .utf8) else
+        { return }
+
+        var request = URLRequest(url: urlRequestUserLogIn)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpBody = payLoad
+        
+        let session = URLSession(configuration: .default)
+        let task = session.dataTask(with: request) { (data, response, error) in
+            
+            if error == nil {
+                do {
+                    let decodedData = try JSONDecoder().decode(UserLoginAuthentication.self, from: data!)
+                    let accessToken = decodedData.result
+                    DispatchQueue.main.async {
+                        completion(accessToken)
+                    }
+                }
+                catch {
+                    print("Request Token Failed \(error.localizedDescription)")
                 }
             }
             
@@ -128,7 +170,7 @@ class CardViewModel {
                     }
                 }
                 catch {
-                    print(error.localizedDescription)
+                    print("Check Token Failed \(error.localizedDescription)")
                 }
             }
             
@@ -161,7 +203,7 @@ class CardViewModel {
                     }
                 }
                 catch {
-                    print(error)
+                    print("Fetch FlashCards Failed \(error.localizedDescription)")
                 }
             }
             
@@ -197,7 +239,7 @@ class CardViewModel {
                     }
                 }
                 catch {
-                    print(error)
+                    print("Fetch FlashCards Data Failed \(error.localizedDescription)")
                 }
             }
             
@@ -207,3 +249,4 @@ class CardViewModel {
     }
     
 }
+

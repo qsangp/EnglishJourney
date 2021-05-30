@@ -14,7 +14,7 @@ class SignUpVC: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var retypePasswordTextField: UITextField!
     @IBOutlet weak var signUpButton: UIButton!
-    @IBOutlet weak var messageAlert: UILabel!
+    @IBOutlet weak var errorMessage: UILabel!
     
     var cardViewModel: CardViewModel!
     
@@ -28,6 +28,7 @@ class SignUpVC: UIViewController {
     func updateUI() {
         signUpButton.layer.cornerRadius = 20
         cardViewModel = CardViewModel()
+
     }
     
     private func configureTextField() {
@@ -37,25 +38,50 @@ class SignUpVC: UIViewController {
         passwordTextField.delegate = self
         retypePasswordTextField.delegate = self
     }
+    
+    private func clearTextField() {
+        nameTextField.text?.removeAll()
+        surnameTextField.text?.removeAll()
+        emailTextField.text?.removeAll()
+        passwordTextField.text?.removeAll()
+        retypePasswordTextField.text?.removeAll()
+    }
+    
     @IBAction func backToLoginPressed(_ sender: UIButton) {
+        clearTextField()
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func signUpButtonPressed(_ sender: UIButton) {
+        sender.preventRepeatedPresses()
+                
         if let name = nameTextField.text,
            let surname = surnameTextField.text,
            let email = emailTextField.text,
            let password = passwordTextField.text,
            let retypePassword = retypePasswordTextField.text {
-            if password == retypePassword {
-                cardViewModel.createUser(name: name, surname: surname, username: name + surname, email: email, password: password) {
-                    print("success")
+            
+            if name.count > 0, surname.count > 0, email.count > 0, password.count >= 6, password == retypePassword {
+                cardViewModel.createUser(name: name, surname: surname, username: name + " " + surname, email: email, password: password) {
+                    self.clearTextField()
+                    self.dismiss(animated: true, completion: nil)
+
                 }
             } else {
-                messageAlert.text = "Passwords don't match!"
+                errorMessage.text = "All fields are required! \nPasswords don't match or less than 6 characters"
             }
+            
+        }
+            
+    }
+    
+    func checkError() {
+        if let error = cardViewModel.errorMessage {
+            self.errorMessage.text = error
         }
     }
     
-
+    
 }
+
+
