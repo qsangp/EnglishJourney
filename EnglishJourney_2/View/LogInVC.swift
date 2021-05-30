@@ -101,7 +101,7 @@ class LogInVC: UIViewController {
         passwordTextField.delegate = self
         
         emailTextField.text = "hongngoc@gmail.com"
-        passwordTextField.text = "123456"
+        passwordTextField.text = "1234567"
     }
     
     private func clearTextField() {
@@ -121,6 +121,14 @@ class LogInVC: UIViewController {
             let email = emailTextField.text!
             let password = passwordTextField.text!
             
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                let error = self.cardViewModel.errorMessage
+                if error == "The data couldn’t be read because it is missing." {
+                    Alert.showBasic(title: "Incorrect Email Or Password", message: "Check your email and password again", vc: self)
+                    self.cardViewModel.errorMessage = ""
+                }
+            }
+            
             cardViewModel.fetchLogIn(username: email, password: password) {
                 self.clearTextField()
                 self.loginSuccessView.isHidden = false
@@ -129,11 +137,12 @@ class LogInVC: UIViewController {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     self.performSegue(withIdentifier: "LogInSuccess", sender: self)
-                    
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                     self.loginSuccessView.isHidden = true
                     self.popUpImage.isHidden = true
                     self.popUpMessageLabel.isHidden = true
-                    self.errorMessage.text = ""
+                    self.cardViewModel.errorMessage = ""
                     self.clearTextField()
                 }
             }
@@ -143,14 +152,13 @@ class LogInVC: UIViewController {
             Alert.showBasic(title: "Invalid Email Format", message: "Please make sure you format your email correctly", vc: self)
         } catch LoginError.incorrectPasswordLength {
             Alert.showBasic(title: "Password Too Short", message: "Password should be at least 6 characters", vc: self)
-        } catch LoginError.incorrectEmailOrPassword {
-            Alert.showBasic(title: "Incorrect Email Or Password", message: "Check your email and password again", vc: self)
-            cardViewModel.errorMessage = ""
+//        } catch LoginError.incorrectEmailOrPassword {
+//            Alert.showBasic(title: "Incorrect Email Or Password", message: "Check your email and password again", vc: self)
+//            cardViewModel.errorMessage = ""
         } catch {
-            // Throw error after 5s request data from server
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                Alert.showBasic(title: "Unable To Login", message: "Appologies, something went wrong. Please try again later...", vc: self)
-            }
+            Alert.showBasic(title: "Unable To Login", message: "Appologies, something went wrong. Please try again later...", vc: self)
+            cardViewModel.errorMessage = ""
+
         }
 
     }
@@ -174,7 +182,6 @@ class LogInVC: UIViewController {
         
         let email = emailTextField.text!
         let password = passwordTextField.text!
-        let error = cardViewModel.errorMessage
         
         if email.isEmpty || password.isEmpty {
             throw LoginError.incompleteForm
@@ -188,13 +195,13 @@ class LogInVC: UIViewController {
             throw LoginError.incorrectPasswordLength
         }
         
-        if error == "The data couldn’t be read because it is missing." {
-            throw LoginError.incorrectEmailOrPassword
-        }
-        
-        if error == "[Identity.Duplicate email]" {
-            throw LoginError.emailAlreadyInUse
-        }
+//        if error == "The data couldn’t be read because it is missing." {
+//            throw LoginError.incorrectEmailOrPassword
+//        }
+//
+//        if error == "[Identity.Duplicate email]" {
+//            throw LoginError.emailAlreadyInUse
+//        }
         
     }
 }

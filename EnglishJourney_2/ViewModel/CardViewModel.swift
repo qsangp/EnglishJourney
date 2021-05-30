@@ -96,7 +96,6 @@ class CardViewModel {
                     self.checkToken(token: accessToken) { userData in
                         completion()
                     }
-                    
                 }
                 catch {
                     let err = error.localizedDescription
