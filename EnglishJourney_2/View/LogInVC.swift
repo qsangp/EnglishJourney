@@ -126,7 +126,7 @@ class LogInVC: UIViewController {
                 if error == "The data couldn’t be read because it is missing." {
                     Alert.showBasic(title: "Incorrect Email Or Password", message: "Check your email and password again", vc: self)
                     self.cardViewModel.errorMessage = ""
-                }
+                } 
             }
             
             cardViewModel.fetchLogIn(username: email, password: password) {
@@ -152,9 +152,6 @@ class LogInVC: UIViewController {
             Alert.showBasic(title: "Invalid Email Format", message: "Please make sure you format your email correctly", vc: self)
         } catch LoginError.incorrectPasswordLength {
             Alert.showBasic(title: "Password Too Short", message: "Password should be at least 6 characters", vc: self)
-//        } catch LoginError.incorrectEmailOrPassword {
-//            Alert.showBasic(title: "Incorrect Email Or Password", message: "Check your email and password again", vc: self)
-//            cardViewModel.errorMessage = ""
         } catch {
             Alert.showBasic(title: "Unable To Login", message: "Appologies, something went wrong. Please try again later...", vc: self)
             cardViewModel.errorMessage = ""
