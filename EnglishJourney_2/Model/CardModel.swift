@@ -29,7 +29,22 @@ struct ChartData {
 
 struct UserData {
     let userNameOrEmail: String
+    let userEmail: String
     let id: Int
+}
+
+struct UserDataFacebook {
+    let userName: String
+    let userEmail: String
+    let userId: String
+}
+
+struct CreateUser {
+    let name: String
+    let surname: String
+    let username: String
+    let email: String
+    let password: String
 }
 
 
