@@ -12,7 +12,8 @@ class CardViewModel {
     var flashcardData = [CardData]()
     
     var userData: UserData?
-    var errorMessage: String?
+    var userDataFacebook: UserDataFacebook?
+    var errorMessage: String? 
     
     func createUser(name: String, surname: String, username: String, email: String, password: String, completion: @escaping () -> ()) {
 
@@ -53,9 +54,11 @@ class CardViewModel {
                     let decodedData = try JSONDecoder().decode(CreateNewUser.self, from: data!)
                     let message = decodedData.error.message
                     self.errorMessage = message
+                    print("Failed to create new user: \(message)")
                 }
                 catch {
-                    print(error)
+                    print(error.localizedDescription)
+                    print("Successfully create new user")
                     DispatchQueue.main.async {
                         completion()
                     }
@@ -163,7 +166,7 @@ class CardViewModel {
                 do {
                     let decodedData = try JSONDecoder().decode(UserProfile.self, from: data!)
                     let user = decodedData.result.user
-                    self.userData = UserData(userNameOrEmail: user.name + " " + user.surname, userEmail: user.emailAddress, id: user.id)
+                    self.userData = UserData(userNameOrEmail: user.name, userEmail: user.emailAddress, id: user.id)
                     DispatchQueue.main.async {
                         completion(self.userData)
                     }

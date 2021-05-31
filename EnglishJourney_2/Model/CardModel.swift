@@ -33,6 +33,12 @@ struct UserData {
     let id: Int
 }
 
+struct UserDataFacebook {
+    let userName: String
+    let userEmail: String
+    let userId: String
+}
+
 struct CreateUser {
     let name: String
     let surname: String

@@ -1,16 +1,16 @@
- platform :ios, '9.0'
+# platform :ios, '9.0'
 
 target 'EnglishJourney_2' do
 
-pod 'GoogleSignIn'
-post_install do |installer|
- installer.pods_project.targets.each do |target|
-  target.build_configurations.each do |config|
-   config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
+  pod 'GoogleSignIn'
+  post_install do |installer|
+   installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+     config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
+    end
+   end
   end
- end
-end
-
+  
 end
 
 

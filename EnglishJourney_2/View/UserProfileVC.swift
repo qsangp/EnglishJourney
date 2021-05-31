@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FBSDKLoginKit
+import GoogleSignIn
 
 class UserProfileVC: UIViewController {
     
@@ -19,6 +21,8 @@ class UserProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        overrideUserInterfaceStyle = .light
+
         updateUI()
     }
     
@@ -53,6 +57,8 @@ class UserProfileVC: UIViewController {
     
     @IBAction func logOutButtonPressed() {
         UserDefaults.standard.removeObject(forKey: "accessToken")
+        LoginManager().logOut()
+        GIDSignIn.sharedInstance().signOut()
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
 
     }
