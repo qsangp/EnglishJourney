@@ -40,19 +40,19 @@ class CardLessonVC: UIViewController {
     var againButtonPressedLog = 0
     var completeButtonPressedLog = 0
     var chartData: ChartData!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         updateUI(autoPlayAudio: true)
-                            
+        
     }
     
     func updateUI(autoPlayAudio: Bool) {
         
         // UI
         overrideUserInterfaceStyle = .light
-
+        
         textFrontLabel.isHidden = true
         audioBackButton.isHidden = true
         textBackField.isHidden = true
@@ -62,7 +62,7 @@ class CardLessonVC: UIViewController {
         showHideButton.layer.cornerRadius = 15
         againButton.layer.cornerRadius = 15
         completeButton.layer.cornerRadius = 15
-         
+        
         // Animation
         constraintFrontCardBackCard.priority = UILayoutPriority.defaultLow
         constraintFrontCardViewBottom.priority = UILayoutPriority.defaultHigh
@@ -73,7 +73,7 @@ class CardLessonVC: UIViewController {
         showHideButton.setTitleColor(.darkGray, for: .normal)
         
         let cardName = cardLesson[cardIndex].cardName
-            lessonLabel.text = cardName
+        lessonLabel.text = cardName
         print("updateUI: \(cardIndex), \(cardLesson.count)")
         
         // Render HTML
@@ -92,7 +92,7 @@ class CardLessonVC: UIViewController {
         cardLesson = temporaryCardLesson
     }
     
-//MARK: - Audio Section
+    //MARK: - Audio Section
     
     @IBAction func audioFrontPressed(_ sender: UIButton) {
         let baseURL = "https://app.ielts-vuive.com/data/audio/"
@@ -102,11 +102,11 @@ class CardLessonVC: UIViewController {
         let sourceAudio = "\(baseURL)\(id)/\(audioName)"
         let url = URL(string: sourceAudio)
         do {
-              try AVAudioSession.sharedInstance().setCategory(.playback)
-                avPlayerItem = AVPlayerItem.init(url: url! as URL)
-                avPlayer = AVPlayer.init(playerItem: avPlayerItem)
-                avPlayer?.volume = 1.0
-                avPlayer?.play()
+            try AVAudioSession.sharedInstance().setCategory(.playback)
+            avPlayerItem = AVPlayerItem.init(url: url! as URL)
+            avPlayer = AVPlayer.init(playerItem: avPlayerItem)
+            avPlayer?.volume = 1.0
+            avPlayer?.play()
             
         } catch(let error) {
             print(error.localizedDescription)
@@ -121,25 +121,25 @@ class CardLessonVC: UIViewController {
         let sourceAudio = "\(baseURL)\(id)/\(audioName)"
         let url = URL(string: sourceAudio)
         do {
-              try AVAudioSession.sharedInstance().setCategory(.playback)
-                avPlayerItem = AVPlayerItem.init(url: url! as URL)
-                avPlayer = AVPlayer.init(playerItem: avPlayerItem)
-                avPlayer?.volume = 1.0
-                avPlayer?.play()
+            try AVAudioSession.sharedInstance().setCategory(.playback)
+            avPlayerItem = AVPlayerItem.init(url: url! as URL)
+            avPlayer = AVPlayer.init(playerItem: avPlayerItem)
+            avPlayer?.volume = 1.0
+            avPlayer?.play()
             
         } catch(let error) {
             print(error.localizedDescription)
         }
     }
-
     
-//MARK: - Lesson Section
+    
+    //MARK: - Lesson Section
     
     @IBAction func showHideButtonPressed(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
             showHideButton.setTitle("Hide Sample", for: .normal)
-
+            
             audioBackButton.isHidden = false
             textBackField.isHidden = false
             textMessage.isHidden = true
@@ -148,10 +148,10 @@ class CardLessonVC: UIViewController {
             constraintFrontCardViewBottom.priority =
                 UILayoutPriority.defaultLow
             constraintFrontCardViewTop.constant = 50
-
+            
         } else {
             showHideButton.setTitle("Show Sample", for: .normal)
-
+            
             audioBackButton.isHidden = true
             textBackField.isHidden = true
             textMessage.isHidden = false
@@ -166,13 +166,13 @@ class CardLessonVC: UIViewController {
         againButtonPressedLog += 1
         
         switch cardIndex {
-            case cardLesson.count - 1:
-                cardIndex = -1
-                cardIndex += 1
-                updateUI(autoPlayAudio: true)
-            default:
-                cardIndex += 1
-                updateUI(autoPlayAudio: true)
+        case cardLesson.count - 1:
+            cardIndex = -1
+            cardIndex += 1
+            updateUI(autoPlayAudio: true)
+        default:
+            cardIndex += 1
+            updateUI(autoPlayAudio: true)
         }
     }
     
@@ -205,8 +205,8 @@ class CardLessonVC: UIViewController {
         cardLesson = [CardData]()
         dismiss(animated: true, completion: nil)
     }
-
-
+    
+    
 }
 
 // MARK: - Render HTML
@@ -229,19 +229,19 @@ extension String {
               </body>
             </html>
             """
-
-            guard let data = htmlTemplate.data(using: .utf8) else {
-                return nil
-            }
-
-            guard let attributedString = try? NSAttributedString(
-                data: data,
-                options: [.documentType: NSAttributedString.DocumentType.html],
-                documentAttributes: nil
-                ) else {
-                return nil
-            }
-
-            return attributedString
+        
+        guard let data = htmlTemplate.data(using: .utf8) else {
+            return nil
+        }
+        
+        guard let attributedString = try? NSAttributedString(
+            data: data,
+            options: [.documentType: NSAttributedString.DocumentType.html],
+            documentAttributes: nil
+        ) else {
+            return nil
+        }
+        
+        return attributedString
     }
 }

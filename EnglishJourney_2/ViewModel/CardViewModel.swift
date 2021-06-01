@@ -16,11 +16,11 @@ class CardViewModel {
     var errorMessage: String? 
     
     func createUser(name: String, surname: String, username: String, email: String, password: String, completion: @escaping () -> ()) {
-
+        
         requestToken { accessToken in
-
-        guard let urlRequestUserLogIn = URL(string: "https://app.ielts-vuive.com/api/services/app/user/CreateOrUpdateUser"),
-              let payLoad = """
+            
+            guard let urlRequestUserLogIn = URL(string: "https://app.ielts-vuive.com/api/services/app/user/CreateOrUpdateUser"),
+                  let payLoad = """
                 {
                   "user": {
                     "name": "\(name)",
@@ -37,36 +37,36 @@ class CardViewModel {
                   "setRandomPassword": false
                 }
                 """.data(using: .utf8) else
-        { return }
-
-        var request = URLRequest(url: urlRequestUserLogIn)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue( "Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
-        request.httpBody = payLoad
-        
-        let session = URLSession(configuration: .default)
-        let task = session.dataTask(with: request) { (data, response, error) in
+            { return }
             
-            if error == nil {
-                do {
-                    let decodedData = try JSONDecoder().decode(CreateNewUser.self, from: data!)
-                    let message = decodedData.error.message
-                    self.errorMessage = message
-                    print("Failed to create new user: \(message)")
-                }
-                catch {
-                    print(error.localizedDescription)
-                    print("Successfully create new user")
-                    DispatchQueue.main.async {
-                        completion()
+            var request = URLRequest(url: urlRequestUserLogIn)
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.setValue( "Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+            request.httpBody = payLoad
+            
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: request) { (data, response, error) in
+                
+                if error == nil {
+                    do {
+                        let decodedData = try JSONDecoder().decode(CreateNewUser.self, from: data!)
+                        let message = decodedData.error.message
+                        self.errorMessage = message
+                        print("Failed to create new user: \(message)")
+                    }
+                    catch {
+                        print(error.localizedDescription)
+                        print("Successfully create new user")
+                        DispatchQueue.main.async {
+                            completion()
+                        }
                     }
                 }
+                
             }
-            
-        }
-        task.resume()
+            task.resume()
         }
     }
     
@@ -80,7 +80,7 @@ class CardViewModel {
                 }
                 """.data(using: .utf8) else 
         { return }
-
+        
         var request = URLRequest(url: urlRequestUserLogIn)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -95,7 +95,7 @@ class CardViewModel {
                     let decodedData = try JSONDecoder().decode(UserLoginAuthentication.self, from: data!)
                     let accessToken = decodedData.result
                     UserDefaults.standard.set(accessToken, forKey: "accessToken")
-
+                    
                     self.checkToken(token: accessToken) { userData in
                         completion()
                     }
@@ -122,7 +122,7 @@ class CardViewModel {
                 }
                 """.data(using: .utf8) else
         { return }
-
+        
         var request = URLRequest(url: urlRequestUserLogIn)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -158,7 +158,7 @@ class CardViewModel {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue( "Bearer \(token)", forHTTPHeaderField: "Authorization")
-
+        
         let session = URLSession(configuration: .default)
         let task = session.dataTask(with: request) { (data, response, error) in
             

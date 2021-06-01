@@ -29,8 +29,8 @@
 		FAB5EB23265C2BC000A83569 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB21265C2BC000A83569 /* MyTableViewCell.swift */; };
 		FAB5EB24265C2BC000A83569 /* MyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB5EB22265C2BC000A83569 /* MyTableViewCell.xib */; };
 		FAB5EB57265CD38500A83569 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB56265CD38500A83569 /* CustomTabBar.swift */; };
-		FAE78B3D2664DCC600485DA7 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = FAE78B3C2664DCC600485DA7 /* FacebookLogin */; };
-		FAE78B3F2664DCC600485DA7 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = FAE78B3E2664DCC600485DA7 /* FacebookCore */; };
+		FAE78B3D2664DCC600485DA7 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = FAE78B3C2664DCC600485DA7 /* SwiftPackageProductDependency */; };
+		FAE78B3F2664DCC600485DA7 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = FAE78B3E2664DCC600485DA7 /* SwiftPackageProductDependency */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,8 +67,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAE78B3D2664DCC600485DA7 /* FacebookLogin in Frameworks */,
-				FAE78B3F2664DCC600485DA7 /* FacebookCore in Frameworks */,
+				FAE78B3D2664DCC600485DA7 /* BuildFile in Frameworks */,
+				FAE78B3F2664DCC600485DA7 /* BuildFile in Frameworks */,
 				A50798A75793EBB19102085C /* libPods-EnglishJourney_2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -191,7 +191,7 @@
 				FAB5EAFC265C267800A83569 /* Sources */,
 				FAB5EAFD265C267800A83569 /* Frameworks */,
 				FAB5EAFE265C267800A83569 /* Resources */,
-				A042D706B5F0DB5CB08AFC19 /* [CP] Copy Pods Resources */,
+				7F486BE1FAFCB0FD1F26544D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -199,8 +199,8 @@
 			);
 			name = EnglishJourney_2;
 			packageProductDependencies = (
-				FAE78B3C2664DCC600485DA7 /* FacebookLogin */,
-				FAE78B3E2664DCC600485DA7 /* FacebookCore */,
+				FAE78B3C2664DCC600485DA7 /* SwiftPackageProductDependency */,
+				FAE78B3E2664DCC600485DA7 /* SwiftPackageProductDependency */,
 			);
 			productName = EnglishJourney_2;
 			productReference = FAB5EB00265C267800A83569 /* EnglishJourney_2.app */;
@@ -230,7 +230,7 @@
 			);
 			mainGroup = FAB5EAF7265C267700A83569;
 			packageReferences = (
-				FAE78B3B2664DCC600485DA7 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+				FAE78B3B2664DCC600485DA7 /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = FAB5EB01265C267800A83569 /* Products */;
 			projectDirPath = "";
@@ -279,7 +279,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A042D706B5F0DB5CB08AFC19 /* [CP] Copy Pods Resources */ = {
+		7F486BE1FAFCB0FD1F26544D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -524,7 +524,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FAE78B3B2664DCC600485DA7 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+		FAE78B3B2664DCC600485DA7 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
 			requirement = {
@@ -535,14 +535,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FAE78B3C2664DCC600485DA7 /* FacebookLogin */ = {
+		FAE78B3C2664DCC600485DA7 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FAE78B3B2664DCC600485DA7 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			package = FAE78B3B2664DCC600485DA7 /* RemoteSwiftPackageReference */;
 			productName = FacebookLogin;
 		};
-		FAE78B3E2664DCC600485DA7 /* FacebookCore */ = {
+		FAE78B3E2664DCC600485DA7 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FAE78B3B2664DCC600485DA7 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			package = FAE78B3B2664DCC600485DA7 /* RemoteSwiftPackageReference */;
 			productName = FacebookCore;
 		};
 /* End XCSwiftPackageProductDependency section */

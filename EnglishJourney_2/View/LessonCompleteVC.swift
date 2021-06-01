@@ -16,7 +16,7 @@ class LessonCompleteVC: UIViewController {
     
     var cardCompleteData = [CardData]()
     var clickedData: ChartData!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,17 +25,17 @@ class LessonCompleteVC: UIViewController {
     
     func updateUI() {
         overrideUserInterfaceStyle = .light
-
+        
         learnAgainButton.layer.cornerRadius = 20
         backToLessonsButton.layer.cornerRadius = 20
         
         if let nameCard = cardCompleteData.first?.cardName {
             let newNameCard = nameCard.prefix(nameCard.count - 3)
-        
-        congratMessage.text = "Congrats! \nYou have completed the lesson: \(newNameCard) \nAgain: \(clickedData.againButtonPressedLog) \nComplete: \(clickedData.completeButtonPressedLog)"
+            
+            congratMessage.text = "Congrats! \nYou have completed the lesson: \(newNameCard) \nAgain: \(clickedData.againButtonPressedLog) \nComplete: \(clickedData.completeButtonPressedLog)"
         }
     }
-
+    
     @IBAction func learnAgainPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }

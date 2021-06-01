@@ -9,9 +9,10 @@ import UIKit
 import QuartzCore
 import FBSDKLoginKit
 import GoogleSignIn
+import SafariServices
 
 class LogInVC: UIViewController {
- 
+    
     enum LoginError: Swift.Error {
         case incompleteForm
         case invalidEmail
@@ -37,7 +38,7 @@ class LogInVC: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     let popUpMessageLabel: UILabel = {
         let label = UILabel()
         label.text = "Login Successfully!"
@@ -53,16 +54,16 @@ class LogInVC: UIViewController {
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         overrideUserInterfaceStyle = .light
-
+        
         configureTextField()
         setupLogInSuccessView()
         updateUI()
-                
+        
     }
     func updateUI() {
         hideKeyboardWhenTappedAround()
@@ -79,8 +80,9 @@ class LogInVC: UIViewController {
         cardViewModel = CardViewModel()
         
         GIDSignIn.sharedInstance().presentingViewController = self
-        checkAuthentication()
+        GIDSignIn.sharedInstance().delegate = self
         
+        checkAuthentication()
     }
     
     func setupLogInSuccessView() {
@@ -92,7 +94,7 @@ class LogInVC: UIViewController {
         loadingWhiteView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         loadingWhiteView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         loadingWhiteView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-
+        
         view.addSubview(popUpImage)
         popUpImage.centerXAnchor.constraint(equalTo: loadingWhiteView.centerXAnchor).isActive = true
         popUpImage.widthAnchor.constraint(equalToConstant: 100).isActive = true
@@ -120,60 +122,14 @@ class LogInVC: UIViewController {
         passwordTextField.text?.removeAll()
     }
     
-//MARK: -Google Login
+    //MARK: -Google Login
+    
     @IBAction func btnGooglePressed(_ sender: UIButton) {
         sender.preventRepeatedPresses()
         GIDSignIn.sharedInstance().signIn()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-            self.checkGoogleSignIn()
-        }
-    }
-    
-    func checkGoogleSignIn() {
-
-        if GIDSignIn.sharedInstance().hasPreviousSignIn() {
-            if let user = GIDSignIn.sharedInstance().currentUser {
-                if let email = user.profile.email,
-                   let username = email.components(separatedBy: CharacterSet(charactersIn: ("@0123456789"))).first,
-                   let id = user.userID {
-                    print(email)
-                    print(id)
-
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                    print("Have error -> create new user -> login")
-                        let error = self.cardViewModel.errorMessage
-                        if error == "The data couldn’t be read because it is missing." {
-                            self.cardViewModel.createUser(name: username, surname: username, username: username, email: email, password: id) {
-                                    self.loadingWhiteView.isHidden = false
-                                    self.popUpImage.isHidden = false
-                                    self.popUpMessageLabel.isHidden = false
-                                
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                                        self.cardViewModel.fetchLogIn(username: email, password: id) {
-                                            self.performSegue(withIdentifier: "LogInSuccess", sender: self)
-                                            self.cardViewModel.errorMessage = ""
-                                            self.loadingWhiteView.isHidden = true
-                                            self.popUpImage.isHidden = true
-                                            self.popUpMessageLabel.isHidden = true
-                                            self.loadingWhiteView.isHidden = true
-                                        }
-                                    }
-                                }
-                            
-                        } else {}
-                    }
-                    print("No error -> login")
-                    cardViewModel.fetchLogIn(username: email, password: id) {
-                        self.performSegue(withIdentifier: "LogInSuccess", sender: self)
-                        self.loadingWhiteView.isHidden = true
-                    }
-                }
-            }
-        }
     }
     
     @IBAction func skipPressed(_ sender: UIButton) {
-        checkGoogleSignIn()
     }
     
     @IBAction func logInButtonPressed(_ sender: UIButton) {
@@ -217,12 +173,12 @@ class LogInVC: UIViewController {
         } catch {
             Alert.showBasic(title: "Unable To Login", message: "Appologies! something went wrong. Please try again later...", vc: self)
             cardViewModel.errorMessage = ""
-
+            
         }
-
+        
     }
     
-// Check Authentication
+    // Check Authentication
     func checkAuthentication() {
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
             cardViewModel.checkToken(token: accessToken) { userData in
@@ -230,8 +186,8 @@ class LogInVC: UIViewController {
             }
         }
     }
-
-// Throw error login
+    
+    // Throw error login
     
     func login() throws {
         
@@ -252,7 +208,7 @@ class LogInVC: UIViewController {
         
     }
     
-//MARK: - Facebook login
+    //MARK: - Facebook login
     @IBAction func btnFacebookPressed(_ sender: UIButton) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
             self.checkFacebookLogin()
@@ -262,11 +218,11 @@ class LogInVC: UIViewController {
     
     func checkFacebookLogin() {
         if let token = AccessToken.current,
-                !token.isExpired {
+           !token.isExpired {
             let token = token.tokenString
             
             let request = FBSDKLoginKit.GraphRequest(graphPath: "me",
-                                                    parameters: ["fields": "email, name"],
+                                                     parameters: ["fields": "email, name"],
                                                      tokenString: token,
                                                      version: nil,
                                                      httpMethod: .get)
@@ -281,7 +237,7 @@ class LogInVC: UIViewController {
                         self.emailTextField.text = email
                         self.passwordTextField.text = id
                         self.loginButton.sendActions(for: .touchUpInside)
-
+                        
                     }
                 }
             })
@@ -293,17 +249,71 @@ class LogInVC: UIViewController {
 }
 
 extension UIViewController: UITextFieldDelegate {
-
+    
     @objc func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:    #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
-
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+}
+
+extension LogInVC: GIDSignInDelegate {
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Swift.Error!) {
         
+        if error != nil {
+            Alert.showBasic(title: "Unable To Login", message: "Appologies! something went wrong. Please try again later...", vc: self)
+        } else {
+            if GIDSignIn.sharedInstance().hasPreviousSignIn() {
+                if let user = GIDSignIn.sharedInstance().currentUser {
+                    if let email = user.profile.email,
+                       let username = email.components(separatedBy: CharacterSet(charactersIn: ("@0123456789"))).first,
+                       let id = user.userID {
+                        print(email)
+                        print(id)
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                            print("Have error -> create new user -> login")
+                            let error = self.cardViewModel.errorMessage
+                            if error == "The data couldn’t be read because it is missing." || error == "[Identity.Duplicate email]" {
+                                self.cardViewModel.createUser(name: username, surname: username, username: username, email: email, password: username + "7nQ-ij") {
+                                    self.loadingWhiteView.isHidden = false
+                                    self.popUpImage.isHidden = false
+                                    self.popUpMessageLabel.isHidden = false
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                        self.cardViewModel.fetchLogIn(username: email, password: username + "7nQ-ij") {
+                                            self.performSegue(withIdentifier: "LogInSuccess", sender: self)
+                                            self.cardViewModel.errorMessage = ""
+                                            self.loadingWhiteView.isHidden = true
+                                            self.popUpImage.isHidden = true
+                                            self.popUpMessageLabel.isHidden = true
+                                            self.loadingWhiteView.isHidden = true
+                                        }
+                                    }
+                                }
+                                
+                            } else {}
+                        }
+                        print("No error -> login")
+                        cardViewModel.fetchLogIn(username: email, password: username + "7nQ-ij") {
+                            self.performSegue(withIdentifier: "LogInSuccess", sender: self)
+                            self.loadingWhiteView.isHidden = true
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Swift.Error!) {
+    }
 }
 
 

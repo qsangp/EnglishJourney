@@ -21,7 +21,7 @@ class SignUpVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
-
+        
         configureTextField()
         updateUI()
     }
@@ -29,7 +29,7 @@ class SignUpVC: UIViewController {
     func updateUI() {
         signUpButton.layer.cornerRadius = 20
         cardViewModel = CardViewModel()
-
+        
     }
     
     private func configureTextField() {
@@ -54,26 +54,26 @@ class SignUpVC: UIViewController {
     }
     
     @IBAction func signUpButtonPressed(_ sender: UIButton) {
-//        sender.preventRepeatedPresses()
-//                
-//        if let name = nameTextField.text,
-//           let surname = surnameTextField.text,
-//           let email = emailTextField.text,
-//           let password = passwordTextField.text,
-//           let retypePassword = retypePasswordTextField.text {
-//            
-//            if name.count > 0, surname.count > 0, email.count > 0, password.count >= 6, password == retypePassword {
-//                cardViewModel.createUser(name: name, surname: surname, username: name + " " + surname, email: email, password: password) {
-//                    self.clearTextField()
-//                    self.dismiss(animated: true, completion: nil)
-//
-//                }
-//            } else {
-//                errorMessage.text = "All fields are required! \nPasswords don't match or less than 6 characters"
-//            }
-//            
-//        }
-            
+        //        sender.preventRepeatedPresses()
+        //                
+        //        if let name = nameTextField.text,
+        //           let surname = surnameTextField.text,
+        //           let email = emailTextField.text,
+        //           let password = passwordTextField.text,
+        //           let retypePassword = retypePasswordTextField.text {
+        //            
+        //            if name.count > 0, surname.count > 0, email.count > 0, password.count >= 6, password == retypePassword {
+        //                cardViewModel.createUser(name: name, surname: surname, username: name + " " + surname, email: email, password: password) {
+        //                    self.clearTextField()
+        //                    self.dismiss(animated: true, completion: nil)
+        //
+        //                }
+        //            } else {
+        //                errorMessage.text = "All fields are required! \nPasswords don't match or less than 6 characters"
+        //            }
+        //            
+        //        }
+        
     }
     
     func checkError() {

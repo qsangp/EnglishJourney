@@ -16,7 +16,7 @@ class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     var leftButton: UIButton!
     var rightButton: UIButton!
-
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -28,10 +28,10 @@ class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
         self.selectedIndex = 0
         
         UITabBar.appearance().barTintColor = UIColor.white
-
+        
         setupLeftButton()
         setupRightButton()
-
+        
     }
     
     override func viewWillLayoutSubviews() {
@@ -39,7 +39,7 @@ class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
         let customHeight: CGFloat = 80
         
         UITabBar.appearance().frame.size.height = customHeight
-
+        
     }
     
     func setupLeftButton() {

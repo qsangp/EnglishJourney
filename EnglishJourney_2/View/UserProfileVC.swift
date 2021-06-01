@@ -16,13 +16,13 @@ class UserProfileVC: UIViewController {
     @IBOutlet weak var versionLabel: UILabel!
     @IBOutlet weak var supportButton: UIButton!
     @IBOutlet weak var termsOfUseButton: UIButton!
-
+    
     var cardViewModel: CardViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
-
+        
         updateUI()
     }
     
@@ -37,7 +37,7 @@ class UserProfileVC: UIViewController {
                 if let userData = userData {
                     self.userProfileInfo.text = """
                         Username: \(userData.userNameOrEmail)
-
+                        
                         Email: \(userData.userEmail)
                         """
                 }
@@ -60,8 +60,8 @@ class UserProfileVC: UIViewController {
         LoginManager().logOut()
         GIDSignIn.sharedInstance().signOut()
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-
+        
     }
-
-
+    
+    
 }
