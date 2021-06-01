@@ -7,9 +7,8 @@
 
 import UIKit
 import QuartzCore
-import FBSDKLoginKit
 import GoogleSignIn
-import SafariServices
+import NVActivityIndicatorView
 
 class LogInVC: UIViewController {
     
@@ -25,9 +24,6 @@ class LogInVC: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var errorMessage: UILabel!
-    @IBOutlet weak var skipButton: UIButton!
-    @IBOutlet weak var signInFacebookButton: FBLoginButton!
     @IBOutlet weak var googleLoginButton: UIView!
     
     var cardViewModel: CardViewModel!
@@ -55,19 +51,25 @@ class LogInVC: UIViewController {
         return image
     }()
     
+    let activityIndicator: NVActivityIndicatorView = {
+        let loading = NVActivityIndicatorView(frame: .zero, type: .ballPulse, color: UIColor(red: 0.58, green: 0.84, blue: 0.83, alpha: 1.00), padding: 0)
+        loading.translatesAutoresizingMaskIntoConstraints = false
+        return loading
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         overrideUserInterfaceStyle = .light
         
         configureTextField()
-        setupLogInSuccessView()
+        setupView()
+        setUpAnimation()
         updateUI()
         
     }
     func updateUI() {
         hideKeyboardWhenTappedAround()
-        signInFacebookButton.isHidden = true
         
         emailTextField.layer.cornerRadius = 20
         passwordTextField.layer.cornerRadius = 20
@@ -85,7 +87,19 @@ class LogInVC: UIViewController {
         checkAuthentication()
     }
     
-    func setupLogInSuccessView() {
+    func setUpAnimation() {
+        
+        view.addSubview(activityIndicator)
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.widthAnchor.constraint(equalToConstant: 40),
+            activityIndicator.heightAnchor.constraint(equalToConstant: 40),
+            activityIndicator.topAnchor.constraint(equalTo: googleLoginButton.bottomAnchor, constant: 20)
+        ])
+        activityIndicator.stopAnimating()
+    }
+    
+    func setupView() {
         
         view.addSubview(loadingWhiteView)
         loadingWhiteView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -122,14 +136,10 @@ class LogInVC: UIViewController {
         passwordTextField.text?.removeAll()
     }
     
-    //MARK: -Google Login
-    
     @IBAction func btnGooglePressed(_ sender: UIButton) {
         sender.preventRepeatedPresses()
         GIDSignIn.sharedInstance().signIn()
-    }
-    
-    @IBAction func skipPressed(_ sender: UIButton) {
+        activityIndicator.startAnimating()
     }
     
     @IBAction func logInButtonPressed(_ sender: UIButton) {
@@ -139,31 +149,23 @@ class LogInVC: UIViewController {
             let email = emailTextField.text!
             let password = passwordTextField.text!
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                let error = self.cardViewModel.errorMessage
-                if error == "The data couldn’t be read because it is missing." {
-                    Alert.showBasic(title: "Incorrect Email Or Password", message: "Check your email and password again", vc: self)
-                    self.cardViewModel.errorMessage = ""
-                } 
-            }
-            
-            cardViewModel.fetchLogIn(username: email, password: password) {
-                self.clearTextField()
-                self.loadingWhiteView.isHidden = false
-                self.popUpImage.isHidden = false
-                self.popUpMessageLabel.isHidden = false
+            self.cardViewModel.fetchLogIn(username: email, password: password) { error in
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                if error != nil {
+                    Alert.showBasic(title: "Unable To Login", message: "Something went wrong. Please try again later...", vc: self)
+                    
+                } else {
+                    self.loadingWhiteView.isHidden = false
+                    self.popUpImage.isHidden = false
+                    self.popUpMessageLabel.isHidden = false
+                    
                     self.performSegue(withIdentifier: "LogInSuccess", sender: self)
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                     self.loadingWhiteView.isHidden = true
                     self.popUpImage.isHidden = true
                     self.popUpMessageLabel.isHidden = true
-                    self.cardViewModel.errorMessage = ""
-                    self.clearTextField()
                 }
             }
+
         } catch LoginError.incompleteForm {
             Alert.showBasic(title: "Incomplete Form", message: "Please fill out both email and password fields", vc: self)
         } catch LoginError.invalidEmail {
@@ -205,46 +207,6 @@ class LogInVC: UIViewController {
         if password.count < 6 {
             throw LoginError.incorrectPasswordLength
         }
-        
-    }
-    
-    //MARK: - Facebook login
-    @IBAction func btnFacebookPressed(_ sender: UIButton) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-            self.checkFacebookLogin()
-            print("done")
-        }
-    }
-    
-    func checkFacebookLogin() {
-        if let token = AccessToken.current,
-           !token.isExpired {
-            let token = token.tokenString
-            
-            let request = FBSDKLoginKit.GraphRequest(graphPath: "me",
-                                                     parameters: ["fields": "email, name"],
-                                                     tokenString: token,
-                                                     version: nil,
-                                                     httpMethod: .get)
-            request.start(completionHandler: {connection, result, error in
-                if let userInfo = result as? [String: Any] {
-                    let name = userInfo["name"] as! String
-                    let email = userInfo["email"] as! String
-                    let id = userInfo["id"] as! String
-                    print("\(name), \(email), \(id)")
-                    
-                    self.cardViewModel.fetchLogIn(username: email, password: id) {
-                        self.emailTextField.text = email
-                        self.passwordTextField.text = id
-                        self.loginButton.sendActions(for: .touchUpInside)
-                        
-                    }
-                }
-            })
-        } else {
-            signInFacebookButton.permissions = ["public_profile", "email"]
-            
-        }
     }
 }
 
@@ -267,7 +229,9 @@ extension LogInVC: GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Swift.Error!) {
         
         if error != nil {
-            Alert.showBasic(title: "Unable To Login", message: "Appologies! something went wrong. Please try again later...", vc: self)
+            print(error.localizedDescription)
+            self.activityIndicator.stopAnimating()
+            
         } else {
             if GIDSignIn.sharedInstance().hasPreviousSignIn() {
                 if let user = GIDSignIn.sharedInstance().currentUser {
@@ -277,33 +241,43 @@ extension LogInVC: GIDSignInDelegate {
                         print(email)
                         print(id)
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                            print("Have error -> create new user -> login")
-                            let error = self.cardViewModel.errorMessage
-                            if error == "The data couldn’t be read because it is missing." || error == "[Identity.Duplicate email]" {
-                                self.cardViewModel.createUser(name: username, surname: username, username: username, email: email, password: username + "7nQ-ij") {
-                                    self.loadingWhiteView.isHidden = false
-                                    self.popUpImage.isHidden = false
-                                    self.popUpMessageLabel.isHidden = false
+                        // Try to login
+                        print("Try to login")
+                        self.cardViewModel.fetchLogIn(username: email, password: username + "7nQ-ij") { error in
+                            
+                            if error != nil {
+                                print("User didn't exist -> Create new user")
+                            } else {
+                                self.performSegue(withIdentifier: "LogInSuccess", sender: self)
+                                self.activityIndicator.stopAnimating()
+                            }
+                        }
+                        
+                        // User didn't exist -> create new user
+                        self.cardViewModel.createUser(name: username, surname: username, username: username, email: email, password: username + "7nQ-ij") { error in
+                            
+                            if error != nil {
+                                Alert.showBasic(title: "Unable To Create New User", message: "\(error!). Please try again later...", vc: self)
+                                
+                            } else {
+                                self.cardViewModel.fetchLogIn(username: email, password: username + "7nQ-ij") { error in
                                     
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                                        self.cardViewModel.fetchLogIn(username: email, password: username + "7nQ-ij") {
-                                            self.performSegue(withIdentifier: "LogInSuccess", sender: self)
-                                            self.cardViewModel.errorMessage = ""
-                                            self.loadingWhiteView.isHidden = true
-                                            self.popUpImage.isHidden = true
-                                            self.popUpMessageLabel.isHidden = true
-                                            self.loadingWhiteView.isHidden = true
-                                        }
+                                    if error != nil {
+                                        print("Failed to login new user")
+                                        
+                                    } else {
+                                        self.loadingWhiteView.isHidden = false
+                                        self.popUpImage.isHidden = false
+                                        self.popUpMessageLabel.isHidden = false
+                                        
+                                        self.performSegue(withIdentifier: "LogInSuccess", sender: self)
+                                        self.activityIndicator.stopAnimating()
+                                        self.loadingWhiteView.isHidden = true
+                                        self.popUpImage.isHidden = true
+                                        self.popUpMessageLabel.isHidden = true
                                     }
                                 }
-                                
-                            } else {}
-                        }
-                        print("No error -> login")
-                        cardViewModel.fetchLogIn(username: email, password: username + "7nQ-ij") {
-                            self.performSegue(withIdentifier: "LogInSuccess", sender: self)
-                            self.loadingWhiteView.isHidden = true
+                            }
                         }
                     }
                 }
@@ -311,10 +285,11 @@ extension LogInVC: GIDSignInDelegate {
         }
     }
     
-    
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Swift.Error!) {
+        self.activityIndicator.stopAnimating()
     }
 }
+
 
 
 

@@ -15,7 +15,7 @@ class CardViewModel {
     var userDataFacebook: UserDataFacebook?
     var errorMessage: String? 
     
-    func createUser(name: String, surname: String, username: String, email: String, password: String, completion: @escaping () -> ()) {
+    func createUser(name: String, surname: String, username: String, email: String, password: String, completion: @escaping (String?) -> ()) {
         
         requestToken { accessToken in
             
@@ -53,14 +53,15 @@ class CardViewModel {
                     do {
                         let decodedData = try JSONDecoder().decode(CreateNewUser.self, from: data!)
                         let message = decodedData.error.message
-                        self.errorMessage = message
                         print("Failed to create new user: \(message)")
+                        DispatchQueue.main.async {
+                            completion(message)
+                        }
                     }
                     catch {
-                        print(error.localizedDescription)
                         print("Successfully create new user")
                         DispatchQueue.main.async {
-                            completion()
+                            completion(nil)
                         }
                     }
                 }
@@ -70,7 +71,7 @@ class CardViewModel {
         }
     }
     
-    func fetchLogIn(username: String, password: String, completion: @escaping () -> ()) {
+    func fetchLogIn(username: String, password: String, completion: @escaping (Swift.Error?) -> ()) {
         
         guard let urlRequestUserLogIn = URL(string: "https://app.ielts-vuive.com/api/Account"),
               let payLoad = """
@@ -97,14 +98,16 @@ class CardViewModel {
                     UserDefaults.standard.set(accessToken, forKey: "accessToken")
                     
                     self.checkToken(token: accessToken) { userData in
-                        completion()
+                        DispatchQueue.main.async {
+                            completion(nil)
+                        }
                     }
                 }
                 catch {
-                    let err = error.localizedDescription
-                    self.errorMessage = err
-                    print(err)
-                    
+                    print("Failed to login : \(error.localizedDescription)")
+                    DispatchQueue.main.async {
+                        completion(error)
+                    }
                 }
             }
             

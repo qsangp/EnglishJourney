@@ -57,7 +57,6 @@ class UserProfileVC: UIViewController {
     
     @IBAction func logOutButtonPressed() {
         UserDefaults.standard.removeObject(forKey: "accessToken")
-        LoginManager().logOut()
         GIDSignIn.sharedInstance().signOut()
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         
