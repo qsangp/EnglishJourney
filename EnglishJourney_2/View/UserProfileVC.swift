@@ -33,7 +33,7 @@ class UserProfileVC: UIViewController {
         
         cardViewModel = CardViewModel()
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-            cardViewModel.checkToken(token: accessToken) { userData in
+            cardViewModel.checkToken(token: accessToken) { (userData, tokenError) in
                 if let userData = userData {
                     self.userProfileInfo.text = """
                         Username: \(userData.userNameOrEmail)

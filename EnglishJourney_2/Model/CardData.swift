@@ -34,6 +34,27 @@ struct Data: Codable {
     let id: Int
 }
 
+struct LogButton: Codable {
+    let result: Bool
+    let success: Bool
+}
+
+//MARK: -Chart Data
+struct ChartDataLog: Codable {
+    let result: DataLog
+}
+
+struct DataLog: Codable {
+    let labels: [String]
+    let dataSets: [DataSet]
+}
+
+struct DataSet: Codable {
+    let labelDataSet: String
+    let dataHits: [Int]
+    let labels: [String]
+}
+
 // MARK: - User Login
 
 struct UserLoginAuthentication: Codable {

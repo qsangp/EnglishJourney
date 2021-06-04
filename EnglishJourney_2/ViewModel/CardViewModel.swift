@@ -13,8 +13,9 @@ class CardViewModel {
     
     var userData: UserData?
     var userDataFacebook: UserDataFacebook?
-    var errorMessage: String? 
+    var errorMessage: String?
     
+    //MARK: -User
     func createUser(name: String, surname: String, username: String, email: String, password: String, completion: @escaping (String?) -> ()) {
         
         requestToken { accessToken in
@@ -46,7 +47,10 @@ class CardViewModel {
             request.setValue( "Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
             request.httpBody = payLoad
             
-            let session = URLSession(configuration: .default)
+            let sessionConfig = URLSessionConfiguration.default
+            sessionConfig.timeoutIntervalForRequest = 5.0
+            sessionConfig.timeoutIntervalForResource = 10.0
+            let session = URLSession(configuration: sessionConfig)
             let task = session.dataTask(with: request) { (data, response, error) in
                 
                 if error == nil {
@@ -88,7 +92,10 @@ class CardViewModel {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpBody = payLoad
         
-        let session = URLSession(configuration: .default)
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 5.0
+        sessionConfig.timeoutIntervalForResource = 10.0
+        let session = URLSession(configuration: sessionConfig)
         let task = session.dataTask(with: request) { (data, response, error) in
             
             if error == nil {
@@ -97,7 +104,7 @@ class CardViewModel {
                     let accessToken = decodedData.result
                     UserDefaults.standard.set(accessToken, forKey: "accessToken")
                     
-                    self.checkToken(token: accessToken) { userData in
+                    self.checkToken(token: accessToken) { (userData, tokenError) in
                         DispatchQueue.main.async {
                             completion(nil)
                         }
@@ -115,6 +122,7 @@ class CardViewModel {
         task.resume()
     }
     
+    //MARK: -Token
     func requestToken(completion: @escaping (String) -> ()) {
         
         guard let urlRequestUserLogIn = URL(string: "https://app.ielts-vuive.com/api/Account"),
@@ -132,7 +140,10 @@ class CardViewModel {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpBody = payLoad
         
-        let session = URLSession(configuration: .default)
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 5.0
+        sessionConfig.timeoutIntervalForResource = 10.0
+        let session = URLSession(configuration: sessionConfig)
         let task = session.dataTask(with: request) { (data, response, error) in
             
             if error == nil {
@@ -152,7 +163,7 @@ class CardViewModel {
         task.resume()
     }
     
-    func checkToken(token: String, completion: @escaping (UserData?) -> ()) {
+    func checkToken(token: String, completion: @escaping (UserData?, Swift.Error?) -> ()) {
         
         let urlUserProfile = URL(string: "https://app.ielts-vuive.com/api/services/app/session/GetCurrentLoginInformations")
         
@@ -162,7 +173,10 @@ class CardViewModel {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue( "Bearer \(token)", forHTTPHeaderField: "Authorization")
         
-        let session = URLSession(configuration: .default)
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 5.0
+        sessionConfig.timeoutIntervalForResource = 10.0
+        let session = URLSession(configuration: sessionConfig)
         let task = session.dataTask(with: request) { (data, response, error) in
             
             if error == nil {
@@ -171,11 +185,14 @@ class CardViewModel {
                     let user = decodedData.result.user
                     self.userData = UserData(userNameOrEmail: user.name, userEmail: user.emailAddress, id: user.id)
                     DispatchQueue.main.async {
-                        completion(self.userData)
+                        completion(self.userData, nil)
                     }
                 }
                 catch {
                     print("Check Token Failed \(error.localizedDescription)")
+                    DispatchQueue.main.async {
+                        completion(nil, error)
+                    }
                 }
             }
             
@@ -183,7 +200,9 @@ class CardViewModel {
         task.resume()
     }
     
-    func fetchFlashCards(completion: @escaping () -> ()) {
+    //MARK: -Flash Card
+    
+    func fetchFlashCards(completion: @escaping (Swift.Error?) -> ()) {
         
         let urlString = URL(string:"https://app.ielts-vuive.com/api/services/app/flashCardCategorieService/GetAllCategories")
         
@@ -192,7 +211,11 @@ class CardViewModel {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        let session = URLSession(configuration: .default)
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 5.0
+        sessionConfig.timeoutIntervalForResource = 10.0
+        let session = URLSession(configuration: sessionConfig)
+        
         let task = session.dataTask(with: request) { (data, response, error) in
             
             if error == nil {
@@ -204,11 +227,14 @@ class CardViewModel {
                         }
                     }
                     DispatchQueue.main.async {
-                        completion()
+                        completion(nil)
                     }
                 }
                 catch {
                     print("Fetch FlashCards Failed \(error.localizedDescription)")
+                    DispatchQueue.main.async {
+                        completion(error)
+                    }
                 }
             }
             
@@ -217,7 +243,7 @@ class CardViewModel {
         
     }
     
-    func fetchFlashCardsData(id: Int, completion: @escaping () -> ()) {
+    func fetchFlashCardsData(id: Int, completion: @escaping (Swift.Error?) -> ()) {
         
         let urlStringData = "https://app.ielts-vuive.com/api/services/app/flashCardLessionService/GetAllLessionsByCateId?id="
         
@@ -230,7 +256,10 @@ class CardViewModel {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        let session = URLSession(configuration: .default)
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 5.0
+        sessionConfig.timeoutIntervalForResource = 10.0
+        let session = URLSession(configuration: sessionConfig)
         let task = session.dataTask(with: request) { (data, response, error) in
             
             if error == nil {
@@ -240,17 +269,106 @@ class CardViewModel {
                         self.flashcardData.append(CardData(cardName: card.title, frontCardAudio: card.audioFileName, backCardAudio: card.audioFileNameBack, frontCardText: card.textToAudio, backCardText: card.backDeck, id: card.id))
                     }
                     DispatchQueue.main.async {
-                        completion()
+                        completion(nil)
                     }
                 }
                 catch {
                     print("Fetch FlashCards Data Failed \(error.localizedDescription)")
+                    DispatchQueue.main.async {
+                        completion(error)
+                    }
                 }
             }
             
         }
         task.resume()
+    }
+    
+    func writeLogButon(buttonName: String, cardId: Int, categoryId: Int, userId: Int, completion: @escaping () -> ()) {
         
+        requestToken { accessToken in
+            
+            guard let urlRequestUserLogIn = URL(string: "https://app.ielts-vuive.com/api/services/app/flashCardLessionService/WriteLog\(buttonName)"),
+                  let payLoad = """
+                    {
+                      "cardDeckId": \(cardId),
+                      "cardCategoryId": \(categoryId),
+                      "userId": \(userId)
+                    }
+                    """.data(using: .utf8) else { return }
+            
+            var request = URLRequest(url: urlRequestUserLogIn)
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.setValue( "Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+            request.httpBody = payLoad
+            
+            let sessionConfig = URLSessionConfiguration.default
+            sessionConfig.timeoutIntervalForRequest = 5.0
+            sessionConfig.timeoutIntervalForResource = 10.0
+            let session = URLSession(configuration: sessionConfig)
+            let task = session.dataTask(with: request) { (data, response, error) in
+                
+                if error == nil {
+                    do {
+                        let decodedData = try JSONDecoder().decode(LogButton.self, from: data!)
+                        let result = decodedData.success
+                        if result {
+                            DispatchQueue.main.async {
+                                completion()
+                            }
+                        } else {
+                            print("Failed to log again button")
+                        }
+                    }
+                    catch {
+                        print("Failed to log again button: \(error)")
+                    }
+                }
+                
+            }
+            task.resume()
+        }
+    }
+    
+    func fetchChartData(month: Int, year: Int, cateId: Int, userId: Int, completion: @escaping (ButtonDataSet?) -> ()) {
+        
+        requestToken { accessToken in
+            
+            guard let urlRequestUserLogIn = URL(string: "https://app.ielts-vuive.com/api/services/app/flashCardLessionService/GetReportDataLessionBarChart?month=\(month)&year=\(year)&cateId=\(cateId)&userId=\(userId)") else { return }
+            var request = URLRequest(url: urlRequestUserLogIn)
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.setValue( "Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+            
+            let sessionConfig = URLSessionConfiguration.default
+            sessionConfig.timeoutIntervalForRequest = 5.0
+            sessionConfig.timeoutIntervalForResource = 10.0
+            let session = URLSession(configuration: sessionConfig)
+            let task = session.dataTask(with: request) { (data, response, error) in
+                
+                if error == nil {
+                    do {
+                        let decodedData = try JSONDecoder().decode(ChartDataLog.self, from: data!)
+                        let againDataHits = decodedData.result.dataSets[0].dataHits
+                        let completeDataHits = decodedData.result.dataSets[1].dataHits
+                        let buttonDataSet = ButtonDataSet(againDataHits: againDataHits, completeDataHits: completeDataHits)
+                        
+                        print("fetch chart data success")
+                        DispatchQueue.main.async {
+                            completion(buttonDataSet)
+                        }
+                    }
+                    catch {
+                        print("Failed to log again button: \(error)")
+                    }
+                }
+                
+            }
+            task.resume()
+        }
     }
     
 }

@@ -49,7 +49,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lel-Re-qzm">
-                                <rect key="frame" x="0.0" y="90" width="414" height="326"/>
+                                <rect key="frame" x="0.0" y="90" width="414" height="398"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile male" translatesAutoresizingMaskIntoConstraints="NO" id="r3q-IZ-PhQ">
                                         <rect key="frame" x="50" y="10" width="314" height="150"/>
@@ -58,7 +58,7 @@
                                         </constraints>
                                     </imageView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Username:  Email:" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="a1U-PP-rL9">
-                                        <rect key="frame" x="30" y="180" width="354" height="146"/>
+                                        <rect key="frame" x="30" y="180" width="354" height="218"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -76,8 +76,8 @@
                                     <constraint firstAttribute="trailing" secondItem="r3q-IZ-PhQ" secondAttribute="trailing" constant="50" id="s1b-sT-M92"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="4B9-zP-tbS">
-                                <rect key="frame" x="60" y="424" width="294" height="272"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4B9-zP-tbS">
+                                <rect key="frame" x="60" y="496" width="294" height="230"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1To-cE-Y1P">
                                         <rect key="frame" x="0.0" y="0.0" width="294" height="50"/>
@@ -96,7 +96,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcb-nc-dwx">
-                                        <rect key="frame" x="0.0" y="74" width="294" height="50"/>
+                                        <rect key="frame" x="0.0" y="60" width="294" height="50"/>
                                         <color key="backgroundColor" red="0.58431372550000005" green="0.83529411760000005" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                         <color key="tintColor" red="0.58431372550000005" green="0.83529411760000005" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -109,7 +109,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VHV-Na-22h">
-                                        <rect key="frame" x="0.0" y="148" width="294" height="50"/>
+                                        <rect key="frame" x="0.0" y="120" width="294" height="50"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Log out"/>
                                         <connections>
@@ -118,7 +118,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thd-iE-oVa">
-                                        <rect key="frame" x="0.0" y="222" width="294" height="50"/>
+                                        <rect key="frame" x="0.0" y="180" width="294" height="50"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -146,7 +146,7 @@
                             <constraint firstItem="4B9-zP-tbS" firstAttribute="top" secondItem="lel-Re-qzm" secondAttribute="bottom" constant="8" symbolic="YES" id="cSG-gw-Fwm"/>
                             <constraint firstItem="lel-Re-qzm" firstAttribute="top" secondItem="uMf-Hf-yF3" secondAttribute="bottom" constant="40" id="ghi-Q6-gcf"/>
                             <constraint firstItem="lel-Re-qzm" firstAttribute="leading" secondItem="ROY-3u-awu" secondAttribute="leading" id="htO-sV-RId"/>
-                            <constraint firstItem="ROY-3u-awu" firstAttribute="bottom" secondItem="4B9-zP-tbS" secondAttribute="bottom" constant="40" id="iOg-uv-Qkm"/>
+                            <constraint firstItem="ROY-3u-awu" firstAttribute="bottom" secondItem="4B9-zP-tbS" secondAttribute="bottom" constant="10" id="iOg-uv-Qkm"/>
                             <constraint firstItem="uMf-Hf-yF3" firstAttribute="trailing" secondItem="ROY-3u-awu" secondAttribute="trailing" id="ilV-dm-uuk"/>
                             <constraint firstItem="uMf-Hf-yF3" firstAttribute="leading" secondItem="ROY-3u-awu" secondAttribute="leading" id="kRl-Kd-vvU"/>
                         </constraints>
@@ -192,9 +192,12 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <color key="tintColor" red="0.95294117649999999" green="0.42352941179999998" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Bắt đầu học">
+                                        <state key="normal" title="Random">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="randomLessonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eMF-Fd-Cnm"/>
+                                        </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Picture1" translatesAutoresizingMaskIntoConstraints="NO" id="30Y-e6-pMA">
                                         <rect key="frame" x="134" y="0.0" width="240" height="186"/>
@@ -205,16 +208,31 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xCy-16-wOQ">
+                                        <rect key="frame" x="349" y="5" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="kUX-uZ-ueT"/>
+                                            <constraint firstAttribute="width" constant="20" id="pOK-l0-Icu"/>
+                                        </constraints>
+                                        <state key="normal">
+                                            <imageReference key="image" image="xmark" catalog="system" symbolScale="small" renderingMode="original"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="hideGreetView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6tx-7Z-0l0"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.97254901959999995" green="0.66666666669999997" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="0oe-8B-aHL" firstAttribute="leading" secondItem="iTD-wc-0rd" secondAttribute="leading" id="0Bz-22-6D9"/>
                                     <constraint firstItem="0oe-8B-aHL" firstAttribute="trailing" secondItem="iTD-wc-0rd" secondAttribute="trailing" id="JRh-dY-Oz3"/>
                                     <constraint firstAttribute="height" constant="186" id="MGh-i3-XZ6"/>
+                                    <constraint firstItem="xCy-16-wOQ" firstAttribute="top" secondItem="KRI-WX-NkR" secondAttribute="top" constant="5" id="MJG-pu-GHo"/>
                                     <constraint firstItem="0oe-8B-aHL" firstAttribute="top" secondItem="iTD-wc-0rd" secondAttribute="bottom" constant="8" symbolic="YES" id="MnB-ky-Y7z"/>
                                     <constraint firstAttribute="bottom" secondItem="0oe-8B-aHL" secondAttribute="bottom" constant="20" id="O3G-3h-exr"/>
                                     <constraint firstItem="0oe-8B-aHL" firstAttribute="leading" secondItem="KRI-WX-NkR" secondAttribute="leading" constant="19" id="ON2-bY-7cH"/>
                                     <constraint firstItem="30Y-e6-pMA" firstAttribute="top" secondItem="KRI-WX-NkR" secondAttribute="top" id="RrE-2i-sJY"/>
+                                    <constraint firstAttribute="trailing" secondItem="xCy-16-wOQ" secondAttribute="trailing" constant="5" id="U7S-ks-NJ8"/>
                                     <constraint firstItem="30Y-e6-pMA" firstAttribute="leading" secondItem="KRI-WX-NkR" secondAttribute="leading" constant="134" id="VwH-wQ-GP2"/>
                                     <constraint firstAttribute="trailing" secondItem="30Y-e6-pMA" secondAttribute="trailing" id="XNz-wp-fQZ"/>
                                     <constraint firstAttribute="bottom" secondItem="30Y-e6-pMA" secondAttribute="bottom" id="ffZ-5V-45R"/>
@@ -249,6 +267,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="b3V-Td-s2s" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="0IM-e0-kSv"/>
+                            <constraint firstItem="b3V-Td-s2s" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" priority="250" constant="60" id="5Uv-VT-kvU"/>
                             <constraint firstItem="b3V-Td-s2s" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="8Ce-r3-dQ4"/>
                             <constraint firstItem="b3V-Td-s2s" firstAttribute="top" secondItem="KRI-WX-NkR" secondAttribute="bottom" constant="10" id="Hxg-g0-l1P"/>
                             <constraint firstItem="lCf-fQ-mdN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="R9x-e6-ReZ"/>
@@ -264,10 +283,13 @@
                     <tabBarItem key="tabBarItem" title="" id="Add-lh-SVZ"/>
                     <navigationItem key="navigationItem" id="h9k-8Y-DWa"/>
                     <connections>
+                        <outlet property="constraintTableViewToGreetView" destination="Hxg-g0-l1P" id="7l0-d3-tHP"/>
+                        <outlet property="constraintTableViewToTopView" destination="5Uv-VT-kvU" id="uso-AP-CpB"/>
                         <outlet property="greetButton" destination="0oe-8B-aHL" id="bIU-Bt-i7D"/>
                         <outlet property="greetMessage" destination="iTD-wc-0rd" id="gM6-Sb-osM"/>
                         <outlet property="greetView" destination="KRI-WX-NkR" id="IhV-yV-Ifr"/>
                         <outlet property="hiUser" destination="Ydn-VG-uYx" id="cYf-WK-eb8"/>
+                        <outlet property="randomButton" destination="0oe-8B-aHL" id="LB5-Yl-tSZ"/>
                         <outlet property="tableView" destination="b3V-Td-s2s" id="yb7-1h-Xyg"/>
                         <segue destination="pKq-Mx-dBh" kind="show" identifier="GoToCardData" id="Ecr-n5-hxM"/>
                     </connections>
@@ -305,11 +327,8 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y14-iZ-9Lx">
-                                        <rect key="frame" x="54.333333333333343" y="174.99999999999997" width="305.66666666666663" height="81.333333333333343"/>
-                                        <string key="text">Try to answer on what you hear
-Press Show Sample and read it out loud 
-in case you fail, then press Again.
-Otherwise press Done</string>
+                                        <rect key="frame" x="40.666666666666657" y="164.99999999999997" width="332.66666666666674" height="101.66666666666666"/>
+                                        <string key="text">Try to answer the question 1. If you succeed -&gt; press Done 2. If you failed -&gt; show Sample -&gt; Read out loud -&gt; press Again Repeat until the lesson Congrats you.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -328,7 +347,7 @@ Otherwise press Done</string>
                                     <constraint firstItem="y14-iZ-9Lx" firstAttribute="centerY" secondItem="6OF-nT-YfD" secondAttribute="centerY" id="n0a-JT-DDf"/>
                                     <constraint firstAttribute="trailing" secondItem="jKs-Ec-LPP" secondAttribute="trailing" constant="20" id="ovI-Pj-cIZ"/>
                                     <constraint firstAttribute="bottom" secondItem="jKs-Ec-LPP" secondAttribute="bottom" id="p6q-7d-ecg"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="y14-iZ-9Lx" secondAttribute="trailing" id="w9Q-eI-r4L"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="y14-iZ-9Lx" secondAttribute="trailing" constant="30" id="w9Q-eI-r4L"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="42" translatesAutoresizingMaskIntoConstraints="NO" id="1fw-0x-SSx">
@@ -498,7 +517,7 @@ Otherwise press Done</string>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="dyy-Qa-Km4"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                         <color key="tintColor" red="0.58431372550000005" green="0.83529411760000005" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Back to Lessons">
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -510,13 +529,13 @@ Otherwise press Done</string>
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="congrats" translatesAutoresizingMaskIntoConstraints="NO" id="mMe-g3-i7j">
-                                <rect key="frame" x="50" y="65" width="314" height="200"/>
+                                <rect key="frame" x="50" y="150" width="314" height="150"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="n5K-e8-Xoj"/>
+                                    <constraint firstAttribute="height" constant="150" id="n5K-e8-Xoj"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BcZ-31-W6M">
-                                <rect key="frame" x="30" y="300" width="354" height="40.666666666666686"/>
+                                <rect key="frame" x="30" y="335" width="354" height="40.666666666666686"/>
                                 <string key="text">Congratulation! 
 You have completed this lesson.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -529,7 +548,7 @@ You have completed this lesson.</string>
                         <constraints>
                             <constraint firstItem="iPc-x9-CpI" firstAttribute="trailing" secondItem="mMe-g3-i7j" secondAttribute="trailing" constant="50" id="1jH-ZP-V2D"/>
                             <constraint firstItem="iPc-x9-CpI" firstAttribute="trailing" secondItem="HXX-Ix-Mta" secondAttribute="trailing" constant="20" id="6jx-Lg-32q"/>
-                            <constraint firstItem="mMe-g3-i7j" firstAttribute="top" secondItem="iPc-x9-CpI" secondAttribute="top" constant="65" id="FaE-xd-CTq"/>
+                            <constraint firstItem="mMe-g3-i7j" firstAttribute="top" secondItem="iPc-x9-CpI" secondAttribute="top" constant="150" id="FaE-xd-CTq"/>
                             <constraint firstItem="BcZ-31-W6M" firstAttribute="leading" secondItem="iPc-x9-CpI" secondAttribute="leading" constant="30" id="I14-jN-Qem"/>
                             <constraint firstItem="iPc-x9-CpI" firstAttribute="trailing" secondItem="BcZ-31-W6M" secondAttribute="trailing" constant="30" id="J7B-6V-p44"/>
                             <constraint firstItem="HXX-Ix-Mta" firstAttribute="leading" secondItem="iPc-x9-CpI" secondAttribute="leading" constant="20" id="Pny-hf-8WA"/>
@@ -552,10 +571,10 @@ You have completed this lesson.</string>
             </objects>
             <point key="canvasLocation" x="3282.4000000000001" y="-605.84707646176912"/>
         </scene>
-        <!--View Controller-->
+        <!--ChartVC-->
         <scene sceneID="nvg-eR-wvb">
             <objects>
-                <viewController modalPresentationStyle="overFullScreen" id="OaK-w9-biY" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="overFullScreen" id="OaK-w9-biY" customClass="ChartVC" customModule="EnglishJourney_2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gRJ-43-NFy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -566,7 +585,7 @@ You have completed this lesson.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hp0-fv-Ow8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="938" y="542"/>
+            <point key="canvasLocation" x="937.68115942028987" y="541.304347826087"/>
         </scene>
         <!--Log InVC-->
         <scene sceneID="0yH-wd-IFB">
@@ -604,9 +623,9 @@ You have completed this lesson.</string>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wbp-xm-eC6">
-                                        <rect key="frame" x="0.0" y="180" width="310" height="50"/>
+                                        <rect key="frame" x="0.0" y="180" width="314" height="50"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="google" translatesAutoresizingMaskIntoConstraints="NO" id="GRD-P2-Iiz">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="google.png" translatesAutoresizingMaskIntoConstraints="NO" id="GRD-P2-Iiz">
                                                 <rect key="frame" x="40" y="15" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="CUK-aA-8FO"/>
@@ -614,8 +633,8 @@ You have completed this lesson.</string>
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L3s-Qe-ZvS">
-                                                <rect key="frame" x="68" y="8.6666666666666856" width="174" height="33"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                <rect key="frame" x="68" y="10" width="178" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                 <state key="normal" title="Continue With Google">
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -639,7 +658,9 @@ You have completed this lesson.</string>
                                     <constraint firstAttribute="trailing" secondItem="MUW-yF-1ej" secondAttribute="trailing" id="DxY-fr-s08"/>
                                     <constraint firstAttribute="trailing" secondItem="cq0-LC-fLc" secondAttribute="trailing" id="MFx-VI-oSM"/>
                                     <constraint firstAttribute="trailing" secondItem="djR-Tf-lVa" secondAttribute="trailing" id="SIb-KP-b5G"/>
+                                    <constraint firstItem="wbp-xm-eC6" firstAttribute="leading" secondItem="JcS-UG-Nuw" secondAttribute="leading" id="ld9-XY-YE0"/>
                                     <constraint firstItem="djR-Tf-lVa" firstAttribute="leading" secondItem="JcS-UG-Nuw" secondAttribute="leading" id="u9L-Ic-DFA"/>
+                                    <constraint firstAttribute="trailing" secondItem="wbp-xm-eC6" secondAttribute="trailing" id="xS3-j6-E1U"/>
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wY5-Cl-bTX">
@@ -691,10 +712,15 @@ You have completed this lesson.</string>
                 <tabBarController storyboardIdentifier="LogInSuccess" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="overFullScreen" id="4WB-UV-yeo" customClass="CustomTabBarVC" customModule="EnglishJourney_2" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="5Mo-JO-8BJ"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bda-wC-g9r">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bda-wC-g9r" customClass="TabBarVC" customModule="EnglishJourney_2" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="height">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="KFu-ho-EX3"/>
@@ -852,11 +878,12 @@ You have completed this lesson.</string>
         <image name="Picture1" width="864" height="717"/>
         <image name="congrats" width="512" height="512"/>
         <image name="cross-mark" width="512" height="512"/>
-        <image name="google" width="512" height="512"/>
+        <image name="google.png" width="18" height="18"/>
         <image name="playAudio" width="512" height="512"/>
         <image name="profile male" width="512" height="512"/>
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <image name="user" width="512" height="512"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

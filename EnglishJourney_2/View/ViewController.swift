@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class ViewController: UIViewController {
     
@@ -14,14 +15,28 @@ class ViewController: UIViewController {
     @IBOutlet weak var greetView: UIView!
     @IBOutlet weak var greetMessage: UILabel!
     @IBOutlet weak var greetButton: UIButton!
+    @IBOutlet weak var constraintTableViewToTopView: NSLayoutConstraint!
+    @IBOutlet weak var constraintTableViewToGreetView: NSLayoutConstraint!
+    @IBOutlet weak var randomButton: UIButton!
     
+    // Data
     var cardViewModel: CardViewModel!
+    var flashCard: [CardModel]!
+    var flashCardData = [[CardData]]()
+    
+    // Animation
+    let activityIndicator: NVActivityIndicatorView = {
+        let loading = NVActivityIndicatorView(frame: .zero, type: .ballPulse, color: UIColor(red: 0.58, green: 0.84, blue: 0.83, alpha: 1.00), padding: 0)
+        loading.translatesAutoresizingMaskIntoConstraints = false
+        return loading
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         overrideUserInterfaceStyle = .light
         
+        setUpAnimation()
         initTableView()
         updataUI()
     }
@@ -30,19 +45,42 @@ class ViewController: UIViewController {
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         greetView.layer.cornerRadius = 20
-        greetMessage.text = "Chúng ta sẽ học gì hôm nay?"
+        greetMessage.text = "What do we learn today?"
         greetButton.layer.cornerRadius = 10
+        randomButton.isEnabled = false
         
         cardViewModel = CardViewModel()
-        cardViewModel.fetchFlashCards {
-            self.tableView.reloadData()
+        cardViewModel.fetchFlashCards { error in
+            if error != nil {
+                Alert.showBasic(title: "Unable To Fetch Flashcard", message: "Something went wrong. Please try again later...", vc: self)
+                self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+            } else {
+                self.flashCard = self.cardViewModel.flashcard
+                self.tableView.reloadData()
+                self.randomButton.isEnabled = true
+            }
         }
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-            cardViewModel.checkToken(token: accessToken) { userData in
+            cardViewModel.checkToken(token: accessToken) { (userData, tokenError) in
                 self.hiUser.text = "Chào \(userData?.userNameOrEmail ?? "bạn")"
+                UserDefaults.standard.setValue(userData?.id, forKey: "userId")
             }
         }
         
+        activityIndicator.startAnimating()
+        
+    }
+    
+    func setUpAnimation() {
+        
+        view.addSubview(activityIndicator)
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            activityIndicator.widthAnchor.constraint(equalToConstant: 40),
+            activityIndicator.heightAnchor.constraint(equalToConstant: 40),
+        ])
+        activityIndicator.stopAnimating()
     }
     
     override func viewWillAppear(_ animated: Bool){
@@ -59,6 +97,34 @@ class ViewController: UIViewController {
     @IBAction func profileButtonPressed(_ sender: UIButton) {
         self.performSegue(withIdentifier: "GoToProfile", sender: self)
     }
+    
+    @IBAction func hideGreetView(_ sender: UIButton) {
+        greetView.isHidden = true
+        constraintTableViewToTopView.priority = UILayoutPriority.defaultHigh
+        constraintTableViewToGreetView.priority = UILayoutPriority.defaultLow
+    }
+    
+    @IBAction func randomLessonPressed(_ sender: UIButton) {
+        activityIndicator.startAnimating()
+        
+        let id = flashCard[Int.random(in: 0..<flashCard.count)].id
+        self.cardViewModel.flashcardData = [CardData]()
+        self.cardViewModel.fetchFlashCardsData(id: id) { error in
+            if error != nil {
+                Alert.showBasic(title: "Unable To Fetch Flashcard", message: "Something went wrong. Please try again later...", vc: self)
+                self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                
+            } else {
+                let vc = self.storyboard?.instantiateViewController(identifier: "CardLesson") as! CardLessonVC
+                vc.cardLesson = self.cardViewModel.flashcardData.shuffled()
+                vc.temporaryCardLesson = self.cardViewModel.flashcardData
+                self.present(vc, animated: true)
+                self.activityIndicator.stopAnimating()
+            }
+            
+        }
+    }
+    
 }
 
 
@@ -84,14 +150,33 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         return 120
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let lastVisibleIndexPath = tableView.indexPathsForVisibleRows?.last {
+            if indexPath == lastVisibleIndexPath {
+                activityIndicator.stopAnimating()
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        activityIndicator.startAnimating()
         let selectedID = cardViewModel.flashcard[indexPath.row].id
         self.cardViewModel.flashcardData = [CardData]()
-        self.cardViewModel.fetchFlashCardsData(id: selectedID) {
-            let vc = self.storyboard?.instantiateViewController(identifier: "CardLesson") as! CardLessonVC
-            vc.cardLesson = self.cardViewModel.flashcardData
-            vc.temporaryCardLesson = self.cardViewModel.flashcardData
-            self.present(vc, animated: true)
+        self.cardViewModel.fetchFlashCardsData(id: selectedID) { error in
+            print(indexPath.row)
+            print(selectedID)
+            if error != nil {
+                Alert.showBasic(title: "Unable To Fetch Flashcard", message: "Something went wrong. Please try again later...", vc: self)
+                self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                
+            } else {
+                let vc = self.storyboard?.instantiateViewController(identifier: "CardLesson") as! CardLessonVC
+                vc.cardLesson = self.cardViewModel.flashcardData
+                vc.temporaryCardLesson = self.cardViewModel.flashcardData
+                self.present(vc, animated: true)
+                self.activityIndicator.stopAnimating()
+            }
+            
         }
         
     }

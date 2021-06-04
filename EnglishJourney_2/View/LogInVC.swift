@@ -102,24 +102,27 @@ class LogInVC: UIViewController {
     func setupView() {
         
         view.addSubview(loadingWhiteView)
-        loadingWhiteView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        loadingWhiteView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        loadingWhiteView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        loadingWhiteView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        loadingWhiteView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        loadingWhiteView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            loadingWhiteView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingWhiteView.centerYAnchor.constraint(equalTo: view.centerYAnchor), loadingWhiteView.topAnchor.constraint(equalTo: view.topAnchor), loadingWhiteView.bottomAnchor.constraint(equalTo: view.bottomAnchor), loadingWhiteView.leftAnchor.constraint(equalTo: view.leftAnchor), loadingWhiteView.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ])
         
         view.addSubview(popUpImage)
-        popUpImage.centerXAnchor.constraint(equalTo: loadingWhiteView.centerXAnchor).isActive = true
-        popUpImage.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        popUpImage.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        NSLayoutConstraint.activate([
+            popUpImage.centerXAnchor.constraint(equalTo: loadingWhiteView.centerXAnchor),
+            popUpImage.widthAnchor.constraint(equalToConstant: 100),
+            popUpImage.heightAnchor.constraint(equalToConstant: 100)
+        ])
         
         view.addSubview(popUpMessageLabel)
+        
         popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
-        popUpMessageLabel.centerXAnchor.constraint(equalTo: loadingWhiteView.centerXAnchor).isActive = true
-        popUpMessageLabel.centerYAnchor.constraint(equalTo: loadingWhiteView.centerYAnchor).isActive = true
-        popUpMessageLabel.topAnchor.constraint(equalTo: popUpImage.bottomAnchor, constant: 10).isActive = true
-        popUpMessageLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        NSLayoutConstraint.activate([
+            popUpMessageLabel.centerXAnchor.constraint(equalTo: loadingWhiteView.centerXAnchor),
+            popUpMessageLabel.centerYAnchor.constraint(equalTo: loadingWhiteView.centerYAnchor),
+            popUpMessageLabel.topAnchor.constraint(equalTo: popUpImage.bottomAnchor, constant: 10),
+            popUpMessageLabel.widthAnchor.constraint(equalToConstant: 200)
+        ])
         
         loadingWhiteView.isHidden = true
         popUpImage.isHidden = true
@@ -144,6 +147,8 @@ class LogInVC: UIViewController {
     
     @IBAction func logInButtonPressed(_ sender: UIButton) {
         sender.preventRepeatedPresses()
+        activityIndicator.startAnimating()
+        
         do {
             try login()
             let email = emailTextField.text!
@@ -153,6 +158,7 @@ class LogInVC: UIViewController {
                 
                 if error != nil {
                     Alert.showBasic(title: "Unable To Login", message: "Something went wrong. Please try again later...", vc: self)
+                    self.activityIndicator.stopAnimating()
                     
                 } else {
                     self.loadingWhiteView.isHidden = false
@@ -160,12 +166,13 @@ class LogInVC: UIViewController {
                     self.popUpMessageLabel.isHidden = false
                     
                     self.performSegue(withIdentifier: "LogInSuccess", sender: self)
+                    self.activityIndicator.stopAnimating()
                     self.loadingWhiteView.isHidden = true
                     self.popUpImage.isHidden = true
                     self.popUpMessageLabel.isHidden = true
                 }
             }
-
+            
         } catch LoginError.incompleteForm {
             Alert.showBasic(title: "Incomplete Form", message: "Please fill out both email and password fields", vc: self)
         } catch LoginError.invalidEmail {
@@ -173,7 +180,7 @@ class LogInVC: UIViewController {
         } catch LoginError.incorrectPasswordLength {
             Alert.showBasic(title: "Password Too Short", message: "Password should be at least 6 characters", vc: self)
         } catch {
-            Alert.showBasic(title: "Unable To Login", message: "Appologies! something went wrong. Please try again later...", vc: self)
+            Alert.showBasic(title: "Unable To Login", message: "Something went wrong. Please try again later...", vc: self)
             cardViewModel.errorMessage = ""
             
         }
@@ -183,8 +190,12 @@ class LogInVC: UIViewController {
     // Check Authentication
     func checkAuthentication() {
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-            cardViewModel.checkToken(token: accessToken) { userData in
-                self.performSegue(withIdentifier: "LogInSuccess", sender: nil)
+            cardViewModel.checkToken(token: accessToken) { (userData, tokenError) in
+                if tokenError != nil {
+                    print("User must login")
+                } else {
+                    self.performSegue(withIdentifier: "LogInSuccess", sender: nil)
+                }
             }
         }
     }
@@ -246,37 +257,36 @@ extension LogInVC: GIDSignInDelegate {
                         self.cardViewModel.fetchLogIn(username: email, password: username + "7nQ-ij") { error in
                             
                             if error != nil {
-                                print("User didn't exist -> Create new user")
+                                // User didn't exist -> create new user
+                                print("User didn't exist -> create new user")
+                                self.cardViewModel.createUser(name: username, surname: username, username: username, email: email, password: username + "7nQ-ij") { error in
+                                    
+                                    if error != nil {
+                                        Alert.showBasic(title: "Unable To Create New User", message: "\(error!). Please try again later...", vc: self)
+                                        
+                                    } else {
+                                        self.cardViewModel.fetchLogIn(username: email, password: username + "7nQ-ij") { error in
+                                            
+                                            if error != nil {
+                                                print("Failed to login new user")
+                                                
+                                            } else {
+                                                self.loadingWhiteView.isHidden = false
+                                                self.popUpImage.isHidden = false
+                                                self.popUpMessageLabel.isHidden = false
+                                                
+                                                self.performSegue(withIdentifier: "LogInSuccess", sender: self)
+                                                self.activityIndicator.stopAnimating()
+                                                self.loadingWhiteView.isHidden = true
+                                                self.popUpImage.isHidden = true
+                                                self.popUpMessageLabel.isHidden = true
+                                            }
+                                        }
+                                    }
+                                }
                             } else {
                                 self.performSegue(withIdentifier: "LogInSuccess", sender: self)
                                 self.activityIndicator.stopAnimating()
-                            }
-                        }
-                        
-                        // User didn't exist -> create new user
-                        self.cardViewModel.createUser(name: username, surname: username, username: username, email: email, password: username + "7nQ-ij") { error in
-                            
-                            if error != nil {
-                                Alert.showBasic(title: "Unable To Create New User", message: "\(error!). Please try again later...", vc: self)
-                                
-                            } else {
-                                self.cardViewModel.fetchLogIn(username: email, password: username + "7nQ-ij") { error in
-                                    
-                                    if error != nil {
-                                        print("Failed to login new user")
-                                        
-                                    } else {
-                                        self.loadingWhiteView.isHidden = false
-                                        self.popUpImage.isHidden = false
-                                        self.popUpMessageLabel.isHidden = false
-                                        
-                                        self.performSegue(withIdentifier: "LogInSuccess", sender: self)
-                                        self.activityIndicator.stopAnimating()
-                                        self.loadingWhiteView.isHidden = true
-                                        self.popUpImage.isHidden = true
-                                        self.popUpMessageLabel.isHidden = true
-                                    }
-                                }
                             }
                         }
                     }

@@ -27,6 +27,16 @@ struct ChartData {
     let completeButtonPressedLog: Int
 }
 
+struct ButtonDataSet {
+    let againDataHits: [Int]
+    let completeDataHits: [Int]
+}
+
+struct CompleteButtonDataSet {
+    let labelDataSet: String
+    let dataHits: [Int]
+}
+
 struct UserData {
     let userNameOrEmail: String
     let userEmail: String

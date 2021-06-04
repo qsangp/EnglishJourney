@@ -28,6 +28,7 @@ class CardLessonVC: UIViewController {
     @IBOutlet weak var constraintFrontCardViewBottom: NSLayoutConstraint!
     
     // Card Lesson
+    var cardViewModel: CardViewModel!
     var cardLesson = [CardData]()
     var temporaryCardLesson = [CardData]()
     var cardIndex = 0
@@ -49,7 +50,8 @@ class CardLessonVC: UIViewController {
     }
     
     func updateUI(autoPlayAudio: Bool) {
-        
+        cardViewModel = CardViewModel()
+
         // UI
         overrideUserInterfaceStyle = .light
         
@@ -165,6 +167,19 @@ class CardLessonVC: UIViewController {
         avPlayer?.replaceCurrentItem(with: nil)
         againButtonPressedLog += 1
         
+        // Write log again button
+        if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
+            cardViewModel.checkToken(token: accessToken) { (userData, tokenError) in
+                if let userId = userData?.id {
+                    let cardId = self.temporaryCardLesson[self.cardIndex].id
+                    self.cardViewModel.writeLogButon(buttonName: "Again", cardId: cardId, categoryId: 186, userId: userId) {
+                        print("Log Again Buton Success")
+                    }
+                } else {
+                    print("no log")}
+            }
+        }
+        
         switch cardIndex {
         case cardLesson.count - 1:
             cardIndex = -1
@@ -180,16 +195,31 @@ class CardLessonVC: UIViewController {
         avPlayer?.replaceCurrentItem(with: nil)
         completeButtonPressedLog += 1
         
+        // Write log complete button
+        if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
+            cardViewModel.checkToken(token: accessToken) { (userData, tokenError) in
+                if let userId = userData?.id {
+                    let cardId = self.temporaryCardLesson[self.cardIndex].id
+                    self.cardViewModel.writeLogButon(buttonName: "Easy", cardId: cardId, categoryId: 186, userId: userId) {
+                        print("Log complete Buton Success")
+                    }
+                } else {
+                    print("no log")}
+            }
+        }
+        
         if cardIndex == 0 && cardLesson.count == 1 {
             chartData = ChartData(againButtonPressedLog: againButtonPressedLog, completeButtonPressedLog: completeButtonPressedLog)
+            
             // Reset Card and Show Complete screen
             resetCardLesson()
             updateUI(autoPlayAudio: false)
+
             let vc = self.storyboard?.instantiateViewController(identifier: "LessonComplete") as! LessonCompleteVC
             vc.cardCompleteData = self.cardLesson
             vc.clickedData = self.chartData
             self.present(vc, animated: true)
-            
+                        
         } else if cardIndex == cardLesson.count - 1 {
             cardLesson.remove(at: cardIndex)
             cardIndex = 0
