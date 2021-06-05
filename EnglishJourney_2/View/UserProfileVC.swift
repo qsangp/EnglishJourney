@@ -31,6 +31,11 @@ class UserProfileVC: UIViewController {
         supportButton.layer.cornerRadius = 20
         termsOfUseButton.layer.cornerRadius = 20
         
+        let userImageURL = UserDefaults.standard.url(forKey: "userImageURL")
+        if let url = userImageURL {
+            self.userProfileImage.downloaded(from: url)
+        }
+        
         cardViewModel = CardViewModel()
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
             cardViewModel.checkToken(token: accessToken) { (userData, tokenError) in
@@ -56,7 +61,7 @@ class UserProfileVC: UIViewController {
     }
     
     @IBAction func logOutButtonPressed() {
-        UserDefaults.standard.removeObject(forKey: "accessToken")
+        resetDefaults()
         GIDSignIn.sharedInstance().signOut()
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
         

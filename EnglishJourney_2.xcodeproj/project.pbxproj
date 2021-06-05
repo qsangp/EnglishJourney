@@ -21,6 +21,9 @@
 		FA36602D266399EF00A69B37 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA36602C266399EF00A69B37 /* StringExtension.swift */; };
 		FA3660302663A20B00A69B37 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA36602F2663A20B00A69B37 /* Alert.swift */; };
 		FA3660332663B1BD00A69B37 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3660322663B1BD00A69B37 /* UIButton.swift */; };
+		FA6E2DCE266A59300072023A /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E2DCD266A59300072023A /* UserDefault.swift */; };
+		FA6E2DD2266A70CC0072023A /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E2DD1266A70CC0072023A /* UIImageView.swift */; };
+		FA6E2DD4266B2A9F0072023A /* AVRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E2DD3266B2A9F0072023A /* AVRecorder.swift */; };
 		FA79E23F265F5D3300483E51 /* LessonCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */; };
 		FA79E2542661319500483E51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA79E2532661319500483E51 /* Assets.xcassets */; };
 		FA920E1B2668843100706A13 /* ChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA920E1A2668843100706A13 /* ChartVC.swift */; };
@@ -53,6 +56,9 @@
 		FA36602C266399EF00A69B37 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		FA36602F2663A20B00A69B37 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		FA3660322663B1BD00A69B37 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
+		FA6E2DCD266A59300072023A /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
+		FA6E2DD1266A70CC0072023A /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
+		FA6E2DD3266B2A9F0072023A /* AVRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVRecorder.swift; sourceTree = "<group>"; };
 		FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCompleteVC.swift; sourceTree = "<group>"; };
 		FA79E2532661319500483E51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA920E1A2668843100706A13 /* ChartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartVC.swift; sourceTree = "<group>"; };
@@ -116,6 +122,9 @@
 			children = (
 				FA36602C266399EF00A69B37 /* StringExtension.swift */,
 				FA3660322663B1BD00A69B37 /* UIButton.swift */,
+				FA6E2DCD266A59300072023A /* UserDefault.swift */,
+				FA6E2DD1266A70CC0072023A /* UIImageView.swift */,
+				FA6E2DD3266B2A9F0072023A /* AVRecorder.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -337,10 +346,13 @@
 				FAB5EB04265C267800A83569 /* AppDelegate.swift in Sources */,
 				FA36602D266399EF00A69B37 /* StringExtension.swift in Sources */,
 				FA0E43CC26671F9100178A10 /* BaseTabBarController.swift in Sources */,
+				FA6E2DCE266A59300072023A /* UserDefault.swift in Sources */,
 				FA11EE1C26618F4D00B61171 /* LogInVC.swift in Sources */,
+				FA6E2DD4266B2A9F0072023A /* AVRecorder.swift in Sources */,
 				FAB5EB06265C267800A83569 /* SceneDelegate.swift in Sources */,
 				FA36602826628E5C00A69B37 /* SignUpVC.swift in Sources */,
 				FA0E43C326670BA200178A10 /* TabBarVC.swift in Sources */,
+				FA6E2DD2266A70CC0072023A /* UIImageView.swift in Sources */,
 				FAB5EB1C265C26EA00A83569 /* CardModel.swift in Sources */,
 				FA11EE212662479D00B61171 /* UserProfileVC.swift in Sources */,
 				FA0E43CE266720BD00178A10 /* CustomTabbarUIView.swift in Sources */,

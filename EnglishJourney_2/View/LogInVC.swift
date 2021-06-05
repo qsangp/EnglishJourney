@@ -249,6 +249,10 @@ extension LogInVC: GIDSignInDelegate {
                     if let email = user.profile.email,
                        let username = email.components(separatedBy: CharacterSet(charactersIn: ("@0123456789"))).first,
                        let id = user.userID {
+                        if user.profile.hasImage {
+                            let userImageURL = user.profile.imageURL(withDimension: 500)
+                            UserDefaults.standard.set(userImageURL, forKey: "userImageURL")
+                        }
                         print(email)
                         print(id)
                         

@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>For using microphone</string>
 	<key>CFBundleDisplayName</key>
 	<string>English Journey</string>
 	<key>CFBundleExecutable</key>

@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var greetView: UIView!
     @IBOutlet weak var greetMessage: UILabel!
     @IBOutlet weak var greetButton: UIButton!
+    @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var constraintTableViewToTopView: NSLayoutConstraint!
     @IBOutlet weak var constraintTableViewToGreetView: NSLayoutConstraint!
     @IBOutlet weak var randomButton: UIButton!
@@ -64,6 +65,10 @@ class ViewController: UIViewController {
             cardViewModel.checkToken(token: accessToken) { (userData, tokenError) in
                 self.hiUser.text = "Chào \(userData?.userNameOrEmail ?? "bạn")"
                 UserDefaults.standard.setValue(userData?.id, forKey: "userId")
+                let userImageURL = UserDefaults.standard.url(forKey: "userImageURL")
+                if let url = userImageURL {
+                    self.profileButton.getURL2(url: url)
+                }
             }
         }
         

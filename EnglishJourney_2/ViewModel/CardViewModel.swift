@@ -48,8 +48,8 @@ class CardViewModel {
             request.httpBody = payLoad
             
             let sessionConfig = URLSessionConfiguration.default
-            sessionConfig.timeoutIntervalForRequest = 5.0
-            sessionConfig.timeoutIntervalForResource = 10.0
+            sessionConfig.timeoutIntervalForRequest = 30.0
+            sessionConfig.timeoutIntervalForResource = 60.0
             let session = URLSession(configuration: sessionConfig)
             let task = session.dataTask(with: request) { (data, response, error) in
                 
@@ -93,8 +93,8 @@ class CardViewModel {
         request.httpBody = payLoad
         
         let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = 5.0
-        sessionConfig.timeoutIntervalForResource = 10.0
+        sessionConfig.timeoutIntervalForRequest = 30.0
+        sessionConfig.timeoutIntervalForResource = 60.0
         let session = URLSession(configuration: sessionConfig)
         let task = session.dataTask(with: request) { (data, response, error) in
             
@@ -141,8 +141,8 @@ class CardViewModel {
         request.httpBody = payLoad
         
         let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = 5.0
-        sessionConfig.timeoutIntervalForResource = 10.0
+        sessionConfig.timeoutIntervalForRequest = 30.0
+        sessionConfig.timeoutIntervalForResource = 60.0
         let session = URLSession(configuration: sessionConfig)
         let task = session.dataTask(with: request) { (data, response, error) in
             
@@ -174,8 +174,8 @@ class CardViewModel {
         request.setValue( "Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = 5.0
-        sessionConfig.timeoutIntervalForResource = 10.0
+        sessionConfig.timeoutIntervalForRequest = 30.0
+        sessionConfig.timeoutIntervalForResource = 60.0
         let session = URLSession(configuration: sessionConfig)
         let task = session.dataTask(with: request) { (data, response, error) in
             
@@ -212,8 +212,8 @@ class CardViewModel {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = 5.0
-        sessionConfig.timeoutIntervalForResource = 10.0
+        sessionConfig.timeoutIntervalForRequest = 30.0
+        sessionConfig.timeoutIntervalForResource = 60.0
         let session = URLSession(configuration: sessionConfig)
         
         let task = session.dataTask(with: request) { (data, response, error) in
@@ -257,8 +257,8 @@ class CardViewModel {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = 5.0
-        sessionConfig.timeoutIntervalForResource = 10.0
+        sessionConfig.timeoutIntervalForRequest = 30.0
+        sessionConfig.timeoutIntervalForResource = 60.0
         let session = URLSession(configuration: sessionConfig)
         let task = session.dataTask(with: request) { (data, response, error) in
             
@@ -305,8 +305,8 @@ class CardViewModel {
             request.httpBody = payLoad
             
             let sessionConfig = URLSessionConfiguration.default
-            sessionConfig.timeoutIntervalForRequest = 5.0
-            sessionConfig.timeoutIntervalForResource = 10.0
+            sessionConfig.timeoutIntervalForRequest = 30.0
+            sessionConfig.timeoutIntervalForResource = 60.0
             let session = URLSession(configuration: sessionConfig)
             let task = session.dataTask(with: request) { (data, response, error) in
                 
@@ -344,8 +344,8 @@ class CardViewModel {
             request.setValue( "Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
             
             let sessionConfig = URLSessionConfiguration.default
-            sessionConfig.timeoutIntervalForRequest = 5.0
-            sessionConfig.timeoutIntervalForResource = 10.0
+            sessionConfig.timeoutIntervalForRequest = 30.0
+            sessionConfig.timeoutIntervalForResource = 60.0
             let session = URLSession(configuration: sessionConfig)
             let task = session.dataTask(with: request) { (data, response, error) in
                 
