@@ -27,7 +27,7 @@ class ViewController: UIViewController {
     
     // Animation
     let activityIndicator: NVActivityIndicatorView = {
-        let loading = NVActivityIndicatorView(frame: .zero, type: .ballPulse, color: UIColor(red: 0.58, green: 0.84, blue: 0.83, alpha: 1.00), padding: 0)
+        let loading = NVActivityIndicatorView(frame: .zero, type: .circleStrokeSpin, color: UIColor(red: 1.00, green: 0.39, blue: 0.38, alpha: 1.00), padding: 0)
         loading.translatesAutoresizingMaskIntoConstraints = false
         return loading
     }()

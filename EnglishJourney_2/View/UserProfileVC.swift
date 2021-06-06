@@ -55,6 +55,8 @@ class UserProfileVC: UIViewController {
     }
     
     @IBAction func supportButtonPressed() {
+        guard let url = URL(string: "https://www.facebook.com/ieltsvuive/") else { return }
+        UIApplication.shared.open(url)
     }
     
     @IBAction func termsOfUseButtonPressed() {

@@ -12,11 +12,23 @@ import NVActivityIndicatorView
 class ChartVC: UIViewController {
     
     var cardViewModel: CardViewModel!
+    var againButtonDayCount = 0
+    var completeButtonDayCount = 0
     
     let activityIndicator: NVActivityIndicatorView = {
-        let loading = NVActivityIndicatorView(frame: .zero, type: .ballPulse, color: UIColor(red: 0.58, green: 0.84, blue: 0.83, alpha: 1.00), padding: 0)
+        let loading = NVActivityIndicatorView(frame: .zero, type: .circleStrokeSpin, color: UIColor(red: 1.00, green: 0.39, blue: 0.38, alpha: 1.00), padding: 0)
         loading.translatesAutoresizingMaskIntoConstraints = false
         return loading
+    }()
+    
+    let popUpMessageLabel: UILabel = {
+        let label = UILabel()
+        label.text = "You have practiced days this month. Keep going!"
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.layer.cornerRadius = 20
+        label.layer.masksToBounds = true
+        return label
     }()
     
     override func viewDidLoad() {
@@ -24,8 +36,9 @@ class ChartVC: UIViewController {
         
         overrideUserInterfaceStyle = .light
         cardViewModel = CardViewModel()
-        setUpAnimation()
         createChart()
+        setUpAnimation()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,9 +108,15 @@ class ChartVC: UIViewController {
                     
                     for x in 1...againButtonDataHits.count {
                         dictionaryData[x] = againButtonDataHits[x - 1]
+                        if againButtonDataHits[x - 1] != 0 {
+                            self.againButtonDayCount += 1
+                        }
                     }
                     for x in 1...againButtonDataHits.count {
                         dictionaryData2[x] = completeButonDataHits[x - 1]
+                        if completeButonDataHits[x - 1] != 0 {
+                            self.completeButtonDayCount += 1
+                        }
                     }
                     for (x,y) in dictionaryData.sorted(by: <) {
                         entries.append(BarChartDataEntry(x: Double(x), y: Double(y)))
@@ -107,11 +126,11 @@ class ChartVC: UIViewController {
                     }
                     print(entries)
                     let set = BarChartDataSet(entries: entries, label: "Complete")
-                    set.colors = [NSUIColor(cgColor: UIColor.systemBlue.cgColor)]
+                    set.colors = [NSUIColor(cgColor: UIColor(red: 0.74, green: 0.31, blue: 0.56, alpha: 1.00).cgColor)]
                     set.drawValuesEnabled = false
                     
                     let set2 = BarChartDataSet(entries: entries2, label: "Again")
-                    set2.colors = [NSUIColor(cgColor: UIColor.systemRed.cgColor)]
+                    set2.colors = [NSUIColor(cgColor: UIColor(red: 1.00, green: 0.65, blue: 0.00, alpha: 1.00).cgColor)]
                     set2.drawValuesEnabled = false
                     let data = BarChartData(dataSets: [set2, set])
                     
@@ -131,7 +150,20 @@ class ChartVC: UIViewController {
                     
                     self.view.addSubview(barChart)
                     barChart.center = self.view.center
-                    self.activityIndicator.stopAnimating()
+                    
+                    print(self.againButtonDayCount, self.completeButtonDayCount)
+                    if self.againButtonDayCount != 0 || self.completeButtonDayCount != 0 {
+                        self.popUpMessageLabel.text = "You have practiced \(self.completeButtonDayCount) days this month. Keep going!"
+                        self.view.addSubview(self.popUpMessageLabel)
+                        
+                        self.popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
+                        NSLayoutConstraint.activate([
+                            self.popUpMessageLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+                            self.popUpMessageLabel.widthAnchor.constraint(equalToConstant: 300),
+                            self.popUpMessageLabel.bottomAnchor.constraint(equalTo: barChart.topAnchor, constant: 0)
+                        ])
+                        self.activityIndicator.stopAnimating()
+                    }
                 }
             }
         }

@@ -19,7 +19,7 @@ class CardLessonVC: UIViewController {
     @IBOutlet weak var pauseButton: UIButton!
     @IBOutlet weak var playButon: UIButton!
     @IBOutlet weak var textBackField: UITextView!
-    @IBOutlet weak var textMessage: UILabel!
+    @IBOutlet weak var backCardView: UIView!
     
     @IBOutlet weak var againButton: UIButton!
     @IBOutlet weak var completeButton: UIButton!
@@ -47,6 +47,22 @@ class CardLessonVC: UIViewController {
     var cardLesson = [CardData]()
     var temporaryCardLesson = [CardData]()
     var cardIndex = 0
+    
+    let popUpMessageLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Listen and answer the question \n→ You made it ↓ \nPress Done \n\n→ You failed ↓ \nDouble tap to Show sample ↓ \nRead it out loud ↓ \nPress Again ↓\n↺ Repeat until the lesson Congrats you."
+        label.textColor = UIColor.systemGray
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.layer.masksToBounds = true
+        return label
+    }()
+    
+    let popUpImage: UIImageView = {
+        let image = UIImageView(image: UIImage(named: "tap"))
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
     
     // Audio
     var avPlayer: AVPlayer?
@@ -132,10 +148,7 @@ class CardLessonVC: UIViewController {
         overrideUserInterfaceStyle = .light
         
         textFrontLabel.isHidden = true
-        audioBackButton.isHidden = true
-        audioSlider.isHidden = true
-        textBackField.isHidden = true
-        textMessage.isHidden = false
+        backCardView.isHidden = true
         textBackField.isScrollEnabled = true
         
         showHideButton.layer.cornerRadius = 15
@@ -145,7 +158,7 @@ class CardLessonVC: UIViewController {
         // Animation
         constraintFrontCardBackCard.priority = UILayoutPriority.defaultLow
         constraintFrontCardViewBottom.priority = UILayoutPriority.defaultHigh
-        constraintFrontCardViewTop.constant = 200
+        constraintFrontCardViewTop.constant = 150
         constraintFrontCardViewBottom.constant = 400
         
         showHideButton.setTitle("Show Sample", for: .normal)
@@ -170,8 +183,35 @@ class CardLessonVC: UIViewController {
         // Slider
         audioSlider.addTarget(self, action: #selector(handleSliderChange), for: .valueChanged)
         Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(updateSlider), userInfo: nil, repeats: true)
+        
+        view.addSubview(popUpMessageLabel)
+        popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            popUpMessageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            popUpMessageLabel.topAnchor.constraint(equalTo: showHideButton.bottomAnchor, constant: 60),
+            popUpMessageLabel.widthAnchor.constraint(equalToConstant: 300)
+        ])
+        
+        view.addSubview(popUpImage)
+        NSLayoutConstraint.activate([
+            popUpImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            popUpImage.topAnchor.constraint(equalTo: popUpMessageLabel.bottomAnchor, constant: 50),
+            popUpImage.widthAnchor.constraint(equalToConstant: 80),
+            popUpImage.heightAnchor.constraint(equalToConstant: 80)
+        ])
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(CardLessonVC.tapFunction))
+        popUpMessageLabel.isUserInteractionEnabled = true
+        popUpMessageLabel.addGestureRecognizer(tap)
+        popUpImage.isUserInteractionEnabled = true
+        popUpImage.addGestureRecognizer(tap)
+        
 
     }
+    
+    @objc func tapFunction(sender:UITapGestureRecognizer) {
+        showHideButton.sendActions(for: .touchUpInside)
+        }
     
     func resetCardLesson() {
         cardLesson = temporaryCardLesson
@@ -265,14 +305,13 @@ class CardLessonVC: UIViewController {
     //MARK: - Lesson Section
     
     @IBAction func showHideButtonPressed(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
         if sender.isSelected {
             showHideButton.setTitle("Hide Sample", for: .normal)
             
-            audioSlider.isHidden = false
-            audioBackButton.isHidden = false
-            textBackField.isHidden = false
-            textMessage.isHidden = true
+            backCardView.isHidden = false
+            audioFrontButton.isHidden = true
+            popUpMessageLabel.isHidden = true
+            popUpImage.isHidden = true
             
             constraintFrontCardBackCard.priority = UILayoutPriority.defaultHigh
             constraintFrontCardViewBottom.priority =
@@ -282,20 +321,27 @@ class CardLessonVC: UIViewController {
         } else {
             showHideButton.setTitle("Show Sample", for: .normal)
             
-            audioBackButton.isHidden = true
-            textBackField.isHidden = true
-            textMessage.isHidden = false
+            backCardView.isHidden = true
+            audioFrontButton.isHidden = false
+            popUpMessageLabel.isHidden = false
+            popUpImage.isHidden = false
             
             constraintFrontCardBackCard.priority = UILayoutPriority.defaultLow
             constraintFrontCardViewBottom.priority = UILayoutPriority.defaultHigh
-            constraintFrontCardViewTop.constant = 200
+            constraintFrontCardViewTop.constant = 150
         }
+        sender.isSelected = !sender.isSelected
     }
+    
     @IBAction func againButtonPressed(_ sender: UIButton) {
         avPlayer?.replaceCurrentItem(with: nil)
         deleteRecordedAudio()
         recordingTimeLabel.text = ""
         againButtonPressedLog += 1
+        audioBackButton.isHidden = false
+        audioFrontButton.isHidden = false
+        popUpMessageLabel.isHidden = false
+        popUpImage.isHidden = false
         
         // Write log again button
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
@@ -326,6 +372,10 @@ class CardLessonVC: UIViewController {
         deleteRecordedAudio()
         recordingTimeLabel.text = ""
         completeButtonPressedLog += 1
+        audioBackButton.isHidden = false
+        audioFrontButton.isHidden = false
+        popUpMessageLabel.isHidden = false
+        popUpImage.isHidden = false
         
         // Write log complete button
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {

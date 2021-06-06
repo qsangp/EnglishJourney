@@ -110,7 +110,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VHV-Na-22h">
                                         <rect key="frame" x="0.0" y="120" width="294" height="50"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Log out"/>
                                         <connections>
                                             <action selector="backToLessonButtonPressed:" destination="pKq-Mx-dBh" eventType="touchUpInside" id="8dk-1A-8Hg"/>
@@ -308,21 +308,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6OF-nT-YfD" userLabel="Back Card View">
-                                <rect key="frame" x="0.0" y="189.66666666666666" width="414" height="426.33333333333337"/>
+                                <rect key="frame" x="0.0" y="186.66666666666666" width="414" height="429.33333333333337"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Text" translatesAutoresizingMaskIntoConstraints="NO" id="jKs-Ec-LPP">
-                                        <rect key="frame" x="20" y="40" width="374" height="386.33333333333331"/>
+                                        <rect key="frame" x="20" y="40" width="374" height="389.33333333333331"/>
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y14-iZ-9Lx">
-                                        <rect key="frame" x="40.666666666666657" y="162.33333333333334" width="332.66666666666674" height="101.66666666666666"/>
-                                        <string key="text">Try to answer the question 1. If you succeed -&gt; press Done 2. If you failed -&gt; show Sample -&gt; Read out loud -&gt; press Again Repeat until the lesson Congrats you.</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="k3U-SW-qKe">
                                         <rect key="frame" x="50" y="5" width="314" height="30"/>
                                         <subviews>
@@ -330,7 +323,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="30"/>
                                                 <state key="normal">
                                                     <imageReference key="image" image="play.fill" catalog="system" symbolScale="large" renderingMode="original"/>
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="playPressed:" destination="pKq-Mx-dBh" eventType="touchUpInside" id="tGR-8E-IiR"/>
@@ -343,8 +336,8 @@
                                                     <constraint firstAttribute="height" constant="30" id="tah-VQ-4CA"/>
                                                 </constraints>
                                                 <state key="normal">
-                                                    <imageReference key="image" image="play.fill" catalog="system" symbolScale="large" renderingMode="original"/>
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
+                                                    <imageReference key="image" image="play" catalog="system" symbolScale="large" renderingMode="original"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="audioBackPressed:" destination="pKq-Mx-dBh" eventType="touchUpInside" id="otb-D8-hzz"/>
@@ -354,7 +347,7 @@
                                                 <rect key="frame" x="54" y="0.0" width="0.0" height="30"/>
                                                 <state key="normal">
                                                     <imageReference key="image" image="pause.fill" catalog="system" renderingMode="original"/>
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="pausePressed:" destination="pKq-Mx-dBh" eventType="touchUpInside" id="6Y1-Hb-xis"/>
@@ -365,6 +358,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="p1D-g1-mlE"/>
                                                 </constraints>
+                                                <color key="minimumTrackTintColor" red="1" green="0.65098039220000004" blue="0.0" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <action selector="audioSlider:" destination="pKq-Mx-dBh" eventType="valueChanged" id="X9r-Et-qg5"/>
                                                 </connections>
@@ -377,14 +371,10 @@
                                     <constraint firstAttribute="trailing" secondItem="k3U-SW-qKe" secondAttribute="trailing" constant="50" id="MZ1-4c-mjb"/>
                                     <constraint firstItem="jKs-Ec-LPP" firstAttribute="top" secondItem="k3U-SW-qKe" secondAttribute="bottom" constant="5" id="SJx-oA-Hmu"/>
                                     <constraint firstItem="k3U-SW-qKe" firstAttribute="leading" secondItem="6OF-nT-YfD" secondAttribute="leading" constant="50" id="VZE-kf-Lrf"/>
-                                    <constraint firstItem="y14-iZ-9Lx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6OF-nT-YfD" secondAttribute="leading" id="dMk-XY-SMb"/>
-                                    <constraint firstItem="y14-iZ-9Lx" firstAttribute="centerX" secondItem="6OF-nT-YfD" secondAttribute="centerX" id="inR-kf-l9n"/>
                                     <constraint firstItem="jKs-Ec-LPP" firstAttribute="leading" secondItem="6OF-nT-YfD" secondAttribute="leading" constant="20" id="m8e-bu-tt6"/>
-                                    <constraint firstItem="y14-iZ-9Lx" firstAttribute="centerY" secondItem="6OF-nT-YfD" secondAttribute="centerY" id="n0a-JT-DDf"/>
                                     <constraint firstAttribute="trailing" secondItem="jKs-Ec-LPP" secondAttribute="trailing" constant="20" id="ovI-Pj-cIZ"/>
                                     <constraint firstAttribute="bottom" secondItem="jKs-Ec-LPP" secondAttribute="bottom" id="p6q-7d-ecg"/>
                                     <constraint firstItem="k3U-SW-qKe" firstAttribute="top" secondItem="6OF-nT-YfD" secondAttribute="top" constant="5" id="pfq-Rr-WSF"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="y14-iZ-9Lx" secondAttribute="trailing" constant="30" id="w9Q-eI-r4L"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="1fw-0x-SSx">
@@ -456,7 +446,7 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5Gd-vv-9eS">
-                                <rect key="frame" x="20" y="50" width="374" height="129.66666666666666"/>
+                                <rect key="frame" x="20" y="50.000000000000007" width="374" height="126.66666666666669"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fC9-vs-DRx">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="25.333333333333332"/>
@@ -465,24 +455,23 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBV-rK-nRK">
-                                        <rect key="frame" x="0.0" y="35.333333333333329" width="374" height="34.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="35.333333333333329" width="374" height="31.333333333333329"/>
                                         <state key="normal">
                                             <color key="titleColor" name="AccentColor"/>
                                             <imageReference key="image" image="speaker.wave.3.fill" catalog="system" symbolScale="large" renderingMode="original"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="18"/>
                                         </state>
                                         <connections>
                                             <action selector="audioFrontPressed:" destination="pKq-Mx-dBh" eventType="touchUpInside" id="hky-Je-XnS"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4t2-Ec-YIX">
-                                        <rect key="frame" x="0.0" y="79.666666666666657" width="374" height="50"/>
-                                        <color key="backgroundColor" red="0.97254901960784312" green="0.67843137254901964" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4t2-Ec-YIX">
+                                        <rect key="frame" x="0.0" y="76.666666666666671" width="374" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="dyZ-DZ-3zB"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                        <color key="tintColor" red="0.97254901959999995" green="0.67843137249999996" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" red="0.73725490199999999" green="0.31372549020000001" blue="0.56470588239999997" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Show/ hide sample">
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -497,13 +486,15 @@
                                     <constraint firstItem="4t2-Ec-YIX" firstAttribute="centerX" secondItem="5Gd-vv-9eS" secondAttribute="centerX" id="kej-HK-az6"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Doc-g7-28r">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Doc-g7-28r">
                                 <rect key="frame" x="30" y="686" width="354" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="a0f-kR-dQZ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Back to lessons"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <imageReference key="image" image="house.fill" catalog="system" symbolScale="large" renderingMode="original"/>
+                                </state>
                                 <connections>
                                     <action selector="backToLessonButtonPressed:" destination="pKq-Mx-dBh" eventType="touchUpInside" id="bak-pt-yDh"/>
                                 </connections>
@@ -543,6 +534,7 @@
                         <outlet property="audioBackButton" destination="rD9-i8-pwH" id="2nC-Sl-Ubc"/>
                         <outlet property="audioFrontButton" destination="jBV-rK-nRK" id="SP6-4r-VXO"/>
                         <outlet property="audioSlider" destination="GlN-WJ-gzg" id="sTD-71-Sqq"/>
+                        <outlet property="backCardView" destination="6OF-nT-YfD" id="lw8-Jv-Efk"/>
                         <outlet property="backToLessonButton" destination="Doc-g7-28r" id="Bkj-2g-i6Q"/>
                         <outlet property="completeButton" destination="WWy-NM-4b9" id="ofH-tH-a25"/>
                         <outlet property="constraintFrontCardBackCard" destination="ShW-IO-xqi" id="74t-uf-NB7"/>
@@ -557,7 +549,6 @@
                         <outlet property="showHideButton" destination="4t2-Ec-YIX" id="2h3-g8-Ddl"/>
                         <outlet property="textBackField" destination="jKs-Ec-LPP" id="7Hi-Du-PWe"/>
                         <outlet property="textFrontLabel" destination="fC9-vs-DRx" id="qkt-QJ-pqp"/>
-                        <outlet property="textMessage" destination="y14-iZ-9Lx" id="uET-6E-NxJ"/>
                         <segue destination="6J7-kA-Qf7" kind="show" identifier="GoToComplete" id="uRE-hF-gM6"/>
                     </connections>
                 </viewController>
@@ -959,7 +950,9 @@ You have completed this lesson.</string>
         <image name="congrats" width="512" height="512"/>
         <image name="cross-mark" width="512" height="512"/>
         <image name="google.png" width="18" height="18"/>
+        <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="pause.fill" catalog="system" width="116" height="128"/>
+        <image name="play" catalog="system" width="120" height="128"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="profile male" width="512" height="512"/>
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
