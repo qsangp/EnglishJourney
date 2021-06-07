@@ -413,6 +413,7 @@ class CardLessonVC: UIViewController {
     }
     
     @IBAction func backToLessonButtonPressed(_ sender: UIButton) {
+        avPlayer?.replaceCurrentItem(with: nil)
         cardLesson = [CardData]()
         deleteRecordedAudio()
         dismiss(animated: true, completion: nil)

@@ -264,7 +264,6 @@ class CardViewModel {
             if error == nil {
                 do {
                     let decodedData = try JSONDecoder().decode(FlashCard.self, from: data!)
-                    self.flashcard.removeAll()
                     for card in decodedData.result {
                         if card.parentId == parentId {
                             self.flashcard.append(CardModel(title: card.title, numOfLesson: card.numOfLession, id: card.id))
@@ -287,12 +286,13 @@ class CardViewModel {
         
     }
     
-    func fetchFlashCardsData(id: Int, completion: @escaping (Swift.Error?) -> ()) {
+    func fetchFlashCardsData(cateId: Int, userId: Int, completion: @escaping (Swift.Error?) -> ()) {
         
         let urlStringData = "https://app.ielts-vuive.com/api/services/app/flashCardLessionService/GetAllLessionsByCateId?id="
         
-        let stringID = String(id)
-        let newUrl = "\(urlStringData)\(stringID)"
+        let stringId = String(cateId)
+        let userId = String(userId)
+        let newUrl = "\(urlStringData)\(stringId)&userId=\(userId)"
         let urlStringDataID = URL(string: newUrl)
         
         var request = URLRequest(url: urlStringDataID!)
@@ -414,6 +414,5 @@ class CardViewModel {
             task.resume()
         }
     }
-    
 }
 

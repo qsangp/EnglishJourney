@@ -43,6 +43,7 @@
                         </constraints>
                     </stackView>
                 </subviews>
+                <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="0w6-CV-0Y9" secondAttribute="trailing" constant="20" id="Lf1-mV-j62"/>
                     <constraint firstItem="0w6-CV-0Y9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="WIf-tn-Yfp"/>

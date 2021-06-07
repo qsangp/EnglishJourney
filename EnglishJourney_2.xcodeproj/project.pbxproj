@@ -27,7 +27,6 @@
 		FA6E2DD6266C8D130072023A /* Expandable Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E2DD5266C8D130072023A /* Expandable Sections.swift */; };
 		FA6E2DDB266CA60D0072023A /* RandomQuestionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E2DD9266CA60D0072023A /* RandomQuestionViewCell.swift */; };
 		FA6E2DDC266CA60D0072023A /* RandomQuestionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6E2DDA266CA60D0072023A /* RandomQuestionViewCell.xib */; };
-		FA6E2DDE266CCD5B0072023A /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E2DDD266CCD5B0072023A /* MenuVC.swift */; };
 		FA6E2DE0266CDD600072023A /* ScheduleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E2DDF266CDD600072023A /* ScheduleVC.swift */; };
 		FA79E23F265F5D3300483E51 /* LessonCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */; };
 		FA79E2542661319500483E51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA79E2532661319500483E51 /* Assets.xcassets */; };
@@ -67,7 +66,6 @@
 		FA6E2DD5266C8D130072023A /* Expandable Sections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expandable Sections.swift"; sourceTree = "<group>"; };
 		FA6E2DD9266CA60D0072023A /* RandomQuestionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomQuestionViewCell.swift; sourceTree = "<group>"; };
 		FA6E2DDA266CA60D0072023A /* RandomQuestionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RandomQuestionViewCell.xib; sourceTree = "<group>"; };
-		FA6E2DDD266CCD5B0072023A /* MenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
 		FA6E2DDF266CDD600072023A /* ScheduleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleVC.swift; sourceTree = "<group>"; };
 		FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCompleteVC.swift; sourceTree = "<group>"; };
 		FA79E2532661319500483E51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -162,7 +160,6 @@
 				FA11EE202662479D00B61171 /* UserProfileVC.swift */,
 				FA920E1A2668843100706A13 /* ChartVC.swift */,
 				FA6E2DDF266CDD600072023A /* ScheduleVC.swift */,
-				FA6E2DDD266CCD5B0072023A /* MenuVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -363,7 +360,6 @@
 				FAB5EB57265CD38500A83569 /* CustomTabBar.swift in Sources */,
 				FAB5EB04265C267800A83569 /* AppDelegate.swift in Sources */,
 				FA36602D266399EF00A69B37 /* StringExtension.swift in Sources */,
-				FA6E2DDE266CCD5B0072023A /* MenuVC.swift in Sources */,
 				FA0E43CC26671F9100178A10 /* BaseTabBarController.swift in Sources */,
 				FA6E2DCE266A59300072023A /* UserDefault.swift in Sources */,
 				FA11EE1C26618F4D00B61171 /* LogInVC.swift in Sources */,

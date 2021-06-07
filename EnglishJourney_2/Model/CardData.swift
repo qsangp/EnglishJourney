@@ -34,6 +34,14 @@ struct Data: Codable {
     let id: Int
 }
 
+struct CardCompletion: Codable {
+    let result: Complete
+}
+
+struct Complete: Codable {
+    let learned: Int
+}
+
 struct LogButton: Codable {
     let result: Bool
     let success: Bool
