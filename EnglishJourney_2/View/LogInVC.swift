@@ -181,7 +181,6 @@ class LogInVC: UIViewController {
             Alert.showBasic(title: "Password Too Short", message: "Password should be at least 6 characters", vc: self)
         } catch {
             Alert.showBasic(title: "Unable To Login", message: "Something went wrong. Please try again later...", vc: self)
-            cardViewModel.errorMessage = ""
             
         }
         

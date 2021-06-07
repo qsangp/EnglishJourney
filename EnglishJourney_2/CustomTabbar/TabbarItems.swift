@@ -9,12 +9,15 @@ import UIKit
 
 enum TabItem: String, CaseIterable {
     case lesson = "lesson"
+    case schedule = "schedule"
     case chart = "chart"
 
     var viewController: UIViewController {
         switch self {
         case .lesson:
             return ViewController()
+        case .schedule:
+            return ScheduleVC()
         case .chart:
             return ChartVC()
         }
@@ -23,7 +26,9 @@ enum TabItem: String, CaseIterable {
     var icon: UIImage {
         switch self {
         case .lesson:
-            return UIImage(named: "tabBarIcon1Colored")!
+            return UIImage(named: "tabbarIcon1Colored")!
+        case .schedule:
+            return UIImage(named: "tabbarIcon3Colored")!
         case .chart:
             return UIImage(named: "tabBarIcon2Colored")!
         }

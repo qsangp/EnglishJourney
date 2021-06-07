@@ -18,7 +18,7 @@ class BaseTabBarController: UITabBarController {
     }
     
     func loadTabBar() {
-        let tabbarItems: [TabItem] = [.lesson, .chart]
+        let tabbarItems: [TabItem] = [.lesson, .schedule, .chart]
 
                 setupCustomTabMenu(tabbarItems, completion: { viewControllers in
                     self.viewControllers = viewControllers

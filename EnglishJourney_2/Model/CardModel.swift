@@ -7,6 +7,12 @@
 
 import Foundation
 
+struct CardCategory {
+    let title: String
+    let numOfLesson: Int
+    let id: Int
+}
+
 struct CardModel {
     let title: String
     let numOfLesson: Int

@@ -8,22 +8,19 @@
 import UIKit
 import NVActivityIndicatorView
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
     @IBOutlet weak var hiUser: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var greetView: UIView!
-    @IBOutlet weak var greetMessage: UILabel!
-    @IBOutlet weak var greetButton: UIButton!
     @IBOutlet weak var profileButton: UIButton!
-    @IBOutlet weak var constraintTableViewToTopView: NSLayoutConstraint!
-    @IBOutlet weak var constraintTableViewToGreetView: NSLayoutConstraint!
-    @IBOutlet weak var randomButton: UIButton!
     
     // Data
     var cardViewModel: CardViewModel!
     var flashCard: [CardModel]!
     var flashCardData = [[CardData]]()
+    
+    var cardParentId = 186
+    var menuTitle = "Lesson"
     
     // Animation
     let activityIndicator: NVActivityIndicatorView = {
@@ -39,26 +36,41 @@ class ViewController: UIViewController {
         
         setUpAnimation()
         initTableView()
-        updataUI()
+        checkCurrentParentId()
+        updateUI()
     }
     
-    func updataUI() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkCurrentParentId()
+        updateUI()
+        print("will appear get call")
+    }
+    
+    func checkCurrentParentId() {
+        let currentParentId = UserDefaults.standard.integer(forKey: "cardParentId")
+        let currentMenuTitle = UserDefaults.standard.string(forKey: "cardMenuTitle")
+        if currentParentId != 0 {
+            cardParentId = currentParentId
+            menuTitle = currentMenuTitle ?? "Speaking Task 1"
+            print("currenId \(currentParentId)")
+        }
+    }
+    
+    func updateUI() {
+        self.tableView.isUserInteractionEnabled = false
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        
-        greetView.layer.cornerRadius = 20
-        greetMessage.text = "What do we learn today?"
-        greetButton.layer.cornerRadius = 10
-        randomButton.isEnabled = false
-        
+        self.activityIndicator.startAnimating()
+                
         cardViewModel = CardViewModel()
-        cardViewModel.fetchFlashCards { error in
+        cardViewModel.fetchFlashCardsByParentId(parentId: cardParentId) { error in
             if error != nil {
                 Alert.showBasic(title: "Unable To Fetch Flashcard", message: "Something went wrong. Please try again later...", vc: self)
                 self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
             } else {
-                self.flashCard = self.cardViewModel.flashcard
                 self.tableView.reloadData()
-                self.randomButton.isEnabled = true
+                self.tableView.isUserInteractionEnabled = true
+                self.activityIndicator.stopAnimating()
             }
         }
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
@@ -88,13 +100,9 @@ class ViewController: UIViewController {
         activityIndicator.stopAnimating()
     }
     
-    override func viewWillAppear(_ animated: Bool){
-        tableView.reloadData()
-    }
-    
-    /// Init table view
-    private func initTableView() {
+    func initTableView() {
         tableView.register(UINib(nibName: "MyTableViewCell", bundle: nil), forCellReuseIdentifier: "MyTableViewCell")
+        tableView.register(UINib(nibName: "RandomQuestionViewCell", bundle: nil), forCellReuseIdentifier: "RandomQuestionViewCell")
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -103,16 +111,10 @@ class ViewController: UIViewController {
         self.performSegue(withIdentifier: "GoToProfile", sender: self)
     }
     
-    @IBAction func hideGreetView(_ sender: UIButton) {
-        greetView.isHidden = true
-        constraintTableViewToTopView.priority = UILayoutPriority.defaultHigh
-        constraintTableViewToGreetView.priority = UILayoutPriority.defaultLow
-    }
-    
-    @IBAction func randomLessonPressed(_ sender: UIButton) {
+    func randomLessonPressed() {
         activityIndicator.startAnimating()
         
-        let id = flashCard[Int.random(in: 0..<flashCard.count)].id
+        let id = cardViewModel.flashcard[Int.random(in: 1..<cardViewModel.flashcard.count)].id
         self.cardViewModel.flashcardData = [CardData]()
         self.cardViewModel.fetchFlashCardsData(id: id) { error in
             if error != nil {
@@ -132,29 +134,74 @@ class ViewController: UIViewController {
     
 }
 
-
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cardViewModel.flashcard.count
+        return cardViewModel.flashcard.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let card = cardViewModel.flashcard[indexPath.row]
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyTableViewCell") as! MyTableViewCell
-        
-        cell.titleLabel.text = card.title
-        cell.numberLabel.text = "Number of Lesson: \(card.numOfLesson)"
-        
-        return cell
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "RandomQuestionViewCell") as! RandomQuestionViewCell
+            cell.selectionStyle = .none
+            return cell
+            
+        } else {
+            let card = cardViewModel.flashcard[indexPath.row - 1]
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MyTableViewCell") as! MyTableViewCell
+            cell.selectionStyle = .none
+            cell.titleLabel.text = card.title
+            cell.numberLabel.text = "Number of Lesson: \(card.numOfLesson)"
+            
+            return cell
+        }
     }
     
+    // Chiều cao Header của tableview
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 34
+    }
+    
+    // Menu chọn lessons
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let menuButton: UIButton = {
+            let button = UIButton()
+            button.setTitleColor(UIColor.systemGray, for: .normal)
+            button.setTitle("\(menuTitle) ↓", for: .normal)
+            return button
+        }()
+        menuButton.addTarget(self, action: #selector(didTapMenuButton), for: .touchUpInside)
+        
+        return menuButton
+    }
+    
+    @objc func didTapMenuButton() {
+        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "GoToMenu") as! MenuVC
+
+        let navigationController: UINavigationController = UINavigationController(rootViewController: viewController)
+
+        navigationController.modalPresentationStyle = .fullScreen
+
+        present(navigationController, animated: true, completion: nil)
+        
+    }
+    
+    // Push màn hình theo size custom
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+            return HalfSizePresentationController(presentedViewController: presented, presenting: presentingViewController)
+        }
+    
+    // Chiều cao của row
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        if indexPath.row == 0 {
+            return 200
+        } else {
+            return 120
+        }
     }
     
+    // Kiểm tra data đã tải xong chưa
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let lastVisibleIndexPath = tableView.indexPathsForVisibleRows?.last {
             if indexPath == lastVisibleIndexPath {
@@ -163,29 +210,41 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    // Bấm chọn lesson trong row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        activityIndicator.startAnimating()
-        let selectedID = cardViewModel.flashcard[indexPath.row].id
-        self.cardViewModel.flashcardData = [CardData]()
-        self.cardViewModel.fetchFlashCardsData(id: selectedID) { error in
-            print(indexPath.row)
-            print(selectedID)
-            if error != nil {
-                Alert.showBasic(title: "Unable To Fetch Flashcard", message: "Something went wrong. Please try again later...", vc: self)
-                self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-                
-            } else {
-                let vc = self.storyboard?.instantiateViewController(identifier: "CardLesson") as! CardLessonVC
-                vc.cardLesson = self.cardViewModel.flashcardData
-                vc.temporaryCardLesson = self.cardViewModel.flashcardData
-                self.present(vc, animated: true)
-                self.activityIndicator.stopAnimating()
-            }
-            
-        }
         
+        if indexPath.row == 0 {
+            randomLessonPressed()
+            
+        } else {
+            activityIndicator.startAnimating()
+            let selectedID = cardViewModel.flashcard[indexPath.row - 1].id
+            self.cardViewModel.flashcardData = [CardData]()
+            self.cardViewModel.fetchFlashCardsData(id: selectedID) { error in
+                print(indexPath.row)
+                print(selectedID)
+                if error != nil {
+                    Alert.showBasic(title: "Unable To Fetch Flashcard", message: "Something went wrong. Please try again later...", vc: self)
+                    self.activityIndicator.stopAnimating()
+                    
+                } else {
+                    let vc = self.storyboard?.instantiateViewController(identifier: "CardLesson") as! CardLessonVC
+                    vc.cardLesson = self.cardViewModel.flashcardData
+                    vc.temporaryCardLesson = self.cardViewModel.flashcardData
+                    self.activityIndicator.stopAnimating()
+                    self.present(vc, animated: true)
+                }
+            }
+        }
     }
     
+}
+
+class HalfSizePresentationController: UIPresentationController {
+    override var frameOfPresentedViewInContainerView: CGRect {
+        guard let bounds = containerView?.bounds else { return .zero }
+        return CGRect(x: 0, y: bounds.height / 3, width: bounds.width, height: bounds.height)
+    }
 }
 
 

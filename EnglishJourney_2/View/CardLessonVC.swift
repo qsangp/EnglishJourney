@@ -205,7 +205,6 @@ class CardLessonVC: UIViewController {
         popUpMessageLabel.addGestureRecognizer(tap)
         popUpImage.isUserInteractionEnabled = true
         popUpImage.addGestureRecognizer(tap)
-        
 
     }
     

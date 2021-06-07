@@ -8,12 +8,12 @@
 import Foundation
 
 class CardViewModel {
+    var cardCategory = [CardCategory]()
     var flashcard = [CardModel]()
     var flashcardData = [CardData]()
     
+
     var userData: UserData?
-    var userDataFacebook: UserDataFacebook?
-    var errorMessage: String?
     
     //MARK: -User
     func createUser(name: String, surname: String, username: String, email: String, password: String, completion: @escaping (String?) -> ()) {
@@ -200,7 +200,7 @@ class CardViewModel {
         task.resume()
     }
     
-    //MARK: -Flash Card
+//MARK: -Tải Categories của flashcard
     
     func fetchFlashCards(completion: @escaping (Swift.Error?) -> ()) {
         
@@ -222,7 +222,51 @@ class CardViewModel {
                 do {
                     let decodedData = try JSONDecoder().decode(FlashCard.self, from: data!)
                     for card in decodedData.result {
-                        if card.parentId == 186 {
+                        if card.parentId == nil {
+                            self.cardCategory.append(CardCategory(title: card.title, numOfLesson: card.numOfLession, id: card.id))
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
+                }
+                catch {
+                    print("Fetch FlashCards Failed \(error.localizedDescription)")
+                    DispatchQueue.main.async {
+                        completion(error)
+                    }
+                }
+            }
+            
+        }
+        task.resume()
+        
+    }
+    
+//MARK: - Tải flashcard theo ParentId
+    
+    func fetchFlashCardsByParentId(parentId: Int, completion: @escaping (Swift.Error?) -> ()) {
+        
+        let urlString = URL(string:"https://app.ielts-vuive.com/api/services/app/flashCardCategorieService/GetAllCategories")
+        
+        var request = URLRequest(url: urlString!)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 30.0
+        sessionConfig.timeoutIntervalForResource = 60.0
+        let session = URLSession(configuration: sessionConfig)
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            
+            if error == nil {
+                do {
+                    let decodedData = try JSONDecoder().decode(FlashCard.self, from: data!)
+                    self.flashcard.removeAll()
+                    for card in decodedData.result {
+                        if card.parentId == parentId {
                             self.flashcard.append(CardModel(title: card.title, numOfLesson: card.numOfLession, id: card.id))
                         }
                     }
