@@ -16,13 +16,13 @@ class UserProfileVC: UIViewController {
     @IBOutlet weak var versionLabel: UILabel!
     @IBOutlet weak var supportButton: UIButton!
     @IBOutlet weak var termsOfUseButton: UIButton!
-
+    
     var cardViewModel: CardViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
-
+        
         updateUI()
     }
     
@@ -31,13 +31,18 @@ class UserProfileVC: UIViewController {
         supportButton.layer.cornerRadius = 20
         termsOfUseButton.layer.cornerRadius = 20
         
+        let userImageURL = UserDefaults.standard.url(forKey: "userImageURL")
+        if let url = userImageURL {
+            self.userProfileImage.downloaded(from: url)
+        }
+        
         cardViewModel = CardViewModel()
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-            cardViewModel.checkToken(token: accessToken) { userData in
+            cardViewModel.checkToken(token: accessToken) { (userData, tokenError) in
                 if let userData = userData {
                     self.userProfileInfo.text = """
                         Username: \(userData.userNameOrEmail)
-
+                        
                         Email: \(userData.userEmail)
                         """
                 }
@@ -50,18 +55,19 @@ class UserProfileVC: UIViewController {
     }
     
     @IBAction func supportButtonPressed() {
+        guard let url = URL(string: "https://www.facebook.com/ieltsvuive/") else { return }
+        UIApplication.shared.open(url)
     }
     
     @IBAction func termsOfUseButtonPressed() {
     }
     
     @IBAction func logOutButtonPressed() {
-        UserDefaults.standard.removeObject(forKey: "accessToken")
-        LoginManager().logOut()
+        resetDefaults()
         GIDSignIn.sharedInstance().signOut()
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-
+        
     }
-
-
+    
+    
 }

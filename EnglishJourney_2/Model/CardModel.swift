@@ -7,6 +7,12 @@
 
 import Foundation
 
+struct CardCategory {
+    let title: String
+    let numOfLesson: Int
+    let id: Int
+}
+
 struct CardModel {
     let title: String
     let numOfLesson: Int
@@ -25,6 +31,16 @@ struct CardData {
 struct ChartData {
     let againButtonPressedLog: Int
     let completeButtonPressedLog: Int
+}
+
+struct ButtonDataSet {
+    let againDataHits: [Int]
+    let completeDataHits: [Int]
+}
+
+struct CompleteButtonDataSet {
+    let labelDataSet: String
+    let dataHits: [Int]
 }
 
 struct UserData {

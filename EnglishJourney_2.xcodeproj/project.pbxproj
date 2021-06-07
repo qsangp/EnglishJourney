@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		A50798A75793EBB19102085C /* libPods-EnglishJourney_2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2087F6326229809F9941F32 /* libPods-EnglishJourney_2.a */; };
 		FA065EB22664163E00579460 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA065EB12664163E00579460 /* GoogleService-Info.plist */; };
+		FA0E43C12666813000178A10 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = FA0E43C02666813000178A10 /* FacebookLogin */; };
+		FA0E43C326670BA200178A10 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0E43C226670BA200178A10 /* TabBarVC.swift */; };
+		FA0E43C626671BAC00178A10 /* TabbarItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0E43C526671BAC00178A10 /* TabbarItems.swift */; };
+		FA0E43CC26671F9100178A10 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0E43CB26671F9100178A10 /* BaseTabBarController.swift */; };
+		FA0E43CE266720BD00178A10 /* CustomTabbarUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0E43CD266720BD00178A10 /* CustomTabbarUIView.swift */; };
 		FA11EE1C26618F4D00B61171 /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA11EE1B26618F4D00B61171 /* LogInVC.swift */; };
 		FA11EE212662479D00B61171 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA11EE202662479D00B61171 /* UserProfileVC.swift */; };
 		FA28022B265E3CEF00BE51E3 /* CardLessonVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */; };
@@ -16,8 +21,16 @@
 		FA36602D266399EF00A69B37 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA36602C266399EF00A69B37 /* StringExtension.swift */; };
 		FA3660302663A20B00A69B37 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA36602F2663A20B00A69B37 /* Alert.swift */; };
 		FA3660332663B1BD00A69B37 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3660322663B1BD00A69B37 /* UIButton.swift */; };
+		FA6E2DCE266A59300072023A /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E2DCD266A59300072023A /* UserDefault.swift */; };
+		FA6E2DD2266A70CC0072023A /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E2DD1266A70CC0072023A /* UIImageView.swift */; };
+		FA6E2DD4266B2A9F0072023A /* AVRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E2DD3266B2A9F0072023A /* AVRecorder.swift */; };
+		FA6E2DD6266C8D130072023A /* Expandable Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E2DD5266C8D130072023A /* Expandable Sections.swift */; };
+		FA6E2DDB266CA60D0072023A /* RandomQuestionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E2DD9266CA60D0072023A /* RandomQuestionViewCell.swift */; };
+		FA6E2DDC266CA60D0072023A /* RandomQuestionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6E2DDA266CA60D0072023A /* RandomQuestionViewCell.xib */; };
+		FA6E2DE0266CDD600072023A /* ScheduleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E2DDF266CDD600072023A /* ScheduleVC.swift */; };
 		FA79E23F265F5D3300483E51 /* LessonCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */; };
 		FA79E2542661319500483E51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA79E2532661319500483E51 /* Assets.xcassets */; };
+		FA920E1B2668843100706A13 /* ChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA920E1A2668843100706A13 /* ChartVC.swift */; };
 		FAB5EB04265C267800A83569 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB03265C267800A83569 /* AppDelegate.swift */; };
 		FAB5EB06265C267800A83569 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB05265C267800A83569 /* SceneDelegate.swift */; };
 		FAB5EB08265C267800A83569 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB07265C267800A83569 /* ViewController.swift */; };
@@ -29,8 +42,6 @@
 		FAB5EB23265C2BC000A83569 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB21265C2BC000A83569 /* MyTableViewCell.swift */; };
 		FAB5EB24265C2BC000A83569 /* MyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB5EB22265C2BC000A83569 /* MyTableViewCell.xib */; };
 		FAB5EB57265CD38500A83569 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB56265CD38500A83569 /* CustomTabBar.swift */; };
-		FAE78B3D2664DCC600485DA7 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = FAE78B3C2664DCC600485DA7 /* FacebookLogin */; };
-		FAE78B3F2664DCC600485DA7 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = FAE78B3E2664DCC600485DA7 /* FacebookCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +49,10 @@
 		B307A8A525B9322B980EA346 /* Pods-EnglishJourney_2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EnglishJourney_2.release.xcconfig"; path = "Target Support Files/Pods-EnglishJourney_2/Pods-EnglishJourney_2.release.xcconfig"; sourceTree = "<group>"; };
 		E2087F6326229809F9941F32 /* libPods-EnglishJourney_2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EnglishJourney_2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA065EB12664163E00579460 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FA0E43C226670BA200178A10 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
+		FA0E43C526671BAC00178A10 /* TabbarItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarItems.swift; sourceTree = "<group>"; };
+		FA0E43CB26671F9100178A10 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
+		FA0E43CD266720BD00178A10 /* CustomTabbarUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabbarUIView.swift; sourceTree = "<group>"; };
 		FA11EE1B26618F4D00B61171 /* LogInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
 		FA11EE202662479D00B61171 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardLessonVC.swift; sourceTree = "<group>"; };
@@ -45,8 +60,16 @@
 		FA36602C266399EF00A69B37 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		FA36602F2663A20B00A69B37 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		FA3660322663B1BD00A69B37 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
+		FA6E2DCD266A59300072023A /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
+		FA6E2DD1266A70CC0072023A /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
+		FA6E2DD3266B2A9F0072023A /* AVRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVRecorder.swift; sourceTree = "<group>"; };
+		FA6E2DD5266C8D130072023A /* Expandable Sections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expandable Sections.swift"; sourceTree = "<group>"; };
+		FA6E2DD9266CA60D0072023A /* RandomQuestionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomQuestionViewCell.swift; sourceTree = "<group>"; };
+		FA6E2DDA266CA60D0072023A /* RandomQuestionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RandomQuestionViewCell.xib; sourceTree = "<group>"; };
+		FA6E2DDF266CDD600072023A /* ScheduleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleVC.swift; sourceTree = "<group>"; };
 		FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCompleteVC.swift; sourceTree = "<group>"; };
 		FA79E2532661319500483E51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FA920E1A2668843100706A13 /* ChartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartVC.swift; sourceTree = "<group>"; };
 		FAB5EB00265C267800A83569 /* EnglishJourney_2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnglishJourney_2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAB5EB03265C267800A83569 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAB5EB05265C267800A83569 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,8 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAE78B3D2664DCC600485DA7 /* FacebookLogin in Frameworks */,
-				FAE78B3F2664DCC600485DA7 /* FacebookCore in Frameworks */,
+				FA0E43C12666813000178A10 /* FacebookLogin in Frameworks */,
 				A50798A75793EBB19102085C /* libPods-EnglishJourney_2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -93,11 +115,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FA0E43C426671B9200178A10 /* CustomTabbar */ = {
+			isa = PBXGroup;
+			children = (
+				FA0E43C526671BAC00178A10 /* TabbarItems.swift */,
+				FA0E43CB26671F9100178A10 /* BaseTabBarController.swift */,
+				FA0E43CD266720BD00178A10 /* CustomTabbarUIView.swift */,
+			);
+			path = CustomTabbar;
+			sourceTree = "<group>";
+		};
 		FA36602B266399DF00A69B37 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				FA36602C266399EF00A69B37 /* StringExtension.swift */,
 				FA3660322663B1BD00A69B37 /* UIButton.swift */,
+				FA6E2DCD266A59300072023A /* UserDefault.swift */,
+				FA6E2DD1266A70CC0072023A /* UIImageView.swift */,
+				FA6E2DD3266B2A9F0072023A /* AVRecorder.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -107,6 +142,7 @@
 			children = (
 				FAB5EB18265C26C100A83569 /* CardData.swift */,
 				FAB5EB1B265C26EA00A83569 /* CardModel.swift */,
+				FA6E2DD5266C8D130072023A /* Expandable Sections.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -118,9 +154,12 @@
 				FA36602726628E5C00A69B37 /* SignUpVC.swift */,
 				FAB5EB07265C267800A83569 /* ViewController.swift */,
 				FAB5EB56265CD38500A83569 /* CustomTabBar.swift */,
+				FA0E43C226670BA200178A10 /* TabBarVC.swift */,
 				FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */,
 				FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */,
 				FA11EE202662479D00B61171 /* UserProfileVC.swift */,
+				FA920E1A2668843100706A13 /* ChartVC.swift */,
+				FA6E2DDF266CDD600072023A /* ScheduleVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -138,6 +177,8 @@
 			children = (
 				FAB5EB21265C2BC000A83569 /* MyTableViewCell.swift */,
 				FAB5EB22265C2BC000A83569 /* MyTableViewCell.xib */,
+				FA6E2DD9266CA60D0072023A /* RandomQuestionViewCell.swift */,
+				FA6E2DDA266CA60D0072023A /* RandomQuestionViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -163,6 +204,7 @@
 		FAB5EB02265C267800A83569 /* EnglishJourney_2 */ = {
 			isa = PBXGroup;
 			children = (
+				FA0E43C426671B9200178A10 /* CustomTabbar */,
 				FA36602B266399DF00A69B37 /* Extension */,
 				FA79E2452660931100483E51 /* Model */,
 				FA79E2462660931900483E51 /* View */,
@@ -191,7 +233,7 @@
 				FAB5EAFC265C267800A83569 /* Sources */,
 				FAB5EAFD265C267800A83569 /* Frameworks */,
 				FAB5EAFE265C267800A83569 /* Resources */,
-				A042D706B5F0DB5CB08AFC19 /* [CP] Copy Pods Resources */,
+				7F486BE1FAFCB0FD1F26544D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -199,8 +241,7 @@
 			);
 			name = EnglishJourney_2;
 			packageProductDependencies = (
-				FAE78B3C2664DCC600485DA7 /* FacebookLogin */,
-				FAE78B3E2664DCC600485DA7 /* FacebookCore */,
+				FA0E43C02666813000178A10 /* FacebookLogin */,
 			);
 			productName = EnglishJourney_2;
 			productReference = FAB5EB00265C267800A83569 /* EnglishJourney_2.app */;
@@ -230,7 +271,7 @@
 			);
 			mainGroup = FAB5EAF7265C267700A83569;
 			packageReferences = (
-				FAE78B3B2664DCC600485DA7 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+				FA0E43BF2666813000178A10 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			productRefGroup = FAB5EB01265C267800A83569 /* Products */;
 			projectDirPath = "";
@@ -251,6 +292,7 @@
 				FA065EB22664163E00579460 /* GoogleService-Info.plist in Resources */,
 				FA79E2542661319500483E51 /* Assets.xcassets in Resources */,
 				FAB5EB0B265C267800A83569 /* Main.storyboard in Resources */,
+				FA6E2DDC266CA60D0072023A /* RandomQuestionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,7 +321,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A042D706B5F0DB5CB08AFC19 /* [CP] Copy Pods Resources */ = {
+		7F486BE1FAFCB0FD1F26544D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -303,8 +345,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA0E43C626671BAC00178A10 /* TabbarItems.swift in Sources */,
+				FA6E2DE0266CDD600072023A /* ScheduleVC.swift in Sources */,
 				FAB5EB23265C2BC000A83569 /* MyTableViewCell.swift in Sources */,
 				FAB5EB08265C267800A83569 /* ViewController.swift in Sources */,
+				FA6E2DD6266C8D130072023A /* Expandable Sections.swift in Sources */,
+				FA920E1B2668843100706A13 /* ChartVC.swift in Sources */,
 				FAB5EB19265C26C100A83569 /* CardData.swift in Sources */,
 				FA3660332663B1BD00A69B37 /* UIButton.swift in Sources */,
 				FA3660302663A20B00A69B37 /* Alert.swift in Sources */,
@@ -314,11 +360,18 @@
 				FAB5EB57265CD38500A83569 /* CustomTabBar.swift in Sources */,
 				FAB5EB04265C267800A83569 /* AppDelegate.swift in Sources */,
 				FA36602D266399EF00A69B37 /* StringExtension.swift in Sources */,
+				FA0E43CC26671F9100178A10 /* BaseTabBarController.swift in Sources */,
+				FA6E2DCE266A59300072023A /* UserDefault.swift in Sources */,
 				FA11EE1C26618F4D00B61171 /* LogInVC.swift in Sources */,
+				FA6E2DD4266B2A9F0072023A /* AVRecorder.swift in Sources */,
 				FAB5EB06265C267800A83569 /* SceneDelegate.swift in Sources */,
 				FA36602826628E5C00A69B37 /* SignUpVC.swift in Sources */,
+				FA0E43C326670BA200178A10 /* TabBarVC.swift in Sources */,
+				FA6E2DDB266CA60D0072023A /* RandomQuestionViewCell.swift in Sources */,
+				FA6E2DD2266A70CC0072023A /* UIImageView.swift in Sources */,
 				FAB5EB1C265C26EA00A83569 /* CardModel.swift in Sources */,
 				FA11EE212662479D00B61171 /* UserProfileVC.swift in Sources */,
+				FA0E43CE266720BD00178A10 /* CustomTabbarUIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,7 +529,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ieltsvuive.EnglishJourney;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -496,7 +549,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ieltsvuive.EnglishJourney;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -524,7 +577,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FAE78B3B2664DCC600485DA7 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+		FA0E43BF2666813000178A10 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
 			requirement = {
@@ -535,15 +588,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FAE78B3C2664DCC600485DA7 /* FacebookLogin */ = {
+		FA0E43C02666813000178A10 /* FacebookLogin */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FAE78B3B2664DCC600485DA7 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			package = FA0E43BF2666813000178A10 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
 			productName = FacebookLogin;
-		};
-		FAE78B3E2664DCC600485DA7 /* FacebookCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FAE78B3B2664DCC600485DA7 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
-			productName = FacebookCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
