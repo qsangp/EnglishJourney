@@ -151,14 +151,14 @@ class ChartVC: UIViewController {
                         barChart.center = self.view.center
                         
                         if self.againButtonDayCount != 0 || self.completeButtonDayCount != 0 {
-                            self.popUpMessageLabel.text = "Bạn đã luyện \(title) được \(self.completeButtonDayCount) ngày tháng này rồi. Giữ vững tiến độ nhé!"
+                            self.popUpMessageLabel.text = "Bạn đã luyện \(title) được \(self.againButtonDayCount) ngày tháng này rồi. Giữ vững tiến độ nhé!"
                             self.view.addSubview(self.popUpMessageLabel)
                             
                             self.popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
                             NSLayoutConstraint.activate([
                                 self.popUpMessageLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
                                 self.popUpMessageLabel.widthAnchor.constraint(equalToConstant: 300),
-                                self.popUpMessageLabel.bottomAnchor.constraint(equalTo: barChart.topAnchor, constant: 0)
+                                self.popUpMessageLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 120)
                             ])
                             self.activityIndicator.stopAnimating()
                             

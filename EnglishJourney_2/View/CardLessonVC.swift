@@ -50,7 +50,7 @@ class CardLessonVC: UIViewController {
     
     let popUpMessageLabel: UILabel = {
         let label = UILabel()
-        label.text = "Listen and answer the question \n→ You made it ↓ \nPress Done \n\n→ You failed ↓ \nDouble tap to Show sample ↓ \nRead it out loud ↓ \nPress Again ↓\n↺ Repeat until the lesson Congrats you."
+        label.text = "Double tap to Show sample"
         label.textColor = UIColor.systemGray
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -202,9 +202,9 @@ class CardLessonVC: UIViewController {
         view.addSubview(popUpImage)
         NSLayoutConstraint.activate([
             popUpImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            popUpImage.topAnchor.constraint(equalTo: popUpMessageLabel.bottomAnchor, constant: 50),
-            popUpImage.widthAnchor.constraint(equalToConstant: 80),
-            popUpImage.heightAnchor.constraint(equalToConstant: 80)
+            popUpImage.topAnchor.constraint(equalTo: popUpMessageLabel.bottomAnchor, constant: 60),
+            popUpImage.widthAnchor.constraint(equalToConstant: 100),
+            popUpImage.heightAnchor.constraint(equalToConstant: 100)
         ])
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(CardLessonVC.tapFunction))

@@ -187,11 +187,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.selectionStyle = .none
                 cell.titleLabel.text = card.title
                 cell.numberLabel.text = "Lesson: \(card.numOfLesson) - Completion: \(card.numOfCompletion)"
-                if card.numOfCompletion > 0 {
-                    cell.cell_image.image = UIImage(named: "congrats")
-                } else {
-                    cell.cell_image.image = UIImage(named: "open-book")
-                }
+//                if card.numOfCompletion > 0 {
+//                    cell.cell_image.image = UIImage(named: "congrats")
+//                } else {
+//                    cell.cell_image.image = UIImage(named: "open-book")
+//                }
                 
                 return cell
             }

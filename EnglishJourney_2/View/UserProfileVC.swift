@@ -27,15 +27,6 @@ class UserProfileVC: UIViewController {
     }
     
     func updateUI() {
-        supportButton.layer.cornerRadius = 10
-        supportButton.layer.borderWidth = 0.3
-        supportButton.layer.borderColor = UIColor(red: 0.81, green: 0.82, blue: 0.83, alpha: 1.00).cgColor
-        termsOfUseButton.layer.cornerRadius = 10
-        termsOfUseButton.layer.borderWidth = 0.3
-        termsOfUseButton.layer.borderColor = UIColor(red: 0.81, green: 0.82, blue: 0.83, alpha: 1.00).cgColor
-        logOutButton.layer.cornerRadius = 10
-        logOutButton.layer.borderWidth = 0.3
-        logOutButton.layer.borderColor = UIColor(red: 0.81, green: 0.82, blue: 0.83, alpha: 1.00).cgColor
         
         let userImageURL = UserDefaults.standard.url(forKey: "userImageURL")
         if let url = userImageURL {

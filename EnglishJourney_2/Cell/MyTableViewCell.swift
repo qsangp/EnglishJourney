@@ -21,9 +21,11 @@ class MyTableViewCell: UITableViewCell {
     }
     
     func setUpUI() {
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = 20
         view.backgroundColor = UIColor.random()
         cell_image.layer.cornerRadius = 10
+        view.layer.borderWidth = 0.5
+        view.layer.borderColor = UIColor(red: 0.81, green: 0.82, blue: 0.83, alpha: 1.00).cgColor
         
     }
 
