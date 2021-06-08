@@ -12,7 +12,7 @@ class CardViewModel {
     var flashcard = [CardModel]()
     var flashcardData = [CardData]()
     
-
+    
     var userData: UserData?
     
     //MARK: -User
@@ -200,7 +200,7 @@ class CardViewModel {
         task.resume()
     }
     
-//MARK: -Tải Categories của flashcard
+    //MARK: -Tải Categories của flashcard
     
     func fetchFlashCards(completion: @escaping (Swift.Error?) -> ()) {
         
@@ -224,10 +224,11 @@ class CardViewModel {
                     for card in decodedData.result {
                         if card.parentId == nil {
                             self.cardCategory.append(CardCategory(title: card.title, numOfLesson: card.numOfLession, id: card.id))
+                            self.cardCategory = self.cardCategory.sorted {$0.title < $1.title}
+                            DispatchQueue.main.async {
+                                completion(nil)
+                            }
                         }
-                    }
-                    DispatchQueue.main.async {
-                        completion(nil)
                     }
                 }
                 catch {
@@ -243,7 +244,7 @@ class CardViewModel {
         
     }
     
-//MARK: - Tải flashcard theo ParentId
+    //MARK: - Tải flashcard theo ParentId
     
     func fetchFlashCardsByParentId(parentId: Int, completion: @escaping (Swift.Error?) -> ()) {
         
@@ -264,13 +265,29 @@ class CardViewModel {
             if error == nil {
                 do {
                     let decodedData = try JSONDecoder().decode(FlashCard.self, from: data!)
+                    let date = Date()
+                    let formatterMonth = DateFormatter()
+                    formatterMonth.dateFormat = "MM"
+                    let formatterYear = DateFormatter()
+                    formatterYear.dateFormat = "yyyy"
+                    let currentMonth = Int(formatterMonth.string(from: date))
+                    let currentYear = Int(formatterYear.string(from: date))
+                    let userId = UserDefaults.standard.integer(forKey: "userId")
+                    self.flashcard.removeAll()
                     for card in decodedData.result {
                         if card.parentId == parentId {
-                            self.flashcard.append(CardModel(title: card.title, numOfLesson: card.numOfLession, id: card.id))
+                            if let month = currentMonth, let year = currentYear {
+                                self.fetchChartData(month: month, year: year, cateId: card.id, userId: userId) { buttonData in
+                                    if let sumOfHits = buttonData?.againDataHits.reduce(0, +) {
+                                        let numOfCompletion = sumOfHits / card.numOfLession
+                                        self.flashcard.append(CardModel(title: card.title, numOfLesson: card.numOfLession, numOfCompletion: numOfCompletion, id: card.id))
+                                        DispatchQueue.main.async {
+                                            completion(nil)
+                                        }
+                                    }
+                                }
+                            }
                         }
-                    }
-                    DispatchQueue.main.async {
-                        completion(nil)
                     }
                 }
                 catch {
@@ -400,7 +417,7 @@ class CardViewModel {
                         let completeDataHits = decodedData.result.dataSets[1].dataHits
                         let buttonDataSet = ButtonDataSet(againDataHits: againDataHits, completeDataHits: completeDataHits)
                         
-                        print("fetch chart data success")
+                        print("fetch chart data success: \(completeDataHits)")
                         DispatchQueue.main.async {
                             completion(buttonDataSet)
                         }

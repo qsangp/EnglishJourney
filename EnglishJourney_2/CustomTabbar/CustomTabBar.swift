@@ -35,7 +35,7 @@ class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
     }
     
     func loadTabBar() {
-        let tabbarItems: [TabItem] = [.lesson, .schedule, .chart]
+        let tabbarItems: [TabItem] = [.lesson, .progress, .home]
         
         setupCustomTabMenu(tabbarItems, completion: { viewControllers in
             self.viewControllers = viewControllers

@@ -19,11 +19,9 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
     // Data
     var cardViewModel: CardViewModel!
-    var flashCard: [CardModel]!
-    var flashCardData = [[CardData]]()
     
     var cardParentId = 186
-    var menuTitle = "Home"
+    var menuTitle = "☰ MENU"
     
     // Animation
     let activityIndicator: NVActivityIndicatorView = {
@@ -43,6 +41,12 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
         fetchData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchData()
+    }
+    
     func checkCurrentParentId() {
         let currentParentId = UserDefaults.standard.integer(forKey: "cardParentId")
         if currentParentId != 0 {
@@ -56,14 +60,14 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.activityIndicator.startAnimating()
         if !isFlashCardOn {
-            menuTitle = "Home"
+            menuTitle = "☰ MENU"
         } else if let title = UserDefaults.standard.string(forKey: "currentCardTitle") {
             let cardId = UserDefaults.standard.integer(forKey: "cardParentId")
-            menuTitle = title
+            menuTitle = "\(title) ↑"
             cardParentId = cardId
         }
         cardViewModel = CardViewModel()
-
+        
         if !isFlashCardOn {
             cardViewModel.fetchFlashCards { error in
                 if error != nil {
@@ -88,7 +92,7 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
         
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
             cardViewModel.checkToken(token: accessToken) { (userData, tokenError) in
-                self.hiUser.text = "Chào \(userData?.userNameOrEmail ?? "bạn")"
+                self.hiUser.text = "Hi \(userData?.userNameOrEmail ?? " ")"
                 UserDefaults.standard.setValue(userData?.id, forKey: "userId")
                 let userImageURL = UserDefaults.standard.url(forKey: "userImageURL")
                 if let url = userImageURL {
@@ -115,7 +119,7 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
         tableView.register(UINib(nibName: "RandomQuestionViewCell", bundle: nil), forCellReuseIdentifier: "RandomQuestionViewCell")
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
+        tableView.backgroundColor = UIColor.white
     }
     
     @IBAction func profileButtonPressed(_ sender: UIButton) {
@@ -139,7 +143,6 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
                 self.present(vc, animated: true)
                 self.activityIndicator.stopAnimating()
             }
-            
         }
     }
     
@@ -157,23 +160,30 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if !isFlashCardOn {
+            cardViewModel.cardCategory = cardViewModel.cardCategory.sorted {$0.title < $1.title}
             let card = cardViewModel.cardCategory[indexPath.row]
             print("cardcardcard \(indexPath.row)")
             let cell = tableView.dequeueReusableCell(withIdentifier: "MyTableViewCell") as! MyTableViewCell
             cell.selectionStyle = .none
             cell.titleLabel.text = card.title
-            cell.numberLabel.text = "Number of Lesson: \(card.numOfLesson)"
+            cell.numberLabel.text = "Lesson: \(card.numOfLesson)"
             
-            cell.backgroundView?.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
+            cell.backgroundView?.backgroundColor = UIColor.white
             
             return cell
             
         } else {
+            cardViewModel.flashcard = cardViewModel.flashcard.sorted {$0.title < $1.title}
             let card = cardViewModel.flashcard[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: "MyTableViewCell") as! MyTableViewCell
             cell.selectionStyle = .none
             cell.titleLabel.text = card.title
-            cell.numberLabel.text = "Number of Lesson: \(card.numOfLesson)"
+            cell.numberLabel.text = "Lesson: \(card.numOfLesson) - Completion: \(card.numOfCompletion)"
+            if card.numOfCompletion > 0 {
+                cell.cell_image.image = UIImage(named: "congrats")
+            } else {
+                cell.cell_image.image = UIImage(named: "open-book")
+            }
             
             return cell
         }
@@ -189,10 +199,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         let menuButton: UIButton = {
             let button = UIButton()
             button.setTitleColor(UIColor.black, for: .normal)
-            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 22)
-            button.layer.borderColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00).cgColor
-            button.layer.borderWidth = 1
+            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
             button.backgroundColor = .white
+            button.layer.borderWidth = 0.5
+            button.layer.borderColor = UIColor(red: 0.81, green: 0.82, blue: 0.83, alpha: 1.00).cgColor
             button.setTitle("\(menuTitle)", for: .normal)
             return button
         }()
@@ -201,15 +211,14 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         return menuButton
     }
     
-    @objc func didTapMenuButton() {
+    @objc fileprivate func didTapMenuButton() {
         isFlashCardOn = false
         fetchData()
-        tableView.reloadData()
     }
     
     // Chiều cao của row
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return 120
+        return 120
     }
     
     // Kiểm tra data đã tải xong chưa
@@ -230,6 +239,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             menuTitle = cardViewModel.cardCategory[indexPath.row].title
             UserDefaults.standard.setValue(menuTitle, forKey: "currentCardTitle")
             UserDefaults.standard.setValue(cardParentId, forKey: "cardParentId")
+            print("parentId \(cardParentId)")
             isFlashCardOn = true
             fetchData()
             tableView.reloadData()
@@ -237,6 +247,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             let userId = UserDefaults.standard.integer(forKey: "userId")
             let selectedID = cardViewModel.flashcard[indexPath.row].id
+            UserDefaults.standard.setValue(selectedID, forKey: "cardId")
+            print("cardId \(selectedID)")
             self.cardViewModel.flashcardData = [CardData]()
             self.cardViewModel.fetchFlashCardsData(cateId: selectedID, userId: userId) { error in
                 if error != nil {

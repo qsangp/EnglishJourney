@@ -58,12 +58,12 @@ class CustomTabbarUIView: UIView {
         let itemTitleLabel = UILabel()
         itemTitleLabel.text = item.displayTitle
         itemTitleLabel.textAlignment = .center
-        itemTitleLabel.font = itemTitleLabel.font.withSize(13)
+        itemTitleLabel.font = itemTitleLabel.font.withSize(15)
         itemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         itemTitleLabel.clipsToBounds = true
         
         let itemImageView = UIImageView()
-        itemImageView.image = item.icon.withRenderingMode(.automatic)
+        itemImageView.image = item.icon.withRenderingMode(.alwaysOriginal)
         itemImageView.translatesAutoresizingMaskIntoConstraints = false
         itemImageView.clipsToBounds = true
         
@@ -72,8 +72,8 @@ class CustomTabbarUIView: UIView {
         
         // Auto layout cho item title và item icon
         NSLayoutConstraint.activate([
-            itemImageView.heightAnchor.constraint(equalToConstant: 30),
-            itemImageView.widthAnchor.constraint(equalToConstant: 30),
+            itemImageView.heightAnchor.constraint(equalToConstant: 20),
+            itemImageView.widthAnchor.constraint(equalToConstant: 20),
             itemImageView.centerXAnchor.constraint(equalTo: tabBarItem.centerXAnchor),
             itemImageView.leftAnchor.constraint(equalTo: tabBarItem.leftAnchor, constant: 50),
             itemImageView.topAnchor.constraint(equalTo: tabBarItem.topAnchor, constant: 8),

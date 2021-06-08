@@ -175,12 +175,16 @@ class LogInVC: UIViewController {
             
         } catch LoginError.incompleteForm {
             Alert.showBasic(title: "Incomplete Form", message: "Please fill out both email and password fields", vc: self)
+            self.activityIndicator.stopAnimating()
         } catch LoginError.invalidEmail {
             Alert.showBasic(title: "Invalid Email Format", message: "Please make sure you format your email correctly", vc: self)
+            self.activityIndicator.stopAnimating()
         } catch LoginError.incorrectPasswordLength {
             Alert.showBasic(title: "Password Too Short", message: "Password should be at least 6 characters", vc: self)
+            self.activityIndicator.stopAnimating()
         } catch {
             Alert.showBasic(title: "Unable To Login", message: "Something went wrong. Please try again later...", vc: self)
+            self.activityIndicator.stopAnimating()
             
         }
         

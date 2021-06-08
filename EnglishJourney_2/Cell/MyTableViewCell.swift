@@ -12,11 +12,19 @@ class MyTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var cellBody: UIStackView!
+    @IBOutlet weak var cell_image: UIImageView!
+    @IBOutlet weak var view: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        cellBody.layer.cornerRadius = 15
-        cellBody.backgroundColor = UIColor.random()
+        setUpUI()
+    }
+    
+    func setUpUI() {
+        view.layer.cornerRadius = 10
+        view.backgroundColor = UIColor.random()
+        cell_image.layer.cornerRadius = 10
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -33,7 +41,7 @@ extension UIColor {
            red:   .random(),
            green: .random(),
            blue:  .random(),
-            alpha: 0.4
+            alpha: 0.3
         )
     }
 }

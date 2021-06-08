@@ -16,6 +16,7 @@ struct CardCategory {
 struct CardModel {
     let title: String
     let numOfLesson: Int
+    let numOfCompletion: Int
     let id: Int
 }
 

@@ -61,7 +61,7 @@ class ChartVC: UIViewController {
     
     private func createChart() {
         activityIndicator.startAnimating()
-        if let currentCardTitle = UserDefaults.standard.string(forKey: "currentCardTitle") {
+        if let title = UserDefaults.standard.string(forKey: "currentCardTitle") {
             // Create bar chart
             let barChart = BarChartView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.width))
             barChart.notifyDataSetChanged()
@@ -101,7 +101,6 @@ class ChartVC: UIViewController {
             let cardId = UserDefaults.standard.integer(forKey: "cardParentId")
             if let month = currentMonth, let year = currentYear {
                 self.cardViewModel.fetchChartData(month: month, year: year, cateId: cardId, userId: userId) { buttonData in
-                    print("cardid: \(cardId)")
                     if let againButtonDataHits = buttonData?.againDataHits,
                        let completeButonDataHits = buttonData?.completeDataHits {
                         var dictionaryData = [Int: Int]()
@@ -128,11 +127,11 @@ class ChartVC: UIViewController {
                         }
                         print(entries)
                         let set = BarChartDataSet(entries: entries, label: "Complete")
-                        set.colors = [NSUIColor(cgColor: UIColor(red: 0.74, green: 0.31, blue: 0.56, alpha: 1.00).cgColor)]
+                        set.colors = [NSUIColor(cgColor: UIColor(red: 0.00, green: 0.25, blue: 0.36, alpha: 0.8).cgColor)]
                         set.drawValuesEnabled = false
                         
                         let set2 = BarChartDataSet(entries: entries2, label: "Again")
-                        set2.colors = [NSUIColor(cgColor: UIColor(red: 1.00, green: 0.65, blue: 0.00, alpha: 1.00).cgColor)]
+                        set2.colors = [NSUIColor(cgColor: UIColor(red: 1.00, green: 0.65, blue: 0.00, alpha: 0.8).cgColor)]
                         set2.drawValuesEnabled = false
                         let data = BarChartData(dataSets: [set2, set])
                         
@@ -152,7 +151,7 @@ class ChartVC: UIViewController {
                         barChart.center = self.view.center
                         
                         if self.againButtonDayCount != 0 || self.completeButtonDayCount != 0 {
-                            self.popUpMessageLabel.text = "Bạn đã luyện bài \(currentCardTitle) được \(self.completeButtonDayCount) ngày tháng này rồi. Giữ vững tiến độ nhé!"
+                            self.popUpMessageLabel.text = "Bạn đã luyện \(title) được \(self.completeButtonDayCount) ngày tháng này rồi. Giữ vững tiến độ nhé!"
                             self.view.addSubview(self.popUpMessageLabel)
                             
                             self.popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -164,34 +163,34 @@ class ChartVC: UIViewController {
                             self.activityIndicator.stopAnimating()
                             
                         } else {
-                            self.removeSubview()
-                            self.popUpMessageLabel.text = "Bạn chưa luyện \(currentCardTitle) tháng này. Bắt tay vô học liền nha!"
+                            self.popUpMessageLabel.text = "Bạn chưa luyện \(title) tháng này. Bắt tay vào luyện ngay thôi nào!"
                             self.view.addSubview(self.popUpMessageLabel)
-                            self.popUpMessageLabel.tag = 1
+                            
                             self.popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
                             NSLayoutConstraint.activate([
                                 self.popUpMessageLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-                                self.popUpMessageLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
                                 self.popUpMessageLabel.widthAnchor.constraint(equalToConstant: 300),
+                                self.popUpMessageLabel.bottomAnchor.constraint(equalTo: barChart.topAnchor, constant: 0)
                             ])
-                            self.activityIndicator.stopAnimating()
-                        }
+                            self.activityIndicator.stopAnimating()}
                     }
                 }
             }
         } else {
-            popUpMessageLabel.text = "Vào Lesson chọn bài để hiện tiến độ nhé."
-            view.addSubview(self.popUpMessageLabel)
+            // User chưa chọn lesson
+            self.popUpMessageLabel.text = "Vào lesson chọn bài để hiện tiến độ nhé!"
+            self.view.addSubview(self.popUpMessageLabel)
             popUpMessageLabel.tag = 1
-            popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
+            self.popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                popUpMessageLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-                popUpMessageLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-                popUpMessageLabel.widthAnchor.constraint(equalToConstant: 300)
+                self.popUpMessageLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+                self.popUpMessageLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+                self.popUpMessageLabel.widthAnchor.constraint(equalToConstant: 300)
             ])
-            activityIndicator.stopAnimating()
+            self.activityIndicator.stopAnimating()
         }
     }
+    
     
     func removeSubview(){
         if let viewToRemove = self.view.viewWithTag(1)  {

@@ -12,12 +12,10 @@
 		FA0E43C12666813000178A10 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = FA0E43C02666813000178A10 /* FacebookLogin */; };
 		FA0E43C326670BA200178A10 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0E43C226670BA200178A10 /* TabBarVC.swift */; };
 		FA0E43C626671BAC00178A10 /* TabbarItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0E43C526671BAC00178A10 /* TabbarItems.swift */; };
-		FA0E43CC26671F9100178A10 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0E43CB26671F9100178A10 /* BaseTabBarController.swift */; };
 		FA0E43CE266720BD00178A10 /* CustomTabbarUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0E43CD266720BD00178A10 /* CustomTabbarUIView.swift */; };
 		FA11EE1C26618F4D00B61171 /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA11EE1B26618F4D00B61171 /* LogInVC.swift */; };
 		FA11EE212662479D00B61171 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA11EE202662479D00B61171 /* UserProfileVC.swift */; };
 		FA28022B265E3CEF00BE51E3 /* CardLessonVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */; };
-		FA36602826628E5C00A69B37 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA36602726628E5C00A69B37 /* SignUpVC.swift */; };
 		FA36602D266399EF00A69B37 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA36602C266399EF00A69B37 /* StringExtension.swift */; };
 		FA3660302663A20B00A69B37 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA36602F2663A20B00A69B37 /* Alert.swift */; };
 		FA3660332663B1BD00A69B37 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3660322663B1BD00A69B37 /* UIButton.swift */; };
@@ -51,12 +49,10 @@
 		FA065EB12664163E00579460 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FA0E43C226670BA200178A10 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		FA0E43C526671BAC00178A10 /* TabbarItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarItems.swift; sourceTree = "<group>"; };
-		FA0E43CB26671F9100178A10 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		FA0E43CD266720BD00178A10 /* CustomTabbarUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabbarUIView.swift; sourceTree = "<group>"; };
 		FA11EE1B26618F4D00B61171 /* LogInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
 		FA11EE202662479D00B61171 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardLessonVC.swift; sourceTree = "<group>"; };
-		FA36602726628E5C00A69B37 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		FA36602C266399EF00A69B37 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		FA36602F2663A20B00A69B37 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		FA3660322663B1BD00A69B37 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
@@ -119,8 +115,8 @@
 			isa = PBXGroup;
 			children = (
 				FA0E43C526671BAC00178A10 /* TabbarItems.swift */,
-				FA0E43CB26671F9100178A10 /* BaseTabBarController.swift */,
 				FA0E43CD266720BD00178A10 /* CustomTabbarUIView.swift */,
+				FAB5EB56265CD38500A83569 /* CustomTabBar.swift */,
 			);
 			path = CustomTabbar;
 			sourceTree = "<group>";
@@ -151,9 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				FA11EE1B26618F4D00B61171 /* LogInVC.swift */,
-				FA36602726628E5C00A69B37 /* SignUpVC.swift */,
 				FAB5EB07265C267800A83569 /* ViewController.swift */,
-				FAB5EB56265CD38500A83569 /* CustomTabBar.swift */,
 				FA0E43C226670BA200178A10 /* TabBarVC.swift */,
 				FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */,
 				FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */,
@@ -360,12 +354,10 @@
 				FAB5EB57265CD38500A83569 /* CustomTabBar.swift in Sources */,
 				FAB5EB04265C267800A83569 /* AppDelegate.swift in Sources */,
 				FA36602D266399EF00A69B37 /* StringExtension.swift in Sources */,
-				FA0E43CC26671F9100178A10 /* BaseTabBarController.swift in Sources */,
 				FA6E2DCE266A59300072023A /* UserDefault.swift in Sources */,
 				FA11EE1C26618F4D00B61171 /* LogInVC.swift in Sources */,
 				FA6E2DD4266B2A9F0072023A /* AVRecorder.swift in Sources */,
 				FAB5EB06265C267800A83569 /* SceneDelegate.swift in Sources */,
-				FA36602826628E5C00A69B37 /* SignUpVC.swift in Sources */,
 				FA0E43C326670BA200178A10 /* TabBarVC.swift in Sources */,
 				FA6E2DDB266CA60D0072023A /* RandomQuestionViewCell.swift in Sources */,
 				FA6E2DD2266A70CC0072023A /* UIImageView.swift in Sources */,

@@ -88,6 +88,7 @@ class CardLessonVC: UIViewController {
         {
             finishAudioRecording(success: true)
             recordButton.setTitle("Record", for: .normal)
+            recordButton.setTitleColor(UIColor.black, for: .normal)
             playRecordButton.isEnabled = true
             isRecording = false
         }
@@ -98,6 +99,7 @@ class CardLessonVC: UIViewController {
             audioRecorder.record()
             meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
             recordButton.setTitle("Stop", for: .normal)
+            recordButton.setTitleColor(UIColor.red, for: .normal)
             playRecordButton.isEnabled = false
             isRecording = true
         }
@@ -123,6 +125,7 @@ class CardLessonVC: UIViewController {
             audioPlayer.stop()
             recordButton.isEnabled = true
             playRecordButton.setTitle("Play", for: .normal)
+            playRecordButton.setTitleColor(UIColor.black, for: .normal)
             isPlaying = false
         }
         else
@@ -131,6 +134,8 @@ class CardLessonVC: UIViewController {
             {
                 recordButton.isEnabled = false
                 prepare_play()
+                playRecordButton.setTitle("stop", for: .normal)
+                playRecordButton.setTitleColor(UIColor.red, for: .normal)
                 audioPlayer.play()
                 isPlaying = true
             }
@@ -166,6 +171,8 @@ class CardLessonVC: UIViewController {
         
         let cardName = cardLesson[cardIndex].cardName
         lessonLabel.text = cardName
+        lessonLabel.layer.borderWidth = 0.5
+        lessonLabel.layer.borderColor = UIColor(red: 0.81, green: 0.82, blue: 0.83, alpha: 1.00).cgColor
         print("updateUI: \(cardIndex), \(cardLesson.count)")
         
         // Render HTML
@@ -315,7 +322,7 @@ class CardLessonVC: UIViewController {
             constraintFrontCardBackCard.priority = UILayoutPriority.defaultHigh
             constraintFrontCardViewBottom.priority =
                 UILayoutPriority.defaultLow
-            constraintFrontCardViewTop.constant = 50
+            constraintFrontCardViewTop.constant = 60
             
         } else {
             showHideButton.setTitle("Show Sample", for: .normal)
@@ -344,10 +351,11 @@ class CardLessonVC: UIViewController {
         
         // Write log again button
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
+            let cateId = UserDefaults.standard.integer(forKey: "cardId")
             cardViewModel.checkToken(token: accessToken) { (userData, tokenError) in
                 if let userId = userData?.id {
                     let cardId = self.temporaryCardLesson[self.cardIndex].id
-                    self.cardViewModel.writeLogButon(buttonName: "Again", cardId: cardId, categoryId: 186, userId: userId) {
+                    self.cardViewModel.writeLogButon(buttonName: "Again", cardId: cardId, categoryId: cateId, userId: userId) {
                         print("Log Again Buton Success")
                     }
                 } else {
@@ -378,10 +386,11 @@ class CardLessonVC: UIViewController {
         
         // Write log complete button
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
+            let cateId = UserDefaults.standard.integer(forKey: "cardId")
             cardViewModel.checkToken(token: accessToken) { (userData, tokenError) in
                 if let userId = userData?.id {
                     let cardId = self.temporaryCardLesson[self.cardIndex].id
-                    self.cardViewModel.writeLogButon(buttonName: "Easy", cardId: cardId, categoryId: 186, userId: userId) {
+                    self.cardViewModel.writeLogButon(buttonName: "Easy", cardId: cardId, categoryId: cateId, userId: userId) {
                         print("Log complete Buton Success")
                     }
                 } else {
