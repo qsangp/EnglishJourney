@@ -14,12 +14,6 @@ class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
     var customTabBar: CustomTabbarUIView!
     var tabBarHeight: CGFloat = 60.0
     
-    var leftLabel: UILabel!
-    var rightLabel: UILabel!
-    
-    var leftButton: UIButton!
-    var rightButton: UIButton!
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -35,7 +29,7 @@ class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
     }
     
     func loadTabBar() {
-        let tabbarItems: [TabItem] = [.lesson, .progress, .home]
+        let tabbarItems: [TabItem] = [.lesson, .progress, .home, .others]
         
         setupCustomTabMenu(tabbarItems, completion: { viewControllers in
             self.viewControllers = viewControllers
@@ -78,61 +72,6 @@ class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
         self.selectedIndex = tab
     }
     
-    func setupLeftButton() {
-        self.leftButton = UIButton(frame: CGRect(x: (self.view.bounds.width / 2) - 120, y: 3, width: 30, height: 30))
-        
-        self.leftLabel = UILabel(frame: CGRect(x: (self.view.bounds.width / 2) - 128, y: 19, width: 120, height: 40))
-        
-        leftLabel.text = "Lessons"
-        leftLabel.font = leftLabel.font.withSize(12)
-        leftLabel.textColor = .black
-        
-        leftButton.setBackgroundImage(UIImage(named: "tabBarIcon1Colored"), for: .normal)
-        
-        self.tabBar.addSubview(leftButton)
-        self.tabBar.addSubview(leftLabel)
-        
-        leftButton.addTarget(self, action: #selector(leftButtonAction), for: .touchUpInside)
-        
-        self.view.layoutIfNeeded()
-        
-    }
-    
-    @objc func leftButtonAction(sender: UIButton) {
-        self.selectedIndex = 0
-        
-        leftButton.setBackgroundImage(UIImage(named: "tabBarIcon1Colored"), for: .normal)
-        
-        rightButton.setBackgroundImage(UIImage(named: "tabBarIcon2"), for: .normal)
-        
-    }
-    
-    func setupRightButton() {
-        self.rightButton = UIButton(frame: CGRect(x: (self.view.bounds.width / 2) + 85, y: 0, width: 35, height: 35))
-        
-        self.rightLabel = UILabel(frame: CGRect(x: (self.view.bounds.width / 2) + 85, y: 19, width: 120, height: 40))
-        
-        rightLabel.text = "Chart"
-        rightLabel.font = rightLabel.font.withSize(12)
-        rightLabel.textColor = .black
-        
-        rightButton.setBackgroundImage(UIImage(named: "tabBarIcon2"), for: .normal)
-        
-        self.tabBar.addSubview(rightButton)
-        self.tabBar.addSubview(rightLabel)
-        
-        rightButton.addTarget(self, action: #selector(rightButtonAction), for: .touchUpInside)
-        
-        self.view.layoutIfNeeded()
-    }
-    
-    @objc func rightButtonAction(sender: UIButton) {
-        self.selectedIndex = 1
-        
-        self.leftButton.setBackgroundImage(UIImage(named: "tabBarIcon1"), for: .normal)
-        
-        self.rightButton.setBackgroundImage(UIImage(named: "tabBarIcon2Colored"), for: .normal)
-    }
 }
 
 

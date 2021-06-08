@@ -58,7 +58,7 @@ class CustomTabbarUIView: UIView {
         let itemTitleLabel = UILabel()
         itemTitleLabel.text = item.displayTitle
         itemTitleLabel.textAlignment = .center
-        itemTitleLabel.font = itemTitleLabel.font.withSize(15)
+        itemTitleLabel.font = itemTitleLabel.font.withSize(13)
         itemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         itemTitleLabel.clipsToBounds = true
         

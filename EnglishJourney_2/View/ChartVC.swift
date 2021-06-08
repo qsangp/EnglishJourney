@@ -127,11 +127,11 @@ class ChartVC: UIViewController {
                         }
                         print(entries)
                         let set = BarChartDataSet(entries: entries, label: "Complete")
-                        set.colors = [NSUIColor(cgColor: UIColor(red: 0.00, green: 0.25, blue: 0.36, alpha: 0.8).cgColor)]
+                        set.colors = [NSUIColor(cgColor: UIColor.systemTeal.cgColor)]
                         set.drawValuesEnabled = false
                         
                         let set2 = BarChartDataSet(entries: entries2, label: "Again")
-                        set2.colors = [NSUIColor(cgColor: UIColor(red: 1.00, green: 0.65, blue: 0.00, alpha: 0.8).cgColor)]
+                        set2.colors = [NSUIColor(cgColor: UIColor.systemRed.cgColor)]
                         set2.drawValuesEnabled = false
                         let data = BarChartData(dataSets: [set2, set])
                         

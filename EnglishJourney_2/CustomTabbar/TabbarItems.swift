@@ -8,9 +8,10 @@
 import UIKit
 
 enum TabItem: String, CaseIterable {
-    case lesson = "lesson"
-    case home = "home"
-    case progress = "progress"
+    case lesson = "bài học"
+    case home = "trang chủ"
+    case progress = "tiến độ"
+    case others = "khác"
 
     var viewController: UIViewController {
         switch self {
@@ -20,6 +21,8 @@ enum TabItem: String, CaseIterable {
             return ScheduleVC()
         case .progress:
             return ChartVC()
+        case .others:
+            return UserProfileVC()
         }
     }
 
@@ -31,6 +34,8 @@ enum TabItem: String, CaseIterable {
             return UIImage(systemName: "house.fill")!
         case .progress:
             return UIImage(systemName: "chart.bar.fill")!
+        case .others:
+            return UIImage(systemName: "gearshape.fill")!
         }
     }
     

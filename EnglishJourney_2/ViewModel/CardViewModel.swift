@@ -273,7 +273,6 @@ class CardViewModel {
                     let currentMonth = Int(formatterMonth.string(from: date))
                     let currentYear = Int(formatterYear.string(from: date))
                     let userId = UserDefaults.standard.integer(forKey: "userId")
-                    self.flashcard.removeAll()
                     for card in decodedData.result {
                         if card.parentId == parentId {
                             if let month = currentMonth, let year = currentYear {

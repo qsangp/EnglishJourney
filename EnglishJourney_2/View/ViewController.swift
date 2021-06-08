@@ -74,6 +74,7 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
                     Alert.showBasic(title: "Unable To Fetch Flashcard", message: "Something went wrong. Please try again later...", vc: self)
                     self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                 } else {
+                    self.cardViewModel.cardCategory = self.cardViewModel.cardCategory.sorted {$0.title < $1.title}
                     self.tableView.reloadData()
                     self.activityIndicator.stopAnimating()
                 }
@@ -84,6 +85,7 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
                     Alert.showBasic(title: "Unable To Fetch Flashcard", message: "Something went wrong. Please try again later...", vc: self)
                     self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                 } else {
+                    self.cardViewModel.flashcard = self.cardViewModel.flashcard.sorted {$0.title < $1.title}
                     self.tableView.reloadData()
                     self.tableView.isUserInteractionEnabled = true
                 }
@@ -119,11 +121,9 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
         tableView.register(UINib(nibName: "RandomQuestionViewCell", bundle: nil), forCellReuseIdentifier: "RandomQuestionViewCell")
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = UIColor.white
     }
     
     @IBAction func profileButtonPressed(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "GoToProfile", sender: self)
     }
     
     func randomLessonPressed() {
@@ -159,33 +159,42 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         if !isFlashCardOn {
-            cardViewModel.cardCategory = cardViewModel.cardCategory.sorted {$0.title < $1.title}
-            let card = cardViewModel.cardCategory[indexPath.row]
-            print("cardcardcard \(indexPath.row)")
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MyTableViewCell") as! MyTableViewCell
-            cell.selectionStyle = .none
-            cell.titleLabel.text = card.title
-            cell.numberLabel.text = "Lesson: \(card.numOfLesson)"
             
-            cell.backgroundView?.backgroundColor = UIColor.white
-            
-            return cell
-            
-        } else {
-            cardViewModel.flashcard = cardViewModel.flashcard.sorted {$0.title < $1.title}
-            let card = cardViewModel.flashcard[indexPath.row]
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MyTableViewCell") as! MyTableViewCell
-            cell.selectionStyle = .none
-            cell.titleLabel.text = card.title
-            cell.numberLabel.text = "Lesson: \(card.numOfLesson) - Completion: \(card.numOfCompletion)"
-            if card.numOfCompletion > 0 {
-                cell.cell_image.image = UIImage(named: "congrats")
+            if (indexPath.row > cardViewModel.cardCategory.count-1) {
+                return UITableViewCell()
             } else {
-                cell.cell_image.image = UIImage(named: "open-book")
+                let card = self.cardViewModel.cardCategory[indexPath.row]
+                print("cardcardcard \(indexPath.row)")
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MyTableViewCell") as! MyTableViewCell
+                cell.selectionStyle = .none
+                cell.titleLabel.text = card.title
+                cell.numberLabel.text = "Lesson: \(card.numOfLesson)"
+                
+                cell.backgroundView?.backgroundColor = UIColor.white
+                
+                return cell
             }
             
-            return cell
+        } else {
+            
+            if (indexPath.row > cardViewModel.flashcard.count-1) {
+                return UITableViewCell()
+            } else {
+                let card = cardViewModel.flashcard[indexPath.row]
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MyTableViewCell") as! MyTableViewCell
+                cell.selectionStyle = .none
+                cell.titleLabel.text = card.title
+                cell.numberLabel.text = "Lesson: \(card.numOfLesson) - Completion: \(card.numOfCompletion)"
+                if card.numOfCompletion > 0 {
+                    cell.cell_image.image = UIImage(named: "congrats")
+                } else {
+                    cell.cell_image.image = UIImage(named: "open-book")
+                }
+                
+                return cell
+            }
         }
     }
     
@@ -266,6 +275,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
 }
+
 
 
 
