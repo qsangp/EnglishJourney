@@ -280,6 +280,7 @@ class CardViewModel {
                                     if let sumOfHits = buttonData?.againDataHits.reduce(0, +) {
                                         let numOfCompletion = sumOfHits / card.numOfLession
                                         self.flashcard.append(CardModel(title: card.title, numOfLesson: card.numOfLession, numOfCompletion: numOfCompletion, id: card.id))
+                                        self.flashcard = self.flashcard.sorted {$0.title < $1.title}
                                         DispatchQueue.main.async {
                                             completion(nil)
                                         }

@@ -43,8 +43,15 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        fetchData()
+        checkUserFinishCard()
+    }
+    
+    func checkUserFinishCard() {
+        let isUserFinishCard = UserDefaults.standard.bool(forKey: "isUserFinishCard")
+        if isUserFinishCard {
+            fetchData()
+            UserDefaults.standard.setValue(false, forKey: "isUserFinishCard")
+        }
     }
     
     func checkCurrentParentId() {
@@ -72,9 +79,8 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
             cardViewModel.fetchFlashCards { error in
                 if error != nil {
                     Alert.showBasic(title: "Unable To Fetch Flashcard", message: "Something went wrong. Please try again later...", vc: self)
-                    self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                    self.presentingViewController?.dismiss(animated: true, completion: nil)
                 } else {
-                    self.cardViewModel.cardCategory = self.cardViewModel.cardCategory.sorted {$0.title < $1.title}
                     self.tableView.reloadData()
                     self.activityIndicator.stopAnimating()
                 }
@@ -83,9 +89,8 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
             cardViewModel.fetchFlashCardsByParentId(parentId: cardParentId) { error in
                 if error != nil {
                     Alert.showBasic(title: "Unable To Fetch Flashcard", message: "Something went wrong. Please try again later...", vc: self)
-                    self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                    self.presentingViewController?.dismiss(animated: true, completion: nil)
                 } else {
-                    self.cardViewModel.flashcard = self.cardViewModel.flashcard.sorted {$0.title < $1.title}
                     self.tableView.reloadData()
                     self.tableView.isUserInteractionEnabled = true
                 }
