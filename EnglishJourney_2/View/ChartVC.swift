@@ -7,19 +7,12 @@
 
 import UIKit
 import Charts
-import NVActivityIndicatorView
 
 class ChartVC: UIViewController {
     
-    var cardViewModel: CardViewModel!
+    var viewModel: CardViewModel!
     var againButtonDayCount = 0
     var completeButtonDayCount = 0
-    
-    let activityIndicator: NVActivityIndicatorView = {
-        let loading = NVActivityIndicatorView(frame: .zero, type: .circleStrokeSpin, color: UIColor(red: 1.00, green: 0.39, blue: 0.38, alpha: 1.00), padding: 0)
-        loading.translatesAutoresizingMaskIntoConstraints = false
-        return loading
-    }()
     
     let popUpMessageLabel: UILabel = {
         let label = UILabel()
@@ -34,33 +27,34 @@ class ChartVC: UIViewController {
         super.viewDidLoad()
         
         overrideUserInterfaceStyle = .light
-        cardViewModel = CardViewModel()
+        bindViewModel()
         createChart()
-        setUpAnimation()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         removeSubview()
-        removeSubview()
-        createChart()
+        viewModel.needReloadChart = { [weak self] in
+            self?.createChart()
+        }
+        viewModel.needShowError = { [weak self] error in
+            self?.showError(error: error)
+        }
+        viewModel.requestChartData()
     }
     
-    func setUpAnimation() {
-        
-        view.addSubview(activityIndicator)
-        NSLayoutConstraint.activate([
-            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            activityIndicator.widthAnchor.constraint(equalToConstant: 40),
-            activityIndicator.heightAnchor.constraint(equalToConstant: 40)
-        ])
-        activityIndicator.stopAnimating()
+    private func bindViewModel() {
+        viewModel = CardViewModel()
+    }
+    
+    private func showError(error: ErrorMessage) {
+        let alert = UIAlertController(title: "Error", message: error.rawValue, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
     private func createChart() {
-        activityIndicator.startAnimating()
+        let userName = UserDefaults.standard.string(forKey: "userName")
         if let title = UserDefaults.standard.string(forKey: "currentCardTitle") {
             // Create bar chart
             let barChart = BarChartView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.width))
@@ -90,113 +84,98 @@ class ChartVC: UIViewController {
             entries = []
             entries2 = []
             
-            let date = Date()
-            let formatterMonth = DateFormatter()
-            formatterMonth.dateFormat = "MM"
-            let formatterYear = DateFormatter()
-            formatterYear.dateFormat = "yyyy"
-            let currentMonth = Int(formatterMonth.string(from: date))
-            let currentYear = Int(formatterYear.string(from: date))
-            let userId = UserDefaults.standard.integer(forKey: "userId")
-            let cardId = UserDefaults.standard.integer(forKey: "cardParentId")
-            if let month = currentMonth, let year = currentYear {
-                self.cardViewModel.fetchChartData(month: month, year: year, cateId: cardId, userId: userId) { buttonData in
-                    if let againButtonDataHits = buttonData?.againDataHits,
-                       let completeButonDataHits = buttonData?.completeDataHits {
-                        var dictionaryData = [Int: Int]()
-                        var dictionaryData2 = [Int: Int]()
-                        self.againButtonDayCount = 0
-                        self.completeButtonDayCount = 0
-                        for x in 1...againButtonDataHits.count {
-                            dictionaryData[x] = againButtonDataHits[x - 1]
-                            if againButtonDataHits[x - 1] != 0 {
-                                self.againButtonDayCount += 1
-                            }
-                        }
-                        for x in 1...againButtonDataHits.count {
-                            dictionaryData2[x] = completeButonDataHits[x - 1]
-                            if completeButonDataHits[x - 1] != 0 {
-                                self.completeButtonDayCount += 1
-                            }
-                        }
-                        for (x,y) in dictionaryData.sorted(by: <) {
-                            entries.append(BarChartDataEntry(x: Double(x), y: Double(y)))
-                        }
-                        for (x,y) in dictionaryData2.sorted(by: <) {
-                            entries2.append(BarChartDataEntry(x: Double(x), y: Double(y)))
-                        }
-                        print(entries)
-                        let set = BarChartDataSet(entries: entries, label: "Complete")
-                        set.colors = [NSUIColor(cgColor: UIColor.systemTeal.cgColor)]
-                        set.drawValuesEnabled = false
-                        
-                        let set2 = BarChartDataSet(entries: entries2, label: "Again")
-                        set2.colors = [NSUIColor(cgColor: UIColor.systemRed.cgColor)]
-                        set2.drawValuesEnabled = false
-                        let data = BarChartData(dataSets: [set2, set])
-                        
-                        data.groupBars(fromX: 0, groupSpace: 0.3, barSpace: 0.03)
-                        data.barWidth = 0.9
-                        
-                        barChart.xAxis.axisMinimum = 1
-                        barChart.xAxis.axisRange = 1
-                        barChart.xAxis.axisMaximum = 30
-                        
-                        barChart.data = data
-                        
-                        barChart.setNeedsDisplay()
-                        
-                        self.view.addSubview(barChart)
-                        barChart.tag = 1
-                        barChart.center = self.view.center
-                        
-                        if self.againButtonDayCount != 0 || self.completeButtonDayCount != 0 {
-                            self.popUpMessageLabel.text = "Bạn đã luyện \(title) được \(self.againButtonDayCount) ngày tháng này rồi. Giữ vững tiến độ nhé!"
-                            self.view.addSubview(self.popUpMessageLabel)
-                            
-                            self.popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
-                            NSLayoutConstraint.activate([
-                                self.popUpMessageLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-                                self.popUpMessageLabel.widthAnchor.constraint(equalToConstant: 300),
-                                self.popUpMessageLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 120)
-                            ])
-                            self.activityIndicator.stopAnimating()
-                            
-                        } else {
-                            self.popUpMessageLabel.text = "Bạn chưa luyện \(title) tháng này. Bắt tay vào luyện ngay thôi nào!"
-                            self.view.addSubview(self.popUpMessageLabel)
-                            
-                            self.popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
-                            NSLayoutConstraint.activate([
-                                self.popUpMessageLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-                                self.popUpMessageLabel.widthAnchor.constraint(equalToConstant: 300),
-                                self.popUpMessageLabel.bottomAnchor.constraint(equalTo: barChart.topAnchor, constant: 0)
-                            ])
-                            self.activityIndicator.stopAnimating()}
-                    }
+            guard let buttonData = viewModel.buttonDataHits() else {return}
+            let againButtonDataHits = buttonData.againDataHits
+            let completeButonDataHits = buttonData.completeDataHits
+            
+            var dictionaryData = [Int: Int]()
+            var dictionaryData2 = [Int: Int]()
+            againButtonDayCount = 0
+            completeButtonDayCount = 0
+            for x in 1...againButtonDataHits.count {
+                dictionaryData[x] = againButtonDataHits[x - 1]
+                if againButtonDataHits[x - 1] != 0 {
+                    againButtonDayCount += 1
                 }
+            }
+            for x in 1...againButtonDataHits.count {
+                dictionaryData2[x] = completeButonDataHits[x - 1]
+                if completeButonDataHits[x - 1] != 0 {
+                    completeButtonDayCount += 1
+                }
+            }
+            for (x,y) in dictionaryData.sorted(by: <) {
+                entries.append(BarChartDataEntry(x: Double(x), y: Double(y)))
+            }
+            for (x,y) in dictionaryData2.sorted(by: <) {
+                entries2.append(BarChartDataEntry(x: Double(x), y: Double(y)))
+            }
+            print(entries)
+            let set = BarChartDataSet(entries: entries, label: "Complete")
+            set.colors = [NSUIColor(cgColor: UIColor.systemTeal.cgColor)]
+            set.drawValuesEnabled = false
+            
+            let set2 = BarChartDataSet(entries: entries2, label: "Again")
+            set2.colors = [NSUIColor(cgColor: UIColor.systemRed.cgColor)]
+            set2.drawValuesEnabled = false
+            let data = BarChartData(dataSets: [set2, set])
+            
+            data.groupBars(fromX: 0, groupSpace: 0.3, barSpace: 0.03)
+            data.barWidth = 0.9
+            
+            barChart.xAxis.axisMinimum = 1
+            barChart.xAxis.axisRange = 1
+            barChart.xAxis.axisMaximum = 30
+            
+            barChart.data = data
+                        
+            barChart.setNeedsDisplay()
+            
+            view.addSubview(barChart)
+            barChart.tag = 1
+            barChart.center =  view.center
+            
+            if againButtonDayCount != 0 ||  completeButtonDayCount != 0 {
+                popUpMessageLabel.text = "\(userName ?? "") ơi, bạn đã luyện \(title) được \( againButtonDayCount) ngày tháng này rồi. Giữ vững tiến độ nhé!"
+                view.addSubview( popUpMessageLabel)
+                
+                popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    popUpMessageLabel.centerXAnchor.constraint(equalTo:  view.centerXAnchor),
+                    popUpMessageLabel.widthAnchor.constraint(equalToConstant: 300),
+                    popUpMessageLabel.topAnchor.constraint(equalTo:  view.topAnchor, constant: 100)
+                ])
+                
+            } else {
+                popUpMessageLabel.text = "\(userName ?? "") ơi, bạn chưa luyện \(title) tháng này. Bắt tay vào luyện ngay thôi nào!"
+                view.addSubview( popUpMessageLabel)
+                
+                popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    popUpMessageLabel.centerXAnchor.constraint(equalTo:  view.centerXAnchor),
+                    popUpMessageLabel.widthAnchor.constraint(equalToConstant: 300),
+                    popUpMessageLabel.bottomAnchor.constraint(equalTo: barChart.topAnchor, constant: 0)
+                ])
             }
         } else {
             // User chưa chọn lesson
-            self.popUpMessageLabel.text = "Vào lesson chọn bài để hiện tiến độ nhé!"
-            self.view.addSubview(self.popUpMessageLabel)
+            popUpMessageLabel.text = "\(userName ?? "") ơi, vào bài học chọn bài để hiện tiến độ nhé!"
+            view.addSubview( popUpMessageLabel)
             popUpMessageLabel.tag = 1
-            self.popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
+            popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                self.popUpMessageLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-                self.popUpMessageLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-                self.popUpMessageLabel.widthAnchor.constraint(equalToConstant: 300)
+                popUpMessageLabel.centerXAnchor.constraint(equalTo:  view.centerXAnchor),
+                popUpMessageLabel.centerYAnchor.constraint(equalTo:  view.centerYAnchor),
+                popUpMessageLabel.widthAnchor.constraint(equalToConstant: 300)
             ])
-            self.activityIndicator.stopAnimating()
         }
     }
     
-    
-    func removeSubview(){
-        if let viewToRemove = self.view.viewWithTag(1)  {
+    func removeSubview() {
+        if let viewToRemove =  view.viewWithTag(1)  {
             viewToRemove.removeFromSuperview()
         } else {
-            print("No!")
+            print("No subview to remove!")
         }
     }
 }

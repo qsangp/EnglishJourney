@@ -31,19 +31,13 @@ class UserProfileVC: UIViewController {
         if let url = userImageURL {
             self.userProfileImage.downloaded(from: url)
         }
-        
-        cardViewModel = CardViewModel()
-        if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-            cardViewModel.checkToken(token: accessToken) { (userData, tokenError) in
-                if let userData = userData {
-                    self.userProfileInfo.text = """
-                        Username: \(userData.userNameOrEmail)
+        guard let userName = UserDefaults.standard.string(forKey: "userName"),
+              let userEmail = UserDefaults.standard.string(forKey: "userEmail") else {return}
+        self.userProfileInfo.text = """
+                        Username: \(userName)
                         
-                        Email: \(userData.userEmail)
+                        Email: \(userEmail)
                         """
-                }
-            }
-        }
     }
     
     @IBAction func supportButtonPressed() {
@@ -57,6 +51,7 @@ class UserProfileVC: UIViewController {
     @IBAction func logOutButtonPressed() {
         resetDefaults()
         GIDSignIn.sharedInstance().signOut()
+        print("User has signed out!")
         self.presentingViewController?.dismiss(animated: true, completion: nil)
         
     }

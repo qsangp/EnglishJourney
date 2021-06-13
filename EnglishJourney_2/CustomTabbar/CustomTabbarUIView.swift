@@ -76,6 +76,7 @@ class CustomTabbarUIView: UIView {
             itemImageView.widthAnchor.constraint(equalToConstant: 20),
             itemImageView.centerXAnchor.constraint(equalTo: tabBarItem.centerXAnchor),
             itemImageView.topAnchor.constraint(equalTo: tabBarItem.topAnchor, constant: 8),
+            itemImageView.leftAnchor.constraint(equalTo: tabBarItem.leftAnchor, constant: 50),
             itemImageView.leadingAnchor.constraint(equalTo: tabBarItem.leadingAnchor, constant: 35),
             itemTitleLabel.heightAnchor.constraint(equalToConstant: 13),
             itemTitleLabel.widthAnchor.constraint(equalTo: tabBarItem.widthAnchor),

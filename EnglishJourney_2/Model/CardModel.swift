@@ -45,7 +45,7 @@ struct CompleteButtonDataSet {
 }
 
 struct UserData {
-    let userNameOrEmail: String
+    let userName: String
     let userEmail: String
     let id: Int
 }

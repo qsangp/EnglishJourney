@@ -153,22 +153,6 @@
             </objects>
             <point key="canvasLocation" x="1853.6231884057972" y="96.195652173913047"/>
         </scene>
-        <!--Item-->
-        <scene sceneID="n9j-aT-UMI">
-            <objects>
-                <viewController id="j2s-ma-cvg" customClass="ScheduleVC" customModule="EnglishJourney_2" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="htc-6f-aGf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="dht-Uf-OFL"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Ohz-41-fZx"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yFh-oD-3Ql" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1854" y="772"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -181,43 +165,42 @@
                                 <rect key="frame" x="0.0" y="50" width="414" height="557"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PVj-Bc-Guz">
-                                <rect key="frame" x="359" y="10" width="35" height="35"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="35" id="MIK-v9-8he"/>
-                                    <constraint firstAttribute="height" constant="35" id="bz5-PU-lfc"/>
-                                </constraints>
-                                <state key="normal" image="user"/>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Chào bạn" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ydn-VG-uYx">
-                                <rect key="frame" x="20" y="15" width="120" height="25"/>
+                                <rect key="frame" x="20" y="15" width="289" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="BRg-Li-PYe"/>
-                                    <constraint firstAttribute="width" constant="120" id="Txx-74-YF4"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aFf-s2-gh8">
+                                <rect key="frame" x="359" y="10" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="35" id="hdH-DZ-HW5"/>
+                                    <constraint firstAttribute="height" constant="35" id="kMr-Ny-gAb"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="b3V-Td-s2s" firstAttribute="top" secondItem="Ydn-VG-uYx" secondAttribute="bottom" constant="10" id="09v-dq-TEA"/>
                             <constraint firstItem="b3V-Td-s2s" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-60" id="0IM-e0-kSv"/>
-                            <constraint firstItem="PVj-Bc-Guz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="4D0-hC-Md9"/>
                             <constraint firstItem="Ydn-VG-uYx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="4Mb-eK-mfX"/>
                             <constraint firstItem="Ydn-VG-uYx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="7VG-cv-8ke"/>
                             <constraint firstItem="b3V-Td-s2s" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="8Ce-r3-dQ4"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PVj-Bc-Guz" secondAttribute="trailing" constant="20" id="UNq-nm-sjc"/>
+                            <constraint firstItem="aFf-s2-gh8" firstAttribute="leading" secondItem="Ydn-VG-uYx" secondAttribute="trailing" constant="50" id="Kon-Bc-WEx"/>
+                            <constraint firstItem="aFf-s2-gh8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="OGg-Df-GJh"/>
                             <constraint firstItem="b3V-Td-s2s" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="aFe-jr-FbA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aFf-s2-gh8" secondAttribute="trailing" constant="20" id="nOw-Is-HEN"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" id="Add-lh-SVZ"/>
                     <navigationItem key="navigationItem" id="h9k-8Y-DWa"/>
                     <connections>
                         <outlet property="hiUser" destination="Ydn-VG-uYx" id="cYf-WK-eb8"/>
-                        <outlet property="profileButton" destination="PVj-Bc-Guz" id="fsy-I3-IiW"/>
+                        <outlet property="profileButton" destination="aFf-s2-gh8" id="QeM-O2-6gQ"/>
                         <outlet property="tableView" destination="b3V-Td-s2s" id="yb7-1h-Xyg"/>
                         <segue destination="pKq-Mx-dBh" kind="show" identifier="GoToCardData" id="Ecr-n5-hxM"/>
                     </connections>
@@ -726,7 +709,6 @@ You have completed this lesson.</string>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="KFu-ho-EX3"/>
                         <segue destination="OaK-w9-biY" kind="relationship" relationship="viewControllers" id="Suc-rI-tLS"/>
-                        <segue destination="j2s-ma-cvg" kind="relationship" relationship="viewControllers" id="DjA-an-ryh"/>
                         <segue destination="2a6-VT-cE2" kind="relationship" relationship="viewControllers" id="Vhm-aX-Vv9"/>
                     </connections>
                 </tabBarController>
@@ -747,7 +729,6 @@ You have completed this lesson.</string>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="profile male" width="512" height="512"/>
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
-        <image name="user" width="512" height="512"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

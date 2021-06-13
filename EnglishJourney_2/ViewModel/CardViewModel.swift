@@ -12,8 +12,95 @@ class CardViewModel {
     var flashcard = [CardModel]()
     var flashcardData = [CardData]()
     
-    
     var userData: UserData?
+    
+    // Service call API
+    let service: Service!
+    // Callback to view
+    var needReloadTableView: (() -> Void)?
+    var needReloadChart: (() -> Void)?
+    var needShowError: ((ErrorMessage) -> Void)?
+
+    // Datasource
+    private var cardCateItems: [CardCateItems] = []
+    private var cardData: [CardItems] = []
+    private var chartData: ButtonDataSet?
+    private var numOfLesson: [Int:Int] = [:]
+    
+    init() {
+        service = Service()
+    } 
+    
+    func requestCard() {
+        service.fetchFlashCards { [weak self] results in
+            guard let strongSelf = self else { return }
+
+            switch results {
+            case .success(let results):
+                strongSelf.cardCateItems = results ?? []
+                strongSelf.needReloadTableView?()
+            case .failure(let error):
+                strongSelf.needShowError?(error)
+            }
+        }
+    }
+    
+    func requestChartData() {
+        service.fetchChartData { [weak self] results in
+            guard let strongSelf = self else { return }
+
+            switch results {
+            case .success(let results):
+                strongSelf.chartData = results
+                strongSelf.needReloadChart?()
+            case .failure(let error):
+                strongSelf.needShowError?(error)
+            }
+        }
+    }
+
+    
+    func getDashboard(cardId: Int) {
+        service.getInfoDashBoard(cardId: cardId) { [weak self] results in
+            guard let strongSelf = self else { return }
+
+            switch results {
+            case .success(let results):
+                guard let results = results else {return}
+                strongSelf.numOfLesson[cardId] = results.total
+                strongSelf.needReloadTableView?()
+            case .failure(let error):
+                strongSelf.needShowError?(error)
+            }
+        }
+    }
+    
+    func buttonDataHits() -> ButtonDataSet? {
+        return chartData
+    }
+    
+    func numberOfLesson(cardId: Int) -> Int {
+        return numOfLesson[cardId] ?? 0
+    }
+    
+    func numberOfRowsInSection(section: Int) -> Int {
+        return cardCateItems.count
+    }
+    
+    func numberOfRowsInSectionLessons(parentId: Int, section: Int) -> Int {
+        let items = cardCateItems.filter({$0.id == parentId})[0].items
+        return items.count
+    }
+
+    func cellForRowAt(indexPath: IndexPath) -> CardCateItems {
+        return cardCateItems[indexPath.row]
+    }
+    
+    func cellForRowAtLessons(parentId: Int, indexPath: IndexPath) -> CardLessonItems {
+        let items = cardCateItems.filter({$0.id == parentId})[0].items
+        return items[indexPath.row]
+    }
+    
     
     //MARK: -User
     func createUser(name: String, surname: String, username: String, email: String, password: String, completion: @escaping (String?) -> ()) {
@@ -26,7 +113,7 @@ class CardViewModel {
                   "user": {
                     "name": "\(name)",
                     "surname": "\(surname)",
-                    "userName": "\(name + surname)",
+                    "userName": "\(name)",
                     "emailAddress": "\(email)",
                     "password": "\(password)",
                     "isActive": true,
@@ -183,7 +270,7 @@ class CardViewModel {
                 do {
                     let decodedData = try JSONDecoder().decode(UserProfile.self, from: data!)
                     let user = decodedData.result.user
-                    self.userData = UserData(userNameOrEmail: user.name, userEmail: user.emailAddress, id: user.id)
+                    self.userData = UserData(userName: user.name, userEmail: user.emailAddress, id: user.id)
                     DispatchQueue.main.async {
                         completion(self.userData, nil)
                     }

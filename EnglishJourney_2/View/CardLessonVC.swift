@@ -42,10 +42,13 @@ class CardLessonVC: UIViewController {
     var isRecording = false
     var isPlaying = false
     
+    // API
+    let service = Service()
+    
     // Card Lesson
-    var cardViewModel: CardViewModel!
-    var cardLesson = [CardData]()
-    var temporaryCardLesson = [CardData]()
+    var viewModel: CardViewModel!
+    var cardLesson = [CardItems]()
+    var temporaryCardLesson = [CardItems]()
     var cardIndex = 0
     
     let popUpMessageLabel: UILabel = {
@@ -76,24 +79,22 @@ class CardLessonVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bindViewModel()
         checkRecordPermission()
         updateUI(autoPlayAudio: true)
         
     }
     // Record Audio
     
-    @IBAction func start_recording(_ sender: UIButton)
-    {
-        if(isRecording)
-        {
+    @IBAction func start_recording(_ sender: UIButton) {
+        if(isRecording) {
             finishAudioRecording(success: true)
             recordButton.setTitle("Record", for: .normal)
             recordButton.setTitleColor(UIColor.black, for: .normal)
             playRecordButton.isEnabled = true
             isRecording = false
         }
-        else
-        {
+        else {
             setup_recorder()
             
             audioRecorder.record()
@@ -105,10 +106,8 @@ class CardLessonVC: UIViewController {
         }
     }
     
-    @objc func updateAudioMeter(timer: Timer)
-    {
-        if audioRecorder.isRecording
-        {
+    @objc func updateAudioMeter(timer: Timer) {
+        if audioRecorder.isRecording {
             let hr = Int((audioRecorder.currentTime / 60) / 60)
             let min = Int(audioRecorder.currentTime / 60)
             let sec = Int(audioRecorder.currentTime.truncatingRemainder(dividingBy: 60))
@@ -118,20 +117,16 @@ class CardLessonVC: UIViewController {
         }
     }
     
-    @IBAction func play_recording(_ sender: Any)
-    {
-        if(isPlaying)
-        {
+    @IBAction func play_recording(_ sender: Any) {
+        if(isPlaying) {
             audioPlayer.stop()
             recordButton.isEnabled = true
             playRecordButton.setTitle("Play", for: .normal)
             playRecordButton.setTitleColor(UIColor.black, for: .normal)
             isPlaying = false
         }
-        else
-        {
-            if FileManager.default.fileExists(atPath: getFileUrl().path)
-            {
+        else {
+            if FileManager.default.fileExists(atPath: getFileUrl().path) {
                 recordButton.isEnabled = false
                 prepare_play()
                 playRecordButton.setTitle("stop", for: .normal)
@@ -139,15 +134,17 @@ class CardLessonVC: UIViewController {
                 audioPlayer.play()
                 isPlaying = true
             }
-            else
-            {
+            else {
                 print("audio is missing")
             }
         }
     }
     
+    private func bindViewModel() {
+        viewModel = CardViewModel()
+    }
+    
     func updateUI(autoPlayAudio: Bool) {
-        cardViewModel = CardViewModel()
         
         // UI
         overrideUserInterfaceStyle = .light
@@ -169,14 +166,13 @@ class CardLessonVC: UIViewController {
         showHideButton.setTitle("Show Sample", for: .normal)
         showHideButton.setTitleColor(.darkGray, for: .normal)
         
-        let cardName = cardLesson[cardIndex].cardName
+        let cardName = cardLesson[cardIndex].title
         lessonLabel.text = cardName
         lessonLabel.layer.borderWidth = 0.5
         lessonLabel.layer.borderColor = UIColor(red: 0.81, green: 0.82, blue: 0.83, alpha: 1.00).cgColor
-        print("updateUI: \(cardIndex), \(cardLesson.count)")
         
         // Render HTML
-        let htmlString = cardLesson[cardIndex].backCardText
+        let htmlString = cardLesson[cardIndex].backText
         
         textBackField.attributedText = htmlString.htmlAttributedString()
         
@@ -212,12 +208,12 @@ class CardLessonVC: UIViewController {
         popUpMessageLabel.addGestureRecognizer(tap)
         popUpImage.isUserInteractionEnabled = true
         popUpImage.addGestureRecognizer(tap)
-
+        
     }
     
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         showHideButton.sendActions(for: .touchUpInside)
-        }
+    }
     
     func resetCardLesson() {
         cardLesson = temporaryCardLesson
@@ -228,7 +224,7 @@ class CardLessonVC: UIViewController {
     @IBAction func audioFrontPressed(_ sender: UIButton) {
         let baseURL = "https://app.ielts-vuive.com/data/audio/"
         let id = String(cardLesson[cardIndex].id)
-        let audioName = cardLesson[cardIndex].frontCardAudio
+        let audioName = cardLesson[cardIndex].audioFrontName
         
         let sourceAudio = "\(baseURL)\(id)/\(audioName)"
         let url = URL(string: sourceAudio)
@@ -247,7 +243,7 @@ class CardLessonVC: UIViewController {
     @IBAction func audioBackPressed(_ sender: UIButton) {
         let baseURL = "https://app.ielts-vuive.com/data/audio/"
         let id = String(cardLesson[cardIndex].id)
-        let audioName = cardLesson[cardIndex].backCardAudio
+        let audioName = cardLesson[cardIndex].audioBackName
         avPlayer?.addObserver(self, forKeyPath: "currentTime", options: .new, context: nil)
         
         let sourceAudio = "\(baseURL)\(id)/\(audioName)"
@@ -280,9 +276,8 @@ class CardLessonVC: UIViewController {
         playButon.isHidden = false
     }
     
-        
+    
     @objc func handleSliderChange() {
-        
         if let duration = avPlayer?.currentItem?.duration {
             let totalSeconds = CMTimeGetSeconds(duration)
             let value = Float64(audioSlider.value) * totalSeconds
@@ -350,19 +345,19 @@ class CardLessonVC: UIViewController {
         popUpImage.isHidden = false
         
         // Write log again button
-        if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-            let cateId = UserDefaults.standard.integer(forKey: "cardId")
-            cardViewModel.checkToken(token: accessToken) { (userData, tokenError) in
-                if let userId = userData?.id {
-                    let cardId = self.temporaryCardLesson[self.cardIndex].id
-                    self.cardViewModel.writeLogButon(buttonName: "Again", cardId: cardId, categoryId: cateId, userId: userId) {
-                        print("Log Again Buton Success")
-                    }
-                } else {
-                    print("no log")}
+        let cardParentId = UserDefaults.standard.integer(forKey: "cardParentId")
+        let userId = UserDefaults.standard.integer(forKey: "userId")
+        let cardId = self.temporaryCardLesson[self.cardIndex].id
+        
+        service.writeLogButtonHits(buttonName: "Again", cardId: cardId, categoryId: cardParentId, userId: userId) { results in
+            switch results {
+            case .success(let results):
+                print("write log again button: \(results)")
+            case .failure(let error):
+                print(error)
             }
         }
-        
+
         switch cardIndex {
         case cardLesson.count - 1:
             cardIndex = -1
@@ -385,16 +380,16 @@ class CardLessonVC: UIViewController {
         popUpImage.isHidden = false
         
         // Write log complete button
-        if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-            let cateId = UserDefaults.standard.integer(forKey: "cardId")
-            cardViewModel.checkToken(token: accessToken) { (userData, tokenError) in
-                if let userId = userData?.id {
-                    let cardId = self.temporaryCardLesson[self.cardIndex].id
-                    self.cardViewModel.writeLogButon(buttonName: "Easy", cardId: cardId, categoryId: cateId, userId: userId) {
-                        print("Log complete Buton Success")
-                    }
-                } else {
-                    print("no log")}
+        let cardParentId = UserDefaults.standard.integer(forKey: "cardParentId")
+        let userId = UserDefaults.standard.integer(forKey: "userId")
+        let cardId = self.temporaryCardLesson[self.cardIndex].id
+        
+        service.writeLogButtonHits(buttonName: "Easy", cardId: cardId, categoryId: cardParentId, userId: userId) { results in
+            switch results {
+            case .success(let results):
+                print("write log complete button: \(results)")
+            case .failure(let error):
+                print(error)
             }
         }
         
@@ -423,7 +418,7 @@ class CardLessonVC: UIViewController {
     
     @IBAction func backToLessonButtonPressed(_ sender: UIButton) {
         avPlayer?.replaceCurrentItem(with: nil)
-        cardLesson = [CardData]()
+        cardLesson = [CardItems]()
         deleteRecordedAudio()
         dismiss(animated: true, completion: nil)
     }
@@ -469,6 +464,6 @@ extension String {
 }
 
 extension AVPlayer {
-
+    
 }
 

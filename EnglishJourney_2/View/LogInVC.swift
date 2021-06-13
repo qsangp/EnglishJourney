@@ -8,7 +8,6 @@
 import UIKit
 import QuartzCore
 import GoogleSignIn
-import NVActivityIndicatorView
 
 class LogInVC: UIViewController {
     
@@ -26,48 +25,25 @@ class LogInVC: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var googleLoginButton: UIView!
     
-    var cardViewModel: CardViewModel!
+    var viewModel: CardViewModel!
+    let service = Service()
     
-    let loadingWhiteView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let popUpMessageLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Login Successfully!"
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.layer.cornerRadius = 20
-        label.layer.masksToBounds = true
-        return label
-    }()
-    
-    let popUpImage: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "check"))
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
-    
-    let activityIndicator: NVActivityIndicatorView = {
-        let loading = NVActivityIndicatorView(frame: .zero, type: .circleStrokeSpin, color: UIColor(red: 1.00, green: 0.39, blue: 0.38, alpha: 1.00), padding: 0)
-        loading.translatesAutoresizingMaskIntoConstraints = false
-        return loading
-    }()
+    deinit {
+        print("Login VC has no retain cycle")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         overrideUserInterfaceStyle = .light
         
+        bindViewModel()
         configureTextField()
-        setupView()
-        setUpAnimation()
         updateUI()
+        checkAuthentication()
         
     }
+    
     func updateUI() {
         hideKeyboardWhenTappedAround()
         
@@ -79,54 +55,40 @@ class LogInVC: UIViewController {
         googleLoginButton.layer.borderColor = UIColor.darkGray.cgColor
         googleLoginButton.layer.cornerRadius = 20
         
-        cardViewModel = CardViewModel()
-        
         GIDSignIn.sharedInstance().presentingViewController = self
         GIDSignIn.sharedInstance().delegate = self
-        
-        checkAuthentication()
     }
     
-    func setUpAnimation() {
-        
-        view.addSubview(activityIndicator)
-        NSLayoutConstraint.activate([
-            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.widthAnchor.constraint(equalToConstant: 40),
-            activityIndicator.heightAnchor.constraint(equalToConstant: 40),
-            activityIndicator.topAnchor.constraint(equalTo: googleLoginButton.bottomAnchor, constant: 20)
-        ])
-        activityIndicator.stopAnimating()
+    private func bindViewModel() {
+        viewModel = CardViewModel()
     }
     
-    func setupView() {
-        
-        view.addSubview(loadingWhiteView)
-        NSLayoutConstraint.activate([
-            loadingWhiteView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loadingWhiteView.centerYAnchor.constraint(equalTo: view.centerYAnchor), loadingWhiteView.topAnchor.constraint(equalTo: view.topAnchor), loadingWhiteView.bottomAnchor.constraint(equalTo: view.bottomAnchor), loadingWhiteView.leftAnchor.constraint(equalTo: view.leftAnchor), loadingWhiteView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
-        
-        view.addSubview(popUpImage)
-        NSLayoutConstraint.activate([
-            popUpImage.centerXAnchor.constraint(equalTo: loadingWhiteView.centerXAnchor),
-            popUpImage.widthAnchor.constraint(equalToConstant: 100),
-            popUpImage.heightAnchor.constraint(equalToConstant: 100)
-        ])
-        
-        view.addSubview(popUpMessageLabel)
-        
-        popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            popUpMessageLabel.centerXAnchor.constraint(equalTo: loadingWhiteView.centerXAnchor),
-            popUpMessageLabel.centerYAnchor.constraint(equalTo: loadingWhiteView.centerYAnchor),
-            popUpMessageLabel.topAnchor.constraint(equalTo: popUpImage.bottomAnchor, constant: 10),
-            popUpMessageLabel.widthAnchor.constraint(equalToConstant: 200)
-        ])
-        
-        loadingWhiteView.isHidden = true
-        popUpImage.isHidden = true
-        popUpMessageLabel.isHidden = true
+    func createNewUser(name: String, email: String) {
+        service.createUser(name: name, email: email) { [weak self] errorMessage in
+            if errorMessage == nil {
+                self?.fetchLogin(email: email, password: name)
+            } else {
+                print(errorMessage!)
+                self?.fetchLogin(email: email, password: name)
+            }
+        }
+    }
+    
+    func fetchLogin(email: String, password: String) {
+        service.fetchLogin(email: email, password: password + "7nQ-ij") { [weak self] results in
+            switch results {
+            case .success(let results):
+                UserDefaults.standard.setValue(results, forKey: "accessToken")
+                DispatchQueue.main.async {
+                    self?.checkAuthentication()
+                }
+            case .failure(let error):
+                print("login failed: \(error.localizedDescription)")
+                self?.viewModel.needShowError = { [weak self] error in
+                    self?.showError(error: error)
+                }
+            }
+        }
     }
     
     private func configureTextField() {
@@ -139,53 +101,41 @@ class LogInVC: UIViewController {
         passwordTextField.text?.removeAll()
     }
     
+    private func showError(error: ErrorMessage) {
+        let alert = UIAlertController(title: "Error", message: error.rawValue, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
     @IBAction func btnGooglePressed(_ sender: UIButton) {
         sender.preventRepeatedPresses()
         GIDSignIn.sharedInstance().signIn()
-        activityIndicator.startAnimating()
     }
     
     @IBAction func logInButtonPressed(_ sender: UIButton) {
         sender.preventRepeatedPresses()
-        activityIndicator.startAnimating()
         
         do {
             try login()
             let email = emailTextField.text!
             let password = passwordTextField.text!
             
-            self.cardViewModel.fetchLogIn(username: email, password: password) { error in
-                
-                if error != nil {
-                    Alert.showBasic(title: "Unable To Login", message: "Something went wrong. Please try again later...", vc: self)
-                    self.activityIndicator.stopAnimating()
-                    
-                } else {
-                    self.loadingWhiteView.isHidden = false
-                    self.popUpImage.isHidden = false
-                    self.popUpMessageLabel.isHidden = false
-                    
-                    self.performSegue(withIdentifier: "LogInSuccess", sender: self)
-                    self.activityIndicator.stopAnimating()
-                    self.loadingWhiteView.isHidden = true
-                    self.popUpImage.isHidden = true
-                    self.popUpMessageLabel.isHidden = true
+            service.fetchLogin(email: email, password: password) { [weak self] results in
+                switch results {
+                case .success(_):
+                    self?.checkAuthentication()
+                case .failure(_):
+                    self?.viewModel.needShowError = { [weak self] error in
+                        self?.showError(error: error)
+                    }
                 }
             }
-            
         } catch LoginError.incompleteForm {
             Alert.showBasic(title: "Incomplete Form", message: "Please fill out both email and password fields", vc: self)
-            self.activityIndicator.stopAnimating()
-        } catch LoginError.invalidEmail {
-            Alert.showBasic(title: "Invalid Email Format", message: "Please make sure you format your email correctly", vc: self)
-            self.activityIndicator.stopAnimating()
         } catch LoginError.incorrectPasswordLength {
             Alert.showBasic(title: "Password Too Short", message: "Password should be at least 6 characters", vc: self)
-            self.activityIndicator.stopAnimating()
         } catch {
             Alert.showBasic(title: "Unable To Login", message: "Something went wrong. Please try again later...", vc: self)
-            self.activityIndicator.stopAnimating()
-            
         }
         
     }
@@ -193,18 +143,23 @@ class LogInVC: UIViewController {
     // Check Authentication
     func checkAuthentication() {
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-            cardViewModel.checkToken(token: accessToken) { (userData, tokenError) in
-                if tokenError != nil {
-                    print("User must login")
-                } else {
-                    self.performSegue(withIdentifier: "LogInSuccess", sender: nil)
+            service.checkToken(token: accessToken) { [weak self] results in
+                switch results {
+                case .success(let results):
+                    UserDefaults.standard.setValue(results.userEmail, forKey: "userEmail")
+                    UserDefaults.standard.setValue(results.id, forKey: "userId")
+                    print("check Authentication successfully")
+                    self?.performSegue(withIdentifier: "LogInSuccess", sender: nil)
+                case .failure(let error):
+                    print("checkToken error: \(error)")
                 }
             }
+        } else {
+            print("Token is expired -> User must login")
         }
     }
     
     // Throw error login
-    
     func login() throws {
         
         let email = emailTextField.text!
@@ -213,11 +168,6 @@ class LogInVC: UIViewController {
         if email.isEmpty || password.isEmpty {
             throw LoginError.incompleteForm
         }
-        
-        if !email.inValidEmail {
-            throw LoginError.invalidEmail
-        }
-        
         if password.count < 6 {
             throw LoginError.incorrectPasswordLength
         }
@@ -241,61 +191,22 @@ extension UIViewController: UITextFieldDelegate {
 extension LogInVC: GIDSignInDelegate {
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Swift.Error!) {
-        
         if error != nil {
             print(error.localizedDescription)
-            self.activityIndicator.stopAnimating()
             
         } else {
             if GIDSignIn.sharedInstance().hasPreviousSignIn() {
                 if let user = GIDSignIn.sharedInstance().currentUser {
                     if let email = user.profile.email,
-                       let username = email.components(separatedBy: CharacterSet(charactersIn: ("@0123456789"))).first,
-                       let id = user.userID {
+                       let userName = email.components(separatedBy: CharacterSet(charactersIn: ("@0123456789"))).first {
                         if user.profile.hasImage {
                             let userImageURL = user.profile.imageURL(withDimension: 500)
                             UserDefaults.standard.set(userImageURL, forKey: "userImageURL")
                         }
-                        print(email)
-                        print(id)
-                        
-                        // Try to login
-                        print("Try to login")
-                        self.cardViewModel.fetchLogIn(username: email, password: username + "7nQ-ij") { error in
-                            
-                            if error != nil {
-                                // User didn't exist -> create new user
-                                print("User didn't exist -> create new user")
-                                self.cardViewModel.createUser(name: username, surname: username, username: username, email: email, password: username + "7nQ-ij") { error in
-                                    
-                                    if error != nil {
-                                        Alert.showBasic(title: "Unable To Create New User", message: "\(error!). Please try again later...", vc: self)
-                                        
-                                    } else {
-                                        self.cardViewModel.fetchLogIn(username: email, password: username + "7nQ-ij") { error in
-                                            
-                                            if error != nil {
-                                                print("Failed to login new user")
-                                                
-                                            } else {
-                                                self.loadingWhiteView.isHidden = false
-                                                self.popUpImage.isHidden = false
-                                                self.popUpMessageLabel.isHidden = false
-                                                
-                                                self.performSegue(withIdentifier: "LogInSuccess", sender: self)
-                                                self.activityIndicator.stopAnimating()
-                                                self.loadingWhiteView.isHidden = true
-                                                self.popUpImage.isHidden = true
-                                                self.popUpMessageLabel.isHidden = true
-                                            }
-                                        }
-                                    }
-                                }
-                            } else {
-                                self.performSegue(withIdentifier: "LogInSuccess", sender: self)
-                                self.activityIndicator.stopAnimating()
-                            }
-                        }
+                        let displayName = user.profile.name
+                        print("welcome \(displayName!)")
+                        UserDefaults.standard.setValue(displayName, forKey: "userName")
+                        createNewUser(name: userName, email: email)
                     }
                 }
             }
@@ -303,7 +214,9 @@ extension LogInVC: GIDSignInDelegate {
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Swift.Error!) {
-        self.activityIndicator.stopAnimating()
+        if let error = error {
+            print(error.localizedDescription)
+        }
     }
 }
 

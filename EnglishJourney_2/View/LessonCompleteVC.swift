@@ -14,7 +14,7 @@ class LessonCompleteVC: UIViewController {
     @IBOutlet weak var learnAgainButton: UIButton!
     @IBOutlet weak var backToLessonsButton: UIButton!
     
-    var cardCompleteData = [CardData]()
+    var cardCompleteData = [CardItems]()
     var clickedData: ChartData!
     
     override func viewDidLoad() {
@@ -29,7 +29,7 @@ class LessonCompleteVC: UIViewController {
         learnAgainButton.layer.cornerRadius = 20
         backToLessonsButton.layer.cornerRadius = 20
         
-        if let nameCard = cardCompleteData.first?.cardName {
+        if let nameCard = cardCompleteData.first?.title {
             let newNameCard = nameCard.prefix(nameCard.count - 3)
             
             congratMessage.text = "Congrats! \nYou have completed the lesson: \(newNameCard) \nAgain: \(clickedData.againButtonPressedLog) \nComplete: \(clickedData.completeButtonPressedLog)"
