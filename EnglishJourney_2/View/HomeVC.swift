@@ -9,6 +9,10 @@ import UIKit
 
 class HomeVC: UIViewController {
 
+    deinit {
+        print("HomeVC has no retain cycle")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

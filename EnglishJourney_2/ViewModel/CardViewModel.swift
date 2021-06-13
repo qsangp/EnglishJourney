@@ -26,6 +26,7 @@ class CardViewModel {
     private var cardData: [CardItems] = []
     private var chartData: ButtonDataSet?
     private var numOfLesson: [Int:Int] = [:]
+    private var numOfCompletion: [Int:Int] = [:]
     
     init() {
         service = Service()
@@ -45,14 +46,28 @@ class CardViewModel {
         }
     }
     
-    func requestChartData() {
-        service.fetchChartData { [weak self] results in
+    func requestChartData(cardId: Int) {
+        service.fetchChartData(cardId: cardId) { [weak self] results in
             guard let strongSelf = self else { return }
 
             switch results {
             case .success(let results):
                 strongSelf.chartData = results
                 strongSelf.needReloadChart?()
+            case .failure(let error):
+                strongSelf.needShowError?(error)
+            }
+        }
+    }
+    
+    func requestChartDataCell(cardId: Int) {
+        service.fetchChartData(cardId: cardId) { [weak self] results in
+            guard let strongSelf = self else { return }
+
+            switch results {
+            case .success(let results):
+                strongSelf.numOfCompletion[cardId] = results?.againDataHits.reduce(0,+) ?? 0 / strongSelf.numberOfLesson(cardId: cardId)
+                strongSelf.needReloadTableView?()
             case .failure(let error):
                 strongSelf.needShowError?(error)
             }
@@ -77,6 +92,10 @@ class CardViewModel {
     
     func buttonDataHits() -> ButtonDataSet? {
         return chartData
+    }
+    
+    func numberOfCompletion(cardId: Int) -> Int {
+        return numOfCompletion[cardId] ?? 0
     }
     
     func numberOfLesson(cardId: Int) -> Int {

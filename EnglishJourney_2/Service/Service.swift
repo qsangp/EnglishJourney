@@ -134,7 +134,7 @@ class Service {
         }.resume()
     }
     
-    func fetchChartData(completion: @escaping (Swift.Result<ButtonDataSet?, ErrorMessage>) -> Void) {
+    func fetchChartData(cardId: Int, completion: @escaping (Swift.Result<ButtonDataSet?, ErrorMessage>) -> Void) {
         
         let date = Date()
         let formatterMonth = DateFormatter()
@@ -147,9 +147,8 @@ class Service {
               let currentYear = Int(formatterYear.string(from: date)) else {return}
         
         let userId = UserDefaults.standard.integer(forKey: "userId")
-        let cardParentId = UserDefaults.standard.integer(forKey: "cardParentId")
         
-        guard let urlRequestUserLogIn = URL(string: "https://app.ielts-vuive.com/api/services/app/flashCardLessionService/GetReportDataLessionBarChart?month=\(currentMonth)&year=\(currentYear)&cateId=\(cardParentId)&userId=\(userId)") else { return }
+        guard let urlRequestUserLogIn = URL(string: "https://app.ielts-vuive.com/api/services/app/flashCardLessionService/GetReportDataLessionBarChart?month=\(currentMonth)&year=\(currentYear)&cateId=\(cardId)&userId=\(userId)") else { return }
         var request = URLRequest(url: urlRequestUserLogIn)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

@@ -17,6 +17,10 @@ class LessonCompleteVC: UIViewController {
     var cardCompleteData = [CardItems]()
     var clickedData: ChartData!
     
+    deinit {
+        print("CardComplete VC has no retain cycle")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,7 +45,6 @@ class LessonCompleteVC: UIViewController {
     }
     
     @IBAction func backToLessonsPressed(_ sender: UIButton) {
-        UserDefaults.standard.setValue(true, forKey: "isUserFinishCard")
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     

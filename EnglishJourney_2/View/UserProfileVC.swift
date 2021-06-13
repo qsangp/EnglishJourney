@@ -18,6 +18,10 @@ class UserProfileVC: UIViewController {
     
     var cardViewModel: CardViewModel!
     
+    deinit {
+        print("Userprofile VC has no retain cycle")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light

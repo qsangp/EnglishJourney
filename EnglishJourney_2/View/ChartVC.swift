@@ -23,6 +23,10 @@ class ChartVC: UIViewController {
         return label
     }()
     
+    deinit {
+        print("Chart VC has no retain cycle")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,7 +44,8 @@ class ChartVC: UIViewController {
         viewModel.needShowError = { [weak self] error in
             self?.showError(error: error)
         }
-        viewModel.requestChartData()
+        let cardParentId = UserDefaults.standard.integer(forKey: "cardParentId")
+        viewModel.requestChartData(cardId: cardParentId)
     }
     
     private func bindViewModel() {

@@ -22,6 +22,10 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
     var cardParentId = 186
     var menuTitle = "☰ MENU"
     
+    deinit {
+        print("VC has no retain cycle")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,12 +34,10 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
         self.initTableView()
         self.bindViewModel()
         self.updateUI()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        checkUserFinishCard()
     }
     
     /// Bind view model
@@ -45,11 +47,9 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
         viewModel.needReloadTableView = { [weak self] in
             self?.tableView.reloadData()
         }
-        
         viewModel.needShowError = { [weak self] error in
             self?.showError(error: error)
         }
-        
         viewModel.requestCard()
     }
     
@@ -59,21 +59,6 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
         let alert = UIAlertController(title: "Error", message: error.rawValue, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
-    }
-    
-    func checkUserFinishCard() {
-        let isUserFinishCard = UserDefaults.standard.bool(forKey: "isUserFinishCard")
-        if isUserFinishCard {
-            UserDefaults.standard.setValue(false, forKey: "isUserFinishCard")
-        }
-    }
-    
-    func checkCurrentParentId() {
-        let currentParentId = UserDefaults.standard.integer(forKey: "cardParentId")
-        if currentParentId != 0 {
-            isMenuOn = true
-            tableView.reloadData()
-        }
     }
     
     func updateUI() {
@@ -132,10 +117,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             let card = viewModel.cellForRowAtLessons(parentId: cardParentId, indexPath: indexPath)
             let cell = tableView.dequeueReusableCell(withIdentifier: "MyTableViewCell") as! MyTableViewCell
-            
+            let numberOfLesson = viewModel.numberOfLesson(cardId: card.id)
+            let completion = viewModel.numberOfCompletion(cardId: card.id)
             cell.selectionStyle = .none
             cell.titleLabel.text = card.title
-            cell.numberLabel.text = "Lessons: \(viewModel.numberOfLesson(cardId: card.id)) - Completion: 0"
+            cell.numberLabel.text = "Lessons: \(numberOfLesson) - Completion: \(completion)"
             
             return cell
         }
@@ -189,6 +175,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             let cardCateItems = viewModel.cellForRowAt(indexPath: indexPath)
             for item in cardCateItems.items {
                 viewModel.getDashboard(cardId: item.id)
+                viewModel.requestChartDataCell(cardId: item.id)
             }
             cardParentId = cardCateItems.id
             menuTitle = cardCateItems.title

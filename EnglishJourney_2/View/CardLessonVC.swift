@@ -76,6 +76,10 @@ class CardLessonVC: UIViewController {
     var completeButtonPressedLog = 0
     var chartData: ChartData!
     
+    deinit {
+        print("CardLesson VC has no retain cycle")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,7 +91,7 @@ class CardLessonVC: UIViewController {
     // Record Audio
     
     @IBAction func start_recording(_ sender: UIButton) {
-        if(isRecording) {
+        if (isRecording) {
             finishAudioRecording(success: true)
             recordButton.setTitle("Record", for: .normal)
             recordButton.setTitleColor(UIColor.black, for: .normal)
@@ -317,7 +321,7 @@ class CardLessonVC: UIViewController {
             constraintFrontCardBackCard.priority = UILayoutPriority.defaultHigh
             constraintFrontCardViewBottom.priority =
                 UILayoutPriority.defaultLow
-            constraintFrontCardViewTop.constant = 60
+            constraintFrontCardViewTop.constant = 80
             
         } else {
             showHideButton.setTitle("Show Sample", for: .normal)
