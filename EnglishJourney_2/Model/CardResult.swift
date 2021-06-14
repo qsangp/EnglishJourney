@@ -13,9 +13,10 @@ struct CardCates: Codable {
 }
 
 struct CardCate: Codable {
-    let parentName: String
-    let name, displayName: String
-    let isGrantedByDefault: Bool
+    let title: String
+    let parentId: Int?
+    let numOfLession: Int
+    let id: Int
 }
 
 struct CardLessons: Codable {
@@ -41,19 +42,18 @@ struct DashboardResult: Codable {
 
 //MARK: Model
 struct CardCateItems {
-    let parentId: Int?
-    let id: Int
     let title: String
-    let isGrantedByDefault: Bool
+    let parentID: Int
+    let numOfLession: Int
+    let id: Int
     var items: [CardLessonItems]
 }
 
 struct CardLessonItems {
-    let parentId: Int
-    let id: Int
     let title: String
-    var numOfLession: Int
-
+    let parentID: Int
+    let numOfLession: Int
+    let id: Int
 }
 
 struct CardItems {

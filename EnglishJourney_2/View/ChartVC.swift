@@ -16,7 +16,7 @@ class ChartVC: UIViewController {
     
     let popUpMessageLabel: UILabel = {
         let label = UILabel()
-        label.text = "You have practiced days this month. Keep going!"
+        label.text = ""
         label.textAlignment = .center
         label.numberOfLines = 0
         label.layer.masksToBounds = true
@@ -138,7 +138,14 @@ class ChartVC: UIViewController {
             
             view.addSubview(barChart)
             barChart.tag = 1
-            barChart.center =  view.center
+            barChart.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                barChart.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                barChart.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 5),
+                barChart.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 5),
+                barChart.topAnchor.constraint(equalTo: view.topAnchor, constant: 50)
+            ])
             
             if againButtonDayCount != 0 ||  completeButtonDayCount != 0 {
                 popUpMessageLabel.text = "\(userName ?? "") ơi, bạn đã luyện \(title) được \( againButtonDayCount) ngày tháng này rồi. Giữ vững tiến độ nhé!"
@@ -146,9 +153,10 @@ class ChartVC: UIViewController {
                 
                 popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
                 NSLayoutConstraint.activate([
-                    popUpMessageLabel.centerXAnchor.constraint(equalTo:  view.centerXAnchor),
+                    popUpMessageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                     popUpMessageLabel.widthAnchor.constraint(equalToConstant: 300),
-                    popUpMessageLabel.topAnchor.constraint(equalTo:  view.topAnchor, constant: 100)
+                    popUpMessageLabel.topAnchor.constraint(equalTo: barChart.bottomAnchor, constant: 10),
+                    popUpMessageLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150)
                 ])
                 
             } else {
@@ -157,9 +165,10 @@ class ChartVC: UIViewController {
                 
                 popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
                 NSLayoutConstraint.activate([
-                    popUpMessageLabel.centerXAnchor.constraint(equalTo:  view.centerXAnchor),
+                    popUpMessageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                     popUpMessageLabel.widthAnchor.constraint(equalToConstant: 300),
-                    popUpMessageLabel.bottomAnchor.constraint(equalTo: barChart.topAnchor, constant: 0)
+                    popUpMessageLabel.topAnchor.constraint(equalTo: barChart.bottomAnchor, constant: 10),
+                    popUpMessageLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150)
                 ])
             }
         } else {
@@ -169,8 +178,8 @@ class ChartVC: UIViewController {
             popUpMessageLabel.tag = 1
             popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                popUpMessageLabel.centerXAnchor.constraint(equalTo:  view.centerXAnchor),
-                popUpMessageLabel.centerYAnchor.constraint(equalTo:  view.centerYAnchor),
+                popUpMessageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                popUpMessageLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
                 popUpMessageLabel.widthAnchor.constraint(equalToConstant: 300)
             ])
         }

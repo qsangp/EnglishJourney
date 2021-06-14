@@ -12,7 +12,7 @@ import UIKit
 class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     var customTabBar: CustomTabbarUIView!
-    var tabBarHeight: CGFloat = 60.0
+    var tabBarHeight: CGFloat = 50.0
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -29,7 +29,7 @@ class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
     }
     
     func loadTabBar() {
-        let tabbarItems: [TabItem] = [.lesson, .progress, .others]
+        let tabbarItems: [TabItem] = [.lesson, .progress, .you]
         
         setupCustomTabMenu(tabbarItems, completion: { viewControllers in
             self.viewControllers = viewControllers

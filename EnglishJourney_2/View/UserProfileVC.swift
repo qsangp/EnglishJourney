@@ -34,13 +34,18 @@ class UserProfileVC: UIViewController {
         let userImageURL = UserDefaults.standard.url(forKey: "userImageURL")
         if let url = userImageURL {
             self.userProfileImage.downloaded(from: url)
+            userProfileImage.contentMode = .scaleAspectFill
+            userProfileImage.layer.borderWidth = 1.0
+            userProfileImage.layer.masksToBounds = false
+            userProfileImage.layer.borderColor = UIColor.white.cgColor
+            userProfileImage.layer.cornerRadius = userProfileImage.frame.size.width / 2
+            userProfileImage.clipsToBounds = true
         }
         guard let userName = UserDefaults.standard.string(forKey: "userName"),
               let userEmail = UserDefaults.standard.string(forKey: "userEmail") else {return}
         self.userProfileInfo.text = """
-                        Username: \(userName)
-                        
-                        Email: \(userEmail)
+                        \(userName)
+                        \(userEmail)
                         """
     }
     

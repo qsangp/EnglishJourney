@@ -13,9 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        
-        setupNotification(on: application)
-        
+                
         do {
             try Network.reachability = Reachability(hostname: "www.google.com")
         }
@@ -49,25 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
     }
     
-}
-
-extension AppDelegate {
-    func setupNotification(on application: UIApplication) {
-        let notificationCenter = UNUserNotificationCenter.current()
-        notificationCenter.delegate = self
-        notificationCenter.requestAuthorization(options: [.alert, .sound]) { granted, error in
-            if let error = error {
-                print("Failed to  request Authorization for notification center: \(error.localizedDescription)")
-                return
-            }
-            guard granted else {
-                print("Failed to  request Authorization for notification center: not granted")
-                return
-            }
-            DispatchQueue.main.async {
-                application.registerForRemoteNotifications()
-            }
-        }
-    }
+    
+    
 }
 

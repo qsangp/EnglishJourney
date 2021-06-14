@@ -14,7 +14,7 @@ class Service {
     func fetchFlashCards(completion: @escaping (Swift.Result<[CardCateItems]?, ErrorMessage>) -> Void) {
         
         guard let token = UserDefaults.standard.string(forKey: "accessToken") else {return}
-        let urlString = URL(string:"https://app.ielts-vuive.com/api/services/app/flashCardCategorieService/GetAllCategoriesRole")
+        let urlString = URL(string:"https://app.ielts-vuive.com/api/services/app/flashCardCategorieService/GetAllCategoriesGranted")
         
         var request = URLRequest(url: urlString!)
         request.httpMethod = "POST"
@@ -44,31 +44,19 @@ class Service {
                 var cardLessons = [CardLessonItems]()
                 
                 for card in decodedData.result {
-                    guard !card.isGrantedByDefault else {return}
-                    let parentName = card.parentName
-                    let name = card.name
+                    let parentId = card.parentId
+                    let id = card.id
                     
-                    if parentName != "" {
-                        
-                        let indexParentId = parentName.index(parentName.startIndex, offsetBy: 9)
-                        let indexId = name.index(name.startIndex, offsetBy: 9)
-                        guard let parentId = Int(parentName.suffix(from: indexParentId)),
-                              let lessonId = Int(name.suffix(from: indexId))
-                        else {return}
-                        
-                        cardLessons.append(CardLessonItems(parentId: parentId, id: lessonId, title: card.displayName, numOfLession: 0))
-                        
+                    if let parentId = parentId {
+                        cardLessons.append(CardLessonItems(title: card.title, parentID: parentId, numOfLession: card.numOfLession, id: id))
                     } else {
-                        let indexId = name.index(name.startIndex, offsetBy: 9)
-                        guard let categoryId = Int(name.suffix(from: indexId))
-                        else {return}
-                        
-                        cardCategory.append(CardCateItems(parentId: 0, id: categoryId, title: card.displayName, isGrantedByDefault: card.isGrantedByDefault, items: [CardLessonItems]()))
+                        cardCategory.append(CardCateItems(title: card.title, parentID: 0, numOfLession: card.numOfLession, id: card.id, items: [CardLessonItems]()))
                     }
                 }
+                print(cardCategory)
                 cardCategory = cardCategory.map({ card in
                     var card = card
-                    let lesson = cardLessons.filter({$0.parentId == card.id})
+                    let lesson = cardLessons.filter({$0.parentID == card.id})
                     card.items = lesson
                     return card
                 })
@@ -86,13 +74,15 @@ class Service {
     }
     
     
-    func fetchFlashCardsData(cateId: Int, userId: Int, completion: @escaping (Swift.Result<[CardItems]?, ErrorMessage>) -> Void) {
+    func fetchFlashCardsData(cateId: Int, completion: @escaping (Swift.Result<[CardItems]?, ErrorMessage>) -> Void) {
         
+        let userId = UserDefaults.standard.integer(forKey: "userId")
+
         let urlStringData = "https://app.ielts-vuive.com/api/services/app/flashCardLessionService/GetAllLessionsByCateId?id="
         
         let stringId = String(cateId)
-        let userId = String(userId)
-        let newUrl = "\(urlStringData)\(stringId)&userId=\(userId)"
+        let userIdString = String(userId)
+        let newUrl = "\(urlStringData)\(stringId)&userId=\(userIdString)"
         let urlStringDataID = URL(string: newUrl)
         
         var request = URLRequest(url: urlStringDataID!)
@@ -189,14 +179,15 @@ class Service {
         }.resume()
     }
     
-    func writeLogButtonHits(buttonName: String, cardId: Int, categoryId: Int, userId: Int, completion: @escaping (Swift.Result<Bool, ErrorMessage>) -> Void) {
+    func writeLogButtonHits(buttonName: String, categoryId: Int, completion: @escaping (Swift.Result<Bool, ErrorMessage>) -> Void) {
         
         guard let token = UserDefaults.standard.string(forKey: "accessToken") else {return}
+        
+        let userId = UserDefaults.standard.integer(forKey: "userId")
         
         guard let urlRequestUserLogIn = URL(string: "https://app.ielts-vuive.com/api/services/app/flashCardLessionService/WriteLog\(buttonName)"),
               let payLoad = """
                     {
-                      "cardDeckId": \(cardId),
                       "cardCategoryId": \(categoryId),
                       "userId": \(userId)
                     }

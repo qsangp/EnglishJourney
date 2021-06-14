@@ -173,12 +173,12 @@ class CardLessonVC: UIViewController {
         let cardName = cardLesson[cardIndex].title
         lessonLabel.text = cardName
         lessonLabel.layer.borderWidth = 0.5
-        lessonLabel.layer.borderColor = UIColor(red: 0.81, green: 0.82, blue: 0.83, alpha: 1.00).cgColor
+        lessonLabel.layer.borderColor = UIColor.lightGray.cgColor
         
         // Render HTML
         let htmlString = cardLesson[cardIndex].backText
         
-        textBackField.attributedText = htmlString.htmlAttributedString()
+        textBackField.attributedText = htmlString.htmlAttributedString(fontSize: 16)
         
         // Autoplay Front Audio
         if autoPlayAudio {
@@ -349,13 +349,12 @@ class CardLessonVC: UIViewController {
         popUpImage.isHidden = false
         
         // Write log again button
-        let cardParentId = UserDefaults.standard.integer(forKey: "cardParentId")
-        let userId = UserDefaults.standard.integer(forKey: "userId")
-        let cardId = self.temporaryCardLesson[self.cardIndex].id
+        let cardId = UserDefaults.standard.integer(forKey: "cardId")
         
-        service.writeLogButtonHits(buttonName: "Again", cardId: cardId, categoryId: cardParentId, userId: userId) { results in
+        service.writeLogButtonHits(buttonName: "Again", categoryId: cardId) { results in
             switch results {
             case .success(let results):
+                print(cardId)
                 print("write log again button: \(results)")
             case .failure(let error):
                 print(error)
@@ -384,14 +383,13 @@ class CardLessonVC: UIViewController {
         popUpImage.isHidden = false
         
         // Write log complete button
-        let cardParentId = UserDefaults.standard.integer(forKey: "cardParentId")
-        let userId = UserDefaults.standard.integer(forKey: "userId")
-        let cardId = self.temporaryCardLesson[self.cardIndex].id
-        
-        service.writeLogButtonHits(buttonName: "Easy", cardId: cardId, categoryId: cardParentId, userId: userId) { results in
+        let cardId = UserDefaults.standard.integer(forKey: "cardId")
+
+        service.writeLogButtonHits(buttonName: "Easy", categoryId: cardId) { results in
             switch results {
             case .success(let results):
-                print("write log complete button: \(results)")
+                print(cardId)
+                print("write log Complete button: \(results)")
             case .failure(let error):
                 print(error)
             }
@@ -432,7 +430,7 @@ class CardLessonVC: UIViewController {
 
 // MARK: - Render HTML
 extension String {
-    func htmlAttributedString() -> NSAttributedString? {
+    func htmlAttributedString(fontSize: Int) -> NSAttributedString? {
         let htmlTemplate = """
             <!doctype html>
             <html>
@@ -440,7 +438,7 @@ extension String {
                 <style>
                   body {
                     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-                    font-size: 3.5vw;
+                    font-size: \(fontSize)px;
                     line-height: 1.4;
                   }
                 </style>
@@ -451,7 +449,7 @@ extension String {
             </html>
             """
         
-        guard let data = htmlTemplate.data(using: .utf8) else {
+        guard let data = htmlTemplate.data(using: .unicode) else {
             return nil
         }
         

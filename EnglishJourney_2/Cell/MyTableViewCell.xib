@@ -19,24 +19,24 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Coe-qI-0Pd">
                         <rect key="frame" x="20" y="15" width="211" height="68"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="open-book" translatesAutoresizingMaskIntoConstraints="NO" id="pJL-md-TBz">
-                                <rect key="frame" x="20" y="20" width="60" height="60"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="honey" translatesAutoresizingMaskIntoConstraints="NO" id="pJL-md-TBz">
+                                <rect key="frame" x="10" y="20" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="g3P-8H-lNF"/>
                                     <constraint firstAttribute="height" constant="60" id="tHh-A9-lN1"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="0w6-CV-0Y9">
-                                <rect key="frame" x="95" y="10" width="106" height="48"/>
+                                <rect key="frame" x="85" y="10" width="116" height="48"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rFW-Bo-4q0">
-                                        <rect key="frame" x="0.0" y="5" width="96" height="21.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rFW-Bo-4q0">
+                                        <rect key="frame" x="0.0" y="5" width="106" height="21.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nBg-Ye-ILZ">
-                                        <rect key="frame" x="0.0" y="26.5" width="96" height="21.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nBg-Ye-ILZ">
+                                        <rect key="frame" x="0.0" y="26.5" width="106" height="21.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -57,13 +57,13 @@
                             <constraint firstItem="0w6-CV-0Y9" firstAttribute="top" secondItem="Coe-qI-0Pd" secondAttribute="top" constant="10" id="Hf2-rU-OcH"/>
                             <constraint firstAttribute="trailing" secondItem="0w6-CV-0Y9" secondAttribute="trailing" constant="10" id="Oyh-9w-0Yr"/>
                             <constraint firstItem="0w6-CV-0Y9" firstAttribute="leading" secondItem="pJL-md-TBz" secondAttribute="trailing" constant="15" id="izi-AH-WX0"/>
-                            <constraint firstItem="pJL-md-TBz" firstAttribute="leading" secondItem="Coe-qI-0Pd" secondAttribute="leading" constant="20" id="oG5-bN-JAV"/>
+                            <constraint firstItem="pJL-md-TBz" firstAttribute="leading" secondItem="Coe-qI-0Pd" secondAttribute="leading" constant="10" id="oG5-bN-JAV"/>
                             <constraint firstAttribute="bottom" secondItem="pJL-md-TBz" secondAttribute="bottom" constant="20" id="s6B-Fx-njV"/>
                             <constraint firstAttribute="bottom" secondItem="0w6-CV-0Y9" secondAttribute="bottom" constant="10" id="y0c-Cb-HKe"/>
                         </constraints>
                     </view>
                 </subviews>
-                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="Coe-qI-0Pd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="0FE-nD-BeM"/>
                     <constraint firstItem="Coe-qI-0Pd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Rjx-9B-9NA"/>
@@ -83,6 +83,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="open-book" width="512" height="512"/>
+        <image name="honey" width="512" height="512"/>
     </resources>
 </document>

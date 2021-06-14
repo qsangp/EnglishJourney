@@ -11,7 +11,7 @@ enum TabItem: String, CaseIterable {
     case lesson = "bài học"
 //    case home = "trang chủ"
     case progress = "tiến độ"
-    case others = "khác"
+    case you = "bạn"
 
     var viewController: UIViewController {
         switch self {
@@ -21,7 +21,7 @@ enum TabItem: String, CaseIterable {
 //            return HomeVC()
         case .progress:
             return ChartVC()
-        case .others:
+        case .you:
             return UserProfileVC()
         }
     }
@@ -29,13 +29,25 @@ enum TabItem: String, CaseIterable {
     var icon: UIImage {
         switch self {
         case .lesson:
-            return UIImage(systemName: "book.fill")!
+            return UIImage(systemName: "book")!
 //        case .home:
 //            return UIImage(systemName: "house.fill")!
         case .progress:
-            return UIImage(systemName: "chart.bar.fill")!
-        case .others:
-            return UIImage(systemName: "gearshape.fill")!
+            return UIImage(systemName: "chart.bar")!
+        case .you:
+            var profileImage = UIImage()
+            guard let url = UserDefaults.standard.url(forKey: "userImageURL") else {return profileImage}
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                guard
+                    let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                    let data = data, error == nil,
+                    let image = UIImage(data: data)
+                    else { return }
+                DispatchQueue.main.async {
+                    profileImage = image
+                }
+            }.resume()
+            return profileImage
         }
     }
     
@@ -43,3 +55,7 @@ enum TabItem: String, CaseIterable {
         return self.rawValue.capitalized(with: nil)
     }
 }
+
+
+
+

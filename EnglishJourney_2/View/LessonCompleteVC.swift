@@ -45,6 +45,7 @@ class LessonCompleteVC: UIViewController {
     }
     
     @IBAction func backToLessonsPressed(_ sender: UIButton) {
+        UserDefaults.standard.setValue(true, forKey: "isUserCompleted")
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     

@@ -24,6 +24,8 @@ class LogInVC: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var googleLoginButton: UIView!
+    @IBOutlet weak var googleButtonLabel: UIButton!
+    
     
     var viewModel: CardViewModel!
     let service = Service()
@@ -47,14 +49,12 @@ class LogInVC: UIViewController {
     func updateUI() {
         hideKeyboardWhenTappedAround()
         
-        emailTextField.layer.cornerRadius = 20
-        passwordTextField.layer.cornerRadius = 20
-        loginButton.layer.cornerRadius = 20
-        
-        googleLoginButton.layer.borderWidth = 1.0
-        googleLoginButton.layer.borderColor = UIColor.darkGray.cgColor
-        googleLoginButton.layer.cornerRadius = 20
-        
+        emailTextField.layer.masksToBounds = true
+        emailTextField.layer.cornerRadius = 5
+        passwordTextField.layer.masksToBounds = true
+        passwordTextField.layer.cornerRadius = 5
+        loginButton.layer.cornerRadius = 5
+                
         GIDSignIn.sharedInstance().presentingViewController = self
         GIDSignIn.sharedInstance().delegate = self
     }
