@@ -7,6 +7,7 @@
 
 import UIKit
 import GoogleSignIn
+import Kingfisher
 
 class UserProfileVC: UIViewController {
     
@@ -33,7 +34,7 @@ class UserProfileVC: UIViewController {
         
         let userImageURL = UserDefaults.standard.url(forKey: "userImageURL")
         if let url = userImageURL {
-            self.userProfileImage.downloaded(from: url)
+            self.userProfileImage.kf.setImage(with: url)
             userProfileImage.contentMode = .scaleAspectFill
             userProfileImage.layer.borderWidth = 1.0
             userProfileImage.layer.masksToBounds = false

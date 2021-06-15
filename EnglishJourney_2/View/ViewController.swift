@@ -6,10 +6,10 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
-    @IBOutlet weak var hiUser: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     // Mode
@@ -20,7 +20,7 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
     let service = Service()
     var cardParentId = 186
     var menuTitle = ""
-    
+        
     deinit {
         print("VC has no retain cycle")
     }
@@ -45,10 +45,14 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
     }
     
     func configureItems() {
-        
+        tabBarController?.overrideUserInterfaceStyle = .light
         let leftLabel = UILabel()
-        leftLabel.text = "English Journey"
-        leftLabel.font = UIFont(name: "Marker Felt", size: 20)
+        if isMenuOn {
+            leftLabel.text = "English Journey"
+        } else {
+            leftLabel.text = UserDefaults.standard.string(forKey: "currentCardTitle")?.localizedCapitalized
+        }
+        leftLabel.font = UIFont.boldSystemFont(ofSize: 18)
         leftLabel.sizeToFit()
         
         let leftItem = UIBarButtonItem(customView: leftLabel)
@@ -125,8 +129,8 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
         
-    private func randomLessonPressed() {
-        
+    @objc private func randomLessonPressed() {
+
     }
 }
 
@@ -146,16 +150,20 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             let card = viewModel.cellForRowAt(indexPath: indexPath)
             let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableVC") as! CategoryTableVC
 
+            viewModel.requestChartData(cardId: card.id)
+                        
             cell.selectionStyle = .none
-            cell.cell_left_label.text = card.title
+            cell.cell_left_label.text = card.title.localizedCapitalized
+            cell.cell_left_label.font = UIFont.boldSystemFont(ofSize: 16)
+            cell.cell_left_label.textColor = UIColor.systemBlue
             service.fetchFlashCardsData(cateId: card.items[0].id) { results in
                 
                 switch results {
                 case .success(let results):
                     let info = results?[0].backText
                     cell.text_view.attributedText = info?.htmlAttributedString(fontSize: 14)
-                    if let url = results?[0].title {
-                        cell.cell_image.downloaded(from: url)
+                    if let url = URL(string: results?[0].title ?? "") {
+                        cell.cell_image.kf.setImage(with: url)
                         cell.cell_image.contentMode = .scaleAspectFill
                         cell.cell_image.layer.borderWidth = 1.0
                         cell.cell_image.layer.masksToBounds = false
@@ -166,7 +174,6 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 case .failure(_):
                     cell.text_view.text = ""
                     cell.cell_left_label.text = ""
-                    cell.cell_right_label.text = ""
                 }
             }
                         
@@ -175,16 +182,17 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             let card = viewModel.cellForRowAtLessons(parentId: cardParentId, indexPath: indexPath)
             let cell = tableView.dequeueReusableCell(withIdentifier: "MyTableViewCell") as! MyTableViewCell
-
-            cell.selectionStyle = .none
-            cell.titleLabel.text = card.title
             
-            var completion = 0
+            cell.selectionStyle = .none
+            
+            var completionToday = 0
+            var completionMonth = 0
             if card.numOfLession > 0 {
-                completion = viewModel.numberOfCompletion(cardId: card.id) / card.numOfLession
+                completionToday = viewModel.numberOfCompletionToday(cardId: card.id) / card.numOfLession
+                completionMonth = viewModel.numberOfCompletionMonth(cardId: card.id) / card.numOfLession
             }
             
-            cell.numberLabel.text = "Lessons: \(card.numOfLession) - Completion: \(completion)"
+            cell.bindData(data: card, completionToday: completionToday, completionMonth: completionMonth)
             
             return cell
         }
@@ -194,12 +202,12 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch isMenuOn {
         case true:
-            return 400
+            return 450
         default:
             if indexPath.row == 0 {
                 return 0
             } else {
-                return 120
+                return 110
             }
         }
     }
@@ -220,6 +228,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             for item in cardCateItems.items {
                 viewModel.requestChartDataCell(cardId: item.id)
             }
+            
             cardParentId = cardCateItems.id
             menuTitle = cardCateItems.title
             UserDefaults.standard.setValue(menuTitle, forKey: "currentCardTitle")

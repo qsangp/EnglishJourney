@@ -157,9 +157,9 @@ class CardLessonVC: UIViewController {
         backCardView.isHidden = true
         textBackField.isScrollEnabled = true
         
-        showHideButton.layer.cornerRadius = 15
-        againButton.layer.cornerRadius = 15
-        completeButton.layer.cornerRadius = 15
+        showHideButton.layer.cornerRadius = 10
+        againButton.layer.cornerRadius = 10
+        completeButton.layer.cornerRadius = 10
         
         // Animation
         constraintFrontCardBackCard.priority = UILayoutPriority.defaultLow
@@ -172,8 +172,6 @@ class CardLessonVC: UIViewController {
         
         let cardName = cardLesson[cardIndex].title
         lessonLabel.text = cardName
-        lessonLabel.layer.borderWidth = 0.5
-        lessonLabel.layer.borderColor = UIColor.lightGray.cgColor
         
         // Render HTML
         let htmlString = cardLesson[cardIndex].backText
@@ -300,6 +298,8 @@ class CardLessonVC: UIViewController {
             audioSlider.value = 0
             avPlayer?.pause()
             audioBackButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            audioBackButton.isHidden = false
+            pauseButton.isHidden = true
         }
     }
     

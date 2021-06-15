@@ -30,8 +30,8 @@ class LessonCompleteVC: UIViewController {
     func updateUI() {
         overrideUserInterfaceStyle = .light
         
-        learnAgainButton.layer.cornerRadius = 20
-        backToLessonsButton.layer.cornerRadius = 20
+        learnAgainButton.layer.cornerRadius = 10
+        backToLessonsButton.layer.cornerRadius = 10
         
         if let nameCard = cardCompleteData.first?.title {
             let newNameCard = nameCard.prefix(nameCard.count - 3)

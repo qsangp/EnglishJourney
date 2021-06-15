@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class CustomTabbarUIView: UIView {
     
@@ -66,7 +67,7 @@ class CustomTabbarUIView: UIView {
         itemImageView.image = item.icon.withRenderingMode(.alwaysOriginal)
         if item == .you {
             if let url = UserDefaults.standard.url(forKey: "userImageURL") {
-                itemImageView.downloaded(from: url)
+                itemImageView.kf.setImage(with: url)
                 itemImageView.contentMode = .scaleAspectFill
             }
         }

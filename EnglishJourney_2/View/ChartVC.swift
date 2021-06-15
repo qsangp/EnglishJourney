@@ -17,6 +17,7 @@ class ChartVC: UIViewController {
     let popUpMessageLabel: UILabel = {
         let label = UILabel()
         label.text = ""
+        label.font = UIFont.systemFont(ofSize: 16, weight: .light)
         label.textAlignment = .center
         label.numberOfLines = 0
         label.layer.masksToBounds = true
@@ -74,14 +75,14 @@ class ChartVC: UIViewController {
             barChart.xAxis.drawGridLinesEnabled = false
             barChart.xAxis.drawAxisLineEnabled = false
             barChart.xAxis.drawLabelsEnabled = false
-            barChart.xAxis.labelFont = UIFont.systemFont(ofSize: 16)
+            barChart.xAxis.labelFont = UIFont.systemFont(ofSize: 16, weight: .light)
             barChart.rightAxis.enabled = false
-            barChart.leftAxis.labelFont = UIFont.systemFont(ofSize: 16)
+            barChart.leftAxis.labelFont = UIFont.systemFont(ofSize: 16, weight: .light)
             barChart.leftAxis.drawAxisLineEnabled = false
             barChart.leftAxis.drawGridLinesEnabled = false
             
             // Configure the legend
-            barChart.legend.font = UIFont(name: "Verdana", size: 16.0)!
+            barChart.legend.font = UIFont.systemFont(ofSize: 16, weight: .light)
             
             // Supply data
             var entries = [BarChartDataEntry]()
@@ -123,10 +124,10 @@ class ChartVC: UIViewController {
             let set2 = BarChartDataSet(entries: entries2, label: "Again")
             set2.colors = [NSUIColor(cgColor: UIColor.systemRed.cgColor)]
             set2.drawValuesEnabled = false
-            let data = BarChartData(dataSets: [set2, set])
+            let data = BarChartData(dataSet: set)
             
-            data.groupBars(fromX: 0, groupSpace: 0.3, barSpace: 0.03)
-            data.barWidth = 0.9
+//            data.groupBars(fromX: 0, groupSpace: 0.3, barSpace: 0.03)
+//            data.barWidth = 0.9
             
             barChart.xAxis.axisMinimum = 1
             barChart.xAxis.axisRange = 1
@@ -144,11 +145,11 @@ class ChartVC: UIViewController {
                 barChart.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                 barChart.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 5),
                 barChart.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 5),
-                barChart.topAnchor.constraint(equalTo: view.topAnchor, constant: 50)
+                barChart.topAnchor.constraint(equalTo: view.topAnchor, constant: 100)
             ])
             
             if againButtonDayCount != 0 ||  completeButtonDayCount != 0 {
-                popUpMessageLabel.text = "\(userName ?? "") ơi, bạn đã luyện \(title) được \( againButtonDayCount) ngày tháng này rồi. Giữ vững tiến độ nhé!"
+                popUpMessageLabel.text = "\(userName ?? "") ơi, bạn đã luyện \(title) được \( againButtonDayCount) ngày tháng này rồi. \nGiữ vững tiến độ nhé!"
                 view.addSubview( popUpMessageLabel)
                 
                 popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -160,7 +161,7 @@ class ChartVC: UIViewController {
                 ])
                 
             } else {
-                popUpMessageLabel.text = "\(userName ?? "") ơi, bạn chưa luyện \(title) tháng này. Bắt tay vào luyện ngay thôi nào!"
+                popUpMessageLabel.text = "\(userName ?? "") ơi, bạn chưa luyện \(title) tháng này. \nBắt tay vào luyện ngay thôi nào!"
                 view.addSubview( popUpMessageLabel)
                 
                 popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false

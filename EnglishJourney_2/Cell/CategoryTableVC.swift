@@ -13,6 +13,8 @@ class CategoryTableVC: UITableViewCell {
     @IBOutlet weak var cell_right_label: UILabel!
     @IBOutlet weak var text_view: UITextView!
     
+    let service = Service()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -22,6 +24,10 @@ class CategoryTableVC: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func bindData(data: CardCateItems) {
+        
     }
     
 }
