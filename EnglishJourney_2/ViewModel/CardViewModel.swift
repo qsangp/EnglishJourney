@@ -74,7 +74,7 @@ class CardViewModel {
                 
                 if let currentDay = Int(formatterDay.string(from: date)) {
                     strongSelf.numOfCompletionToday[cardId] = hits[currentDay - 1]
-                    if hits[currentDay - 1] == 0 {
+                    if hits[currentDay - 1] == 0 && hits.reduce(0,+) < 5 {
                         strongSelf.cardIdLearned.append(cardId)
                     }
                 }

@@ -81,12 +81,10 @@ class MyTableViewCell: UITableViewCell {
         
         statusLabel.text = "Today: \(completionToday) | Total: \(completionMonth)"
         
-        if completionToday == 0 && completionMonth == 0 {
-            statusLabel.backgroundColor = UIColor(red: 0.76, green: 0.35, blue: 0.34, alpha: 1.00)
-        } else if completionToday == 0 {
-            statusLabel.backgroundColor = UIColor(red: 0.95, green: 0.77, blue: 0.06, alpha: 1.00)
-        } else if completionMonth > 5 {
+        if completionMonth >= 5 || completionToday > 0 {
             statusLabel.backgroundColor = UIColor(red: 0.40, green: 0.78, blue: 0.73, alpha: 1.00)
+        } else {
+            statusLabel.backgroundColor = UIColor(red: 0.76, green: 0.35, blue: 0.34, alpha: 1.00)
         }
     }
 }

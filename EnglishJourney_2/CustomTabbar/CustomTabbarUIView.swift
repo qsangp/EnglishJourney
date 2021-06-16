@@ -109,7 +109,7 @@ class CustomTabbarUIView: UIView {
         let tabToActivate = subviews[tab]
         let borderWidth = tabToActivate.frame.width - 20
         let borderLayer = CALayer()
-        borderLayer.backgroundColor = UIColor.systemRed.cgColor
+        borderLayer.backgroundColor = UIColor(red: 0.40, green: 0.78, blue: 0.73, alpha: 1.00).cgColor
         borderLayer.name = "Active Border"
         borderLayer.frame = CGRect(x: 10, y: 0, width: borderWidth, height: 2)
         

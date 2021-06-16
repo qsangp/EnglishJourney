@@ -8,7 +8,16 @@
 import UIKit
 import Kingfisher
 
-class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
+class ViewController: UIViewController, UIViewControllerTransitioningDelegate, CategoryTableVCDelegate {
+    
+    func callSegueFromCell(cards: [CardItems]) {
+        
+        let vc = self.storyboard?.instantiateViewController(identifier: "CardLesson") as! CardLessonVC
+        vc.cardLesson = cards
+        vc.temporaryCardLesson = cards
+
+        self.present(vc, animated: true)
+    }
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -58,16 +67,16 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
         let leftItem = UIBarButtonItem(customView: leftLabel)
         self.navigationItem.leftBarButtonItem = leftItem
         
-        let menuButton: UIButton = {
+        let leftButton: UIButton = {
             let button = UIButton()
             button.setTitleColor(UIColor.black, for: .normal)
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
             button.setTitle("\(menuTitle)", for: .normal)
             return button
         }()
-        menuButton.addTarget(self, action: #selector(didTapMenuButton), for: .touchUpInside)
+        leftButton.addTarget(self, action: #selector(didTapMenuButton), for: .touchUpInside)
         
-        let rightItem = UIBarButtonItem(customView: menuButton)
+        let rightItem = UIBarButtonItem(customView: leftButton)
         self.navigationItem.rightBarButtonItem = rightItem
     }
     
@@ -103,7 +112,6 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
         if isUserComplete {
             let cardId = UserDefaults.standard.integer(forKey: "cardId")
             viewModel.requestChartDataCell(cardId: cardId)
-            tableView.reloadData()
             UserDefaults.standard.setValue(false, forKey: "isUserCompleted")
         }
     }
@@ -149,33 +157,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         if isMenuOn {
             let card = viewModel.cellForRowAt(indexPath: indexPath)
             let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryTableVC") as! CategoryTableVC
-
-            viewModel.requestChartData(cardId: card.id)
-                        
+            cell.bindData(data: card)
+            cell.cardIdReview = viewModel.getCardIdLearned()
+            cell.delegate = self
             cell.selectionStyle = .none
-            cell.cell_left_label.text = card.title.localizedCapitalized
-            cell.cell_left_label.font = UIFont.boldSystemFont(ofSize: 16)
-            cell.cell_left_label.textColor = UIColor.systemBlue
-            service.fetchFlashCardsData(cateId: card.items[0].id) { results in
-                
-                switch results {
-                case .success(let results):
-                    let info = results?[0].backText
-                    cell.text_view.attributedText = info?.htmlAttributedString(fontSize: 14)
-                    if let url = URL(string: results?[0].title ?? "") {
-                        cell.cell_image.kf.setImage(with: url)
-                        cell.cell_image.contentMode = .scaleAspectFill
-                        cell.cell_image.layer.borderWidth = 1.0
-                        cell.cell_image.layer.masksToBounds = false
-                        cell.cell_image.layer.borderColor = UIColor.white.cgColor
-                        cell.cell_image.layer.cornerRadius = 10
-                        cell.cell_image.clipsToBounds = true
-                    }
-                case .failure(_):
-                    cell.text_view.text = ""
-                    cell.cell_left_label.text = ""
-                }
-            }
                         
             return cell
             
@@ -202,7 +187,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch isMenuOn {
         case true:
-            return 450
+            return 210
         default:
             if indexPath.row == 0 {
                 return 0
@@ -225,10 +210,12 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         if isMenuOn {
             let cardCateItems = viewModel.cellForRowAt(indexPath: indexPath)
+            viewModel.requestChartData(cardId: cardCateItems.id)
+
             for item in cardCateItems.items {
                 viewModel.requestChartDataCell(cardId: item.id)
             }
-            
+                        
             cardParentId = cardCateItems.id
             menuTitle = cardCateItems.title
             UserDefaults.standard.setValue(menuTitle, forKey: "currentCardTitle")
@@ -253,6 +240,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                         vc.temporaryCardLesson = results
 
                         self?.present(vc, animated: true)
+                        
                     }
                 case .failure(let error):
                     self?.showError(error: error)

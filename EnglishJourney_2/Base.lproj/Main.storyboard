@@ -68,7 +68,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="4B9-zP-tbS">
-                                <rect key="frame" x="20" y="165" width="374" height="160"/>
+                                <rect key="frame" x="20" y="165" width="374" height="105"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1To-cE-Y1P">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -87,22 +87,8 @@
                                             <action selector="supportButtonPressed" destination="2a6-VT-cE2" eventType="touchUpInside" id="wzz-LQ-ZYD"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcb-nc-dwx">
-                                        <rect key="frame" x="0.0" y="55" width="374" height="50"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="tintColor" red="0.58431372550000005" green="0.83529411760000005" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="  Cài đặt">
-                                            <color key="titleColor" systemColor="labelColor"/>
-                                            <imageReference key="image" image="gearshape" catalog="system" renderingMode="original"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="backToLessonsPressed:" destination="6J7-kA-Qf7" eventType="touchUpInside" id="aN4-zm-YFm"/>
-                                            <action selector="termsOfUseButtonPressed" destination="2a6-VT-cE2" eventType="touchUpInside" id="w8p-hm-2RK"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VHV-Na-22h">
-                                        <rect key="frame" x="0.0" y="110" width="374" height="50"/>
+                                        <rect key="frame" x="0.0" y="55" width="374" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <state key="normal" title="  Đăng xuất">
@@ -117,12 +103,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="fcb-nc-dwx" firstAttribute="leading" secondItem="4B9-zP-tbS" secondAttribute="leading" id="L6Q-JJ-Csh"/>
                                     <constraint firstItem="1To-cE-Y1P" firstAttribute="leading" secondItem="4B9-zP-tbS" secondAttribute="leading" id="SnZ-ZQ-Z1R"/>
                                     <constraint firstItem="VHV-Na-22h" firstAttribute="leading" secondItem="4B9-zP-tbS" secondAttribute="leading" id="UlG-HD-G7l"/>
                                     <constraint firstAttribute="trailing" secondItem="VHV-Na-22h" secondAttribute="trailing" id="XnT-Ai-vUN"/>
                                     <constraint firstAttribute="trailing" secondItem="1To-cE-Y1P" secondAttribute="trailing" id="lzb-qJ-HEX"/>
-                                    <constraint firstAttribute="trailing" secondItem="fcb-nc-dwx" secondAttribute="trailing" id="wfS-zd-q3o"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -145,7 +129,6 @@
                     <connections>
                         <outlet property="logOutButton" destination="VHV-Na-22h" id="i6a-hN-prt"/>
                         <outlet property="supportButton" destination="1To-cE-Y1P" id="Pgg-Q7-XEB"/>
-                        <outlet property="termsOfUseButton" destination="fcb-nc-dwx" id="aDg-E2-8Iy"/>
                         <outlet property="userProfileImage" destination="r3q-IZ-PhQ" id="7OM-iA-PeY"/>
                         <outlet property="userProfileInfo" destination="a1U-PP-rL9" id="HAC-Ke-5Wf"/>
                     </connections>
@@ -231,7 +214,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dwV-As-aBR">
-                                                <rect key="frame" x="54" y="0.0" width="12" height="30"/>
+                                                <rect key="frame" x="54" y="0.0" width="0.0" height="30"/>
                                                 <state key="normal">
                                                     <imageReference key="image" image="pause.fill" catalog="system" renderingMode="original"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
@@ -241,7 +224,7 @@
                                                 </connections>
                                             </button>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="GlN-WJ-gzg">
-                                                <rect key="frame" x="76" y="0.0" width="280" height="31"/>
+                                                <rect key="frame" x="64" y="0.0" width="292" height="31"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="p1D-g1-mlE"/>
                                                 </constraints>
@@ -711,7 +694,6 @@ You have completed this lesson.</string>
     <resources>
         <image name="arrowshape.turn.up.backward" catalog="system" width="128" height="106"/>
         <image name="congrats" width="512" height="512"/>
-        <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="google.png" width="18" height="18"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="message" catalog="system" width="128" height="113"/>

@@ -14,7 +14,6 @@ class UserProfileVC: UIViewController {
     @IBOutlet weak var userProfileImage: UIImageView!
     @IBOutlet weak var userProfileInfo: UITextView!
     @IBOutlet weak var supportButton: UIButton!
-    @IBOutlet weak var termsOfUseButton: UIButton!
     @IBOutlet weak var logOutButton: UIButton!
     
     var cardViewModel: CardViewModel!
