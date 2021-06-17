@@ -9,23 +9,17 @@ import UIKit
 
 class CardInstructionVC: UIViewController {
 
-    @IBOutlet weak var lessonLabel: UILabel!
-    
-    @IBOutlet weak var textBackField: UITextView!
-    @IBOutlet weak var backCardView: UIView!
+    @IBOutlet weak var imageInstruction: UIImageView!
+    @IBOutlet weak var labelInstruction: UILabel!
     
     @IBOutlet weak var againButton: UIButton!
     @IBOutlet weak var completeButton: UIButton!
     @IBOutlet weak var backToLessonButton: UIButton!
-    
-    // API
-    let service = Service()
-    
+        
     // Card Lesson
     var viewModel: CardViewModel!
-    var cardLesson = [CardItems]()
-    var temporaryCardLesson = [CardItems]()
-    var cardIndex = 1
+    var instruction: [Instruction]!
+    var cardIndex = 0
     
     deinit {
         print("CardLesson VC has no retain cycle")
@@ -41,17 +35,13 @@ class CardInstructionVC: UIViewController {
     
     private func bindViewModel() {
         viewModel = CardViewModel()
+        instruction = viewModel.getInstruction()
     }
-    
-    func resetCardLesson() {
-        cardLesson = temporaryCardLesson
-    }
-    
-    func updateUI() {        
-        // Render HTML
-        let htmlString = cardLesson[cardIndex].backText
         
-        textBackField.attributedText = htmlString.htmlAttributedString(fontSize: 16, color: "black")
+    func updateUI() {        
+        
+        imageInstruction.image = UIImage(named: instruction[cardIndex].image)
+        labelInstruction.text = instruction[cardIndex].name
         
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(completeButtonPressed(_:)))
         swipeLeft.direction = .left
@@ -65,7 +55,7 @@ class CardInstructionVC: UIViewController {
     @IBAction func againButtonPressed(_ sender: UIButton) {
 
         switch cardIndex {
-        case 1:
+        case 0:
             updateUI()
             dismiss(animated: true, completion: nil)
         default:
@@ -77,7 +67,7 @@ class CardInstructionVC: UIViewController {
     @IBAction func completeButtonPressed(_ sender: UIButton) {
                 
         switch cardIndex {
-        case cardLesson.count - 1:
+        case instruction.count - 1:
             updateUI()
             dismiss(animated: true, completion: nil)
         default:

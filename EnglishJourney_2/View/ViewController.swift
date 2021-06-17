@@ -126,6 +126,10 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate, C
             menuTitle = ""
             configureItems()
         }
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(didTapMenuButton))
+        swipeRight.direction = .right
+        self.view.addGestureRecognizer(swipeRight)
     }
     
     func initTableView() {
@@ -237,26 +241,25 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             UserDefaults.standard.setValue(selectedID, forKey: "cardId")
             print("cardId \(selectedID)")
             
-            service.fetchFlashCardsData(cateId: selectedID) { [weak self] results in
-                switch results {
-                case .success(let results):
-                    if let results = results {
-                        if indexPath.row == 0 {
-                            let vc = self?.storyboard?.instantiateViewController(identifier: "CardInstruction") as! CardInstructionVC
-                            vc.cardLesson = results
-                            vc.temporaryCardLesson = results
+            if indexPath.row == 0 {
+                let vc = self.storyboard?.instantiateViewController(identifier: "CardInstruction") as! CardInstructionVC
+                self.present(vc, animated: true)
+                
+            } else {
+                service.fetchFlashCardsData(cateId: selectedID) { [weak self] results in
+                    switch results {
+                    case .success(let results):
+                        if let results = results {
                             
-                            self?.present(vc, animated: true)
-                        } else {
                             let vc = self?.storyboard?.instantiateViewController(identifier: "CardLesson") as! CardLessonVC
                             vc.cardLesson = results
                             vc.temporaryCardLesson = results
                             
                             self?.present(vc, animated: true)
                         }
+                    case .failure(let error):
+                        self?.showError(error: error)
                     }
-                case .failure(let error):
-                    self?.showError(error: error)
                 }
             }
         }

@@ -52,7 +52,7 @@ class CardLessonVC: UIViewController {
     
     let popUpMessageLabel: UILabel = {
         let label = UILabel()
-        label.text = "Double tap to Show sample \nSwipe left → to click Done \nSwipe right ← to click Again"
+        label.text = "Double tap to Show sample \nSwipe left ← to click Done \nSwipe right → to click Again"
         label.textColor = UIColor.label
         label.textAlignment = .center
         label.numberOfLines = 0

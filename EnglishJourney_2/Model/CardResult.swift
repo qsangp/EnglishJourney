@@ -67,3 +67,10 @@ struct DashboardItems {
     let total, new, toReview, learned: Int
 }
 
+// Instruction
+
+struct Instruction {
+    let name: String
+    let image: String
+}
+
