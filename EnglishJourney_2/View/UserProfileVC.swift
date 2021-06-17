@@ -15,7 +15,6 @@ class UserProfileVC: UIViewController {
     @IBOutlet weak var userProfileInfo: UITextView!
     @IBOutlet weak var supportButton: UIButton!
     @IBOutlet weak var logOutButton: UIButton!
-    
     var cardViewModel: CardViewModel!
     
     deinit {
@@ -24,13 +23,12 @@ class UserProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        overrideUserInterfaceStyle = .light
-        
         updateUI()
     }
-    
-    func updateUI() {
         
+    func updateUI() {
+        overrideUserInterfaceStyle = .light
+
         let userImageURL = UserDefaults.standard.url(forKey: "userImageURL")
         if let url = userImageURL {
             self.userProfileImage.kf.setImage(with: url)

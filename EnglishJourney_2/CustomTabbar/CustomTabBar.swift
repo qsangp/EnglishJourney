@@ -12,7 +12,7 @@ import UIKit
 class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     var customTabBar: CustomTabbarUIView!
-    var tabBarHeight: CGFloat = 50.0
+    var tabBarHeight: CGFloat = 75.0
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -24,7 +24,6 @@ class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
         self.delegate = self
         self.selectedIndex = 0
         
-        UITabBar.appearance().barTintColor = UIColor.white
         loadTabBar()
     }
     
@@ -47,17 +46,17 @@ class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
         customTabBar = CustomTabbarUIView(menuItems: menuItems, frame: frame)
         customTabBar.translatesAutoresizingMaskIntoConstraints = false
         customTabBar.clipsToBounds = true
+        customTabBar.overrideUserInterfaceStyle = .light
         customTabBar.itemTapped = changeTab(tab:)
         view.addSubview(customTabBar)
-        view.backgroundColor = .white
-
+        
         // Auto layout cho custom tab bar
         NSLayoutConstraint.activate([
             customTabBar.leadingAnchor.constraint(equalTo: tabBar.leadingAnchor),
             customTabBar.trailingAnchor.constraint(equalTo: tabBar.trailingAnchor),
             customTabBar.widthAnchor.constraint(equalToConstant: tabBar.frame.width),
             customTabBar.heightAnchor.constraint(equalToConstant: tabBarHeight),
-            customTabBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            customTabBar.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
         // Thêm các view controller tương ứng

@@ -54,7 +54,7 @@ class CardLessonVC: UIViewController {
     let popUpMessageLabel: UILabel = {
         let label = UILabel()
         label.text = "Double tap to Show sample"
-        label.textColor = UIColor.systemGray
+        label.textColor = UIColor.label
         label.textAlignment = .center
         label.numberOfLines = 0
         label.layer.masksToBounds = true
@@ -94,7 +94,7 @@ class CardLessonVC: UIViewController {
         if (isRecording) {
             finishAudioRecording(success: true)
             recordButton.setTitle("Record", for: .normal)
-            recordButton.setTitleColor(UIColor.black, for: .normal)
+            recordButton.setTitleColor(UIColor.label, for: .normal)
             playRecordButton.isEnabled = true
             isRecording = false
         }
@@ -104,7 +104,7 @@ class CardLessonVC: UIViewController {
             audioRecorder.record()
             meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
             recordButton.setTitle("Stop", for: .normal)
-            recordButton.setTitleColor(UIColor.red, for: .normal)
+            recordButton.setTitleColor(UIColor.systemRed, for: .normal)
             playRecordButton.isEnabled = false
             isRecording = true
         }
@@ -126,7 +126,7 @@ class CardLessonVC: UIViewController {
             audioPlayer.stop()
             recordButton.isEnabled = true
             playRecordButton.setTitle("Play", for: .normal)
-            playRecordButton.setTitleColor(UIColor.black, for: .normal)
+            playRecordButton.setTitleColor(UIColor.label, for: .normal)
             isPlaying = false
         }
         else {
@@ -134,7 +134,7 @@ class CardLessonVC: UIViewController {
                 recordButton.isEnabled = false
                 prepare_play()
                 playRecordButton.setTitle("stop", for: .normal)
-                playRecordButton.setTitleColor(UIColor.red, for: .normal)
+                playRecordButton.setTitleColor(UIColor.systemRed, for: .normal)
                 audioPlayer.play()
                 isPlaying = true
             }
@@ -149,11 +149,8 @@ class CardLessonVC: UIViewController {
     }
     
     func updateUI(autoPlayAudio: Bool) {
-        
-        // UI
         overrideUserInterfaceStyle = .light
-        
-        textFrontLabel.isHidden = true
+
         backCardView.isHidden = true
         textBackField.isScrollEnabled = true
         
@@ -168,7 +165,7 @@ class CardLessonVC: UIViewController {
         constraintFrontCardViewBottom.constant = 400
         
         showHideButton.setTitle("Show Sample", for: .normal)
-        showHideButton.setTitleColor(.darkGray, for: .normal)
+        showHideButton.setTitleColor(.label, for: .normal)
         
         let cardName = cardLesson[cardIndex].title
         lessonLabel.text = cardName
@@ -176,7 +173,11 @@ class CardLessonVC: UIViewController {
         // Render HTML
         let htmlString = cardLesson[cardIndex].backText
         
-        textBackField.attributedText = htmlString.htmlAttributedString(fontSize: 16)
+        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
+        textBackField.attributedText = htmlString.htmlAttributedString(fontSize: 16, color: "black")
+        } else if traitCollection.userInterfaceStyle == .dark {
+            textBackField.attributedText = htmlString.htmlAttributedString(fontSize: 16, color: "white")
+        }
         
         // Autoplay Front Audio
         if autoPlayAudio {
@@ -430,7 +431,7 @@ class CardLessonVC: UIViewController {
 
 // MARK: - Render HTML
 extension String {
-    func htmlAttributedString(fontSize: Int) -> NSAttributedString? {
+    func htmlAttributedString(fontSize: Int, color: String) -> NSAttributedString? {
         let htmlTemplate = """
             <!doctype html>
             <html>
@@ -440,6 +441,7 @@ extension String {
                     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
                     font-size: \(fontSize)px;
                     line-height: 1.4;
+                    color: \(color)
                   }
                 </style>
               </head>

@@ -29,11 +29,11 @@ enum TabItem: String, CaseIterable {
     var icon: UIImage {
         switch self {
         case .lesson:
-            return UIImage(systemName: "book")!
+            return UIImage(named: "tabbarIcon1Colored")!
 //        case .home:
 //            return UIImage(systemName: "house.fill")!
         case .progress:
-            return UIImage(systemName: "chart.bar")!
+            return UIImage(named: "tabBarIcon2Colored")!
         case .you:
             var profileImage = UIImage()
             guard let url = UserDefaults.standard.url(forKey: "userImageURL") else {return profileImage}

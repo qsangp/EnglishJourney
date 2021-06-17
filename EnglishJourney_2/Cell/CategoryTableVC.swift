@@ -26,6 +26,7 @@ class CategoryTableVC: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         rightButon.layer.cornerRadius = 5
+        rightButon.backgroundColor = UIColor.systemBlue
         viewModel = CardViewModel()
     }
 
@@ -33,6 +34,13 @@ class CategoryTableVC: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cell_image.image = nil
+        cell_left_label.text = ""
+        text_view.text = ""
     }
     
     func bindData(data: CardCateItems) {
@@ -46,7 +54,13 @@ class CategoryTableVC: UITableViewCell {
             switch results {
             case .success(let results):
                 let info = results?[0].backText
-                self?.text_view.attributedText = info?.htmlAttributedString(fontSize: 14)
+                
+                if self?.traitCollection.userInterfaceStyle == .light || self?.traitCollection.userInterfaceStyle == .unspecified {
+                    self?.text_view.attributedText = info?.htmlAttributedString(fontSize: 14, color: "black")
+                } else if self?.traitCollection.userInterfaceStyle == .dark {
+                    self?.text_view.attributedText = info?.htmlAttributedString(fontSize: 14, color: "white")
+                }
+                
                 if let url = URL(string: results?[0].title ?? "") {
                     self?.cell_image.kf.setImage(with: url)
                     self?.cell_image.contentMode = .scaleAspectFill

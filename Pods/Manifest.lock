@@ -15,10 +15,12 @@ PODS:
     - AppAuth/Core (~> 1.4)
     - GTMSessionFetcher/Core (~> 1.5)
   - GTMSessionFetcher/Core (1.5.0)
+  - LayoutHelper (1.0.0)
 
 DEPENDENCIES:
   - Charts
   - GoogleSignIn
+  - LayoutHelper
 
 SPEC REPOS:
   trunk:
@@ -27,6 +29,7 @@ SPEC REPOS:
     - GoogleSignIn
     - GTMAppAuth
     - GTMSessionFetcher
+    - LayoutHelper
 
 SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
@@ -34,7 +37,8 @@ SPEC CHECKSUMS:
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
+  LayoutHelper: fd809f52e0ae583f7576bf5d2af8248b5c3ec4d0
 
-PODFILE CHECKSUM: e1abc89fcc563003b8d97d751217239042b5ba8b
+PODFILE CHECKSUM: 84701b4bd3e75d69444d51ae72e1d76aeee170c2
 
 COCOAPODS: 1.10.1

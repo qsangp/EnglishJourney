@@ -36,23 +36,23 @@ class LogInVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        overrideUserInterfaceStyle = .light
-        
         bindViewModel()
         configureTextField()
         updateUI()
         checkAuthentication()
-        
     }
     
     func updateUI() {
         hideKeyboardWhenTappedAround()
-        
+        mainTitle.setTextWithTypeAnimation(typedText: "English Journey", characterDelay: 10)
         emailTextField.layer.masksToBounds = true
         emailTextField.layer.cornerRadius = 5
+        emailTextField.attributedPlaceholder = NSAttributedString(string: "Email",
+                                                                  attributes: [NSAttributedString.Key.foregroundColor: UIColor.label])
         passwordTextField.layer.masksToBounds = true
         passwordTextField.layer.cornerRadius = 5
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Mật khẩu",
+                                                                  attributes: [NSAttributedString.Key.foregroundColor: UIColor.label])
         loginButton.layer.cornerRadius = 5
                 
         GIDSignIn.sharedInstance().presentingViewController = self

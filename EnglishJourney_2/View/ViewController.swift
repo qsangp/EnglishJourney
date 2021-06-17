@@ -36,14 +36,13 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate, C
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         overrideUserInterfaceStyle = .light
         self.initTableView()
         self.bindViewModel()
         self.updateUI()
         setupNavigationBar()
     }
-    
+        
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         checkUserCompleteCard()
@@ -54,7 +53,7 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate, C
     }
     
     func configureItems() {
-        tabBarController?.overrideUserInterfaceStyle = .light
+        navigationController?.overrideUserInterfaceStyle = .light
         let leftLabel = UILabel()
         if isMenuOn {
             leftLabel.text = "English Journey"
@@ -69,7 +68,7 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate, C
         
         let leftButton: UIButton = {
             let button = UIButton()
-            button.setTitleColor(UIColor.black, for: .normal)
+            button.setTitleColor(UIColor.label, for: .normal)
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
             button.setTitle("\(menuTitle)", for: .normal)
             return button

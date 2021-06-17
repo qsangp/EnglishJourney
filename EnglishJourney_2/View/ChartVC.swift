@@ -17,7 +17,8 @@ class ChartVC: UIViewController {
     let popUpMessageLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.font = UIFont.systemFont(ofSize: 16, weight: .light)
+        label.textColor = UIColor.label
+        label.font = UIFont.systemFont(ofSize: 16)
         label.textAlignment = .center
         label.numberOfLines = 0
         label.layer.masksToBounds = true
@@ -30,8 +31,8 @@ class ChartVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         overrideUserInterfaceStyle = .light
+
         bindViewModel()
         createChart()
     }
@@ -75,14 +76,16 @@ class ChartVC: UIViewController {
             barChart.xAxis.drawGridLinesEnabled = false
             barChart.xAxis.drawAxisLineEnabled = false
             barChart.xAxis.drawLabelsEnabled = false
-            barChart.xAxis.labelFont = UIFont.systemFont(ofSize: 16, weight: .light)
+            barChart.xAxis.labelFont = UIFont.systemFont(ofSize: 16)
+            barChart.xAxis.labelTextColor = UIColor.label
             barChart.rightAxis.enabled = false
-            barChart.leftAxis.labelFont = UIFont.systemFont(ofSize: 16, weight: .light)
+            barChart.leftAxis.labelFont = UIFont.systemFont(ofSize: 16)
+            barChart.leftAxis.labelTextColor = UIColor.label
             barChart.leftAxis.drawAxisLineEnabled = false
             barChart.leftAxis.drawGridLinesEnabled = false
             
             // Configure the legend
-            barChart.legend.font = UIFont.systemFont(ofSize: 16, weight: .light)
+            barChart.legend.font = UIFont.systemFont(ofSize: 16)
             
             // Supply data
             var entries = [BarChartDataEntry]()
@@ -118,7 +121,7 @@ class ChartVC: UIViewController {
             }
             print(entries)
             let set = BarChartDataSet(entries: entries, label: "Complete")
-            set.colors = [NSUIColor(cgColor: UIColor.systemTeal.cgColor)]
+            set.colors = [NSUIColor(cgColor: UIColor.systemBlue.cgColor)]
             set.drawValuesEnabled = false
             
             let set2 = BarChartDataSet(entries: entries2, label: "Again")

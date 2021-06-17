@@ -29,13 +29,13 @@ class LessonCompleteVC: UIViewController {
     
     func updateUI() {
         overrideUserInterfaceStyle = .light
-        
+
         learnAgainButton.layer.cornerRadius = 10
         backToLessonsButton.layer.cornerRadius = 10
         
         if let nameCard = cardCompleteData.first?.title {
             let newNameCard = nameCard.prefix(nameCard.count - 3)
-            
+            congratMessage.textColor = .label
             congratMessage.text = "Congrats! \nYou have completed the lesson: \(newNameCard) \nAgain: \(clickedData.againButtonPressedLog) \nComplete: \(clickedData.completeButtonPressedLog)"
         }
     }

@@ -17,21 +17,43 @@ class MyTableViewCell: UITableViewCell {
     @IBOutlet weak var lessonImage: UIImageView!
     
     var viewModel: CardViewModel!
-    var numOfComplete = 0
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         viewModel = CardViewModel()
-        setUpUI()
     }
     
-    func setUpUI() {
-        view.backgroundColor = UIColor.white
-    }
+    let starImageOne: UIImageView = {
+        let image = UIImageView.init(image: UIImage(named: "star"))
+        return image
+    }()
+    let starImageTwo: UIImageView = {
+        let image = UIImageView.init(image: UIImage(named: "star"))
+        return image
+    }()
+    let starImageThree: UIImageView = {
+        let image = UIImageView.init(image: UIImage(named: "star"))
+        return image
+    }()
+    let starImageFour: UIImageView = {
+        let image = UIImageView.init(image: UIImage(named: "star"))
+        return image
+    }()
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.text = ""
+        numberLabel.text = ""
+        statusLabel.text = ""
+        statusLabel.isHidden = false
+        statusLabel.backgroundColor = UIColor(red: 0.40, green: 0.78, blue: 0.73, alpha: 1.00)
+        addStars(0)
     }
     
     func circleProgrress() {
@@ -77,15 +99,84 @@ class MyTableViewCell: UITableViewCell {
         titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
         
         let total = data.numOfLession
-        numberLabel.text = "\(total) questions"
+        numberLabel.text = "\(total) questions | This Month: \(completionMonth)"
         
+        statusLabel.layer.masksToBounds = true
+        statusLabel.layer.cornerRadius = 5
         statusLabel.text = "Today: \(completionToday) | Total: \(completionMonth)"
         
-        if completionMonth >= 5 || completionToday > 0 {
-            statusLabel.backgroundColor = UIColor(red: 0.40, green: 0.78, blue: 0.73, alpha: 1.00)
-        } else {
+        if completionMonth >= 20 {
+            statusLabel.isHidden = true
+            addStars(4)
+        } else if completionMonth >= 15 {
+            statusLabel.isHidden = true
+            addStars(3)
+        } else if completionMonth >= 10 {
+            statusLabel.isHidden = true
+            addStars(2)
+        } else if completionMonth >= 5 {
+            statusLabel.isHidden = true
+            addStars(1)
+        } else if completionMonth == 0 || completionToday == 0 {
             statusLabel.backgroundColor = UIColor(red: 0.76, green: 0.35, blue: 0.34, alpha: 1.00)
         }
+    }
+    
+    func addStars(_ numOfStar: Int) {
+
+        view.addSubview(starImageOne)
+        view.addSubview(starImageTwo)
+        view.addSubview(starImageThree)
+        view.addSubview(starImageFour)
+        
+        switch numOfStar {
+        case 0:
+            starImageFour.isHidden = true
+            starImageThree.isHidden = true
+            starImageTwo.isHidden = true
+            starImageOne.isHidden = true
+        case 1:
+            starImageOne.isHidden = false
+        case 2:
+            starImageTwo.isHidden = false
+            starImageOne.isHidden = false
+        case 3:
+            starImageThree.isHidden = false
+            starImageTwo.isHidden = false
+            starImageOne.isHidden = false
+        default:
+            starImageFour.isHidden = false
+            starImageThree.isHidden = false
+            starImageTwo.isHidden = false
+            starImageOne.isHidden = false
+        }
+
+        starImageOne.translatesAutoresizingMaskIntoConstraints = false
+        starImageTwo.translatesAutoresizingMaskIntoConstraints = false
+        starImageThree.translatesAutoresizingMaskIntoConstraints = false
+        starImageFour.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            starImageOne.widthAnchor.constraint(equalToConstant: 30),
+            starImageOne.heightAnchor.constraint(equalToConstant: 30),
+            starImageOne.leftAnchor.constraint(equalTo: statusLabel.leftAnchor, constant: 0),
+            starImageOne.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            starImageTwo.widthAnchor.constraint(equalToConstant: 30),
+            starImageTwo.heightAnchor.constraint(equalToConstant: 30),
+            starImageTwo.leftAnchor.constraint(equalTo: starImageOne.rightAnchor, constant: 5),
+            starImageTwo.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            starImageThree.widthAnchor.constraint(equalToConstant: 30),
+            starImageThree.heightAnchor.constraint(equalToConstant: 30),
+            starImageThree.leftAnchor.constraint(equalTo: starImageTwo.rightAnchor, constant: 5),
+            starImageThree.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            starImageFour.widthAnchor.constraint(equalToConstant: 30),
+            starImageFour.heightAnchor.constraint(equalToConstant: 30),
+            starImageFour.leftAnchor.constraint(equalTo: starImageThree.rightAnchor, constant: 5),
+            starImageFour.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
 }
 

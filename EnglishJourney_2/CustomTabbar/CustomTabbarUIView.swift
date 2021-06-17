@@ -23,9 +23,8 @@ class CustomTabbarUIView: UIView {
     
     convenience init(menuItems: [TabItem], frame: CGRect) {
         self.init(frame: frame)
-        
+
         layer.backgroundColor = UIColor.white.cgColor
-        overrideUserInterfaceStyle = .light
         
         // Khởi tạo từng tab bar item
         for index in 0 ..< menuItems.count {
@@ -33,6 +32,7 @@ class CustomTabbarUIView: UIView {
             let offsetX = itemWidth * CGFloat(index)
             
             let itemView = createTabItem(item: menuItems[index])
+            itemView.overrideUserInterfaceStyle = .light
             itemView.translatesAutoresizingMaskIntoConstraints = false
             itemView.clipsToBounds = true
             itemView.tag = index
@@ -58,6 +58,7 @@ class CustomTabbarUIView: UIView {
         
         let itemTitleLabel = UILabel()
         itemTitleLabel.text = item.displayTitle
+        itemTitleLabel.textColor = UIColor.label
         itemTitleLabel.textAlignment = .center
         itemTitleLabel.font = itemTitleLabel.font.withSize(12)
         itemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -109,7 +110,7 @@ class CustomTabbarUIView: UIView {
         let tabToActivate = subviews[tab]
         let borderWidth = tabToActivate.frame.width - 20
         let borderLayer = CALayer()
-        borderLayer.backgroundColor = UIColor(red: 0.40, green: 0.78, blue: 0.73, alpha: 1.00).cgColor
+        borderLayer.backgroundColor = UIColor.systemBlue.cgColor
         borderLayer.name = "Active Border"
         borderLayer.frame = CGRect(x: 10, y: 0, width: borderWidth, height: 2)
         
