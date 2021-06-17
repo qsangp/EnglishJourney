@@ -183,6 +183,7 @@
                     <connections>
                         <outlet property="tableView" destination="b3V-Td-s2s" id="yb7-1h-Xyg"/>
                         <segue destination="pKq-Mx-dBh" kind="show" identifier="GoToCardData" id="Ecr-n5-hxM"/>
+                        <segue destination="6tb-oT-AqB" kind="show" identifier="GoToInstruction" id="S88-VG-pvc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -487,10 +488,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="42" translatesAutoresizingMaskIntoConstraints="NO" id="HXX-Ix-Mta">
-                                <rect key="frame" x="20" y="669" width="388" height="60"/>
+                                <rect key="frame" x="20" y="679" width="388" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIL-6o-cui">
-                                        <rect key="frame" x="0.0" y="5" width="173" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="173" height="50"/>
                                         <color key="backgroundColor" red="0.75624501710000003" green="0.3534783125" blue="0.34115123749999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="hfX-mU-vhG">
@@ -510,10 +511,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6Z-pE-Qhx">
-                                        <rect key="frame" x="215" y="0.0" width="173" height="60"/>
+                                        <rect key="frame" x="215" y="0.0" width="173" height="50"/>
                                         <color key="backgroundColor" red="0.4011008143" green="0.77699214220000001" blue="0.72549164300000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="dyy-Qa-Km4"/>
+                                            <constraint firstAttribute="height" constant="50" id="dyy-Qa-Km4"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                         <color key="tintColor" red="0.58431372550000005" green="0.83529411760000005" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -801,8 +802,120 @@ You have completed this lesson.</string>
             </objects>
             <point key="canvasLocation" x="1853.6231884057972" y="-605.70652173913049"/>
         </scene>
+        <!--Card InstructionVC-->
+        <scene sceneID="wKR-Bj-w31">
+            <objects>
+                <viewController storyboardIdentifier="CardInstruction" modalPresentationStyle="fullScreen" id="6tb-oT-AqB" customClass="CardInstructionVC" customModule="EnglishJourney_2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zkc-wy-bix">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="872"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E9G-jT-Qgw" userLabel="Back Card View">
+                                <rect key="frame" x="0.0" y="76" width="428" height="593"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Text" translatesAutoresizingMaskIntoConstraints="NO" id="edm-ko-wlL">
+                                        <rect key="frame" x="20" y="0.0" width="388" height="593"/>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="edm-ko-wlL" firstAttribute="centerY" secondItem="E9G-jT-Qgw" secondAttribute="centerY" id="4Ic-W1-J9X"/>
+                                    <constraint firstItem="edm-ko-wlL" firstAttribute="leading" secondItem="E9G-jT-Qgw" secondAttribute="leading" constant="20" id="9PG-Ub-EQy">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="50"/>
+                                    </constraint>
+                                    <constraint firstAttribute="bottom" secondItem="edm-ko-wlL" secondAttribute="bottom" id="OTv-wa-BYm"/>
+                                    <constraint firstItem="edm-ko-wlL" firstAttribute="centerX" secondItem="E9G-jT-Qgw" secondAttribute="centerX" id="osA-dS-DK6"/>
+                                    <constraint firstAttribute="trailing" secondItem="edm-ko-wlL" secondAttribute="trailing" constant="20" id="uHJ-Jr-bjz">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="50"/>
+                                    </constraint>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="42" translatesAutoresizingMaskIntoConstraints="NO" id="Fyw-yW-t1H">
+                                <rect key="frame" x="20" y="679" width="388" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ng0-jN-3r0">
+                                        <rect key="frame" x="0.0" y="0.0" width="173" height="50"/>
+                                        <color key="tintColor" red="0.98431372549999996" green="0.85490196080000003" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                            <imageReference key="image" image="arrow.backward" catalog="system" symbolScale="large" renderingMode="original"/>
+                                        </state>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        </variation>
+                                        <connections>
+                                            <action selector="againButtonPressed:" destination="6tb-oT-AqB" eventType="touchUpInside" id="SHU-zF-1By"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pwV-fh-D3o">
+                                        <rect key="frame" x="215" y="0.0" width="173" height="50"/>
+                                        <color key="tintColor" red="0.58431372550000005" green="0.83529411760000005" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                            <imageReference key="image" image="arrow.right" catalog="system" symbolScale="large" renderingMode="original"/>
+                                        </state>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                        </variation>
+                                        <connections>
+                                            <action selector="completeButtonPressed:" destination="6tb-oT-AqB" eventType="touchUpInside" id="385-uC-NeC"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="4Yz-fl-TsJ">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                    </constraint>
+                                </constraints>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OVb-fd-FDH">
+                                <rect key="frame" x="30" y="739" width="368" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="pZg-GG-w7l"/>
+                                </constraints>
+                                <state key="normal" title="Skip">
+                                    <color key="titleColor" systemColor="labelColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="backToLessonButtonPressed:" destination="6tb-oT-AqB" eventType="touchUpInside" id="Cp1-tN-oks"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ONG-2C-kPC"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ONG-2C-kPC" firstAttribute="trailing" secondItem="Fyw-yW-t1H" secondAttribute="trailing" constant="20" id="BBI-0Y-5SJ"/>
+                            <constraint firstItem="OVb-fd-FDH" firstAttribute="top" secondItem="Fyw-yW-t1H" secondAttribute="bottom" constant="10" id="Ngp-LV-VUe"/>
+                            <constraint firstItem="OVb-fd-FDH" firstAttribute="leading" secondItem="ONG-2C-kPC" secondAttribute="leading" constant="30" id="Qr9-pe-PCc"/>
+                            <constraint firstItem="E9G-jT-Qgw" firstAttribute="leading" secondItem="ONG-2C-kPC" secondAttribute="leading" id="U88-Y7-Ivd"/>
+                            <constraint firstItem="ONG-2C-kPC" firstAttribute="bottom" secondItem="Fyw-yW-t1H" secondAttribute="bottom" constant="60" id="VDj-Pw-u7g"/>
+                            <constraint firstItem="Fyw-yW-t1H" firstAttribute="leading" secondItem="ONG-2C-kPC" secondAttribute="leading" constant="20" id="avo-6Q-EY0"/>
+                            <constraint firstItem="Fyw-yW-t1H" firstAttribute="top" secondItem="E9G-jT-Qgw" secondAttribute="bottom" constant="10" id="cxb-cE-pMC"/>
+                            <constraint firstItem="ONG-2C-kPC" firstAttribute="trailing" secondItem="OVb-fd-FDH" secondAttribute="trailing" constant="30" id="eFm-H0-mDE"/>
+                            <constraint firstItem="E9G-jT-Qgw" firstAttribute="trailing" secondItem="ONG-2C-kPC" secondAttribute="trailing" id="mFS-Tc-MhL"/>
+                            <constraint firstItem="E9G-jT-Qgw" firstAttribute="top" secondItem="ONG-2C-kPC" secondAttribute="top" constant="20" id="vZf-B8-G0W"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="i8M-hV-O85"/>
+                    <connections>
+                        <outlet property="againButton" destination="Ng0-jN-3r0" id="21D-Jy-GVC"/>
+                        <outlet property="backCardView" destination="E9G-jT-Qgw" id="r6g-eS-Vto"/>
+                        <outlet property="backToLessonButton" destination="OVb-fd-FDH" id="AoX-19-hFq"/>
+                        <outlet property="completeButton" destination="pwV-fh-D3o" id="agJ-Zv-H8E"/>
+                        <outlet property="textBackField" destination="edm-ko-wlL" id="JM3-BO-ErE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dSj-Xh-QzY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3483.6448598130837" y="-1280.3455723542118"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="arrow.backward" catalog="system" width="128" height="98"/>
+        <image name="arrow.right" catalog="system" width="128" height="98"/>
         <image name="arrowshape.turn.up.backward" catalog="system" width="128" height="106"/>
         <image name="congrats" width="512" height="512"/>
         <image name="google.png" width="18" height="18"/>

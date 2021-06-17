@@ -40,6 +40,7 @@
 		FAB5EB23265C2BC000A83569 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB21265C2BC000A83569 /* MyTableViewCell.swift */; };
 		FAB5EB24265C2BC000A83569 /* MyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB5EB22265C2BC000A83569 /* MyTableViewCell.xib */; };
 		FAB5EB57265CD38500A83569 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB56265CD38500A83569 /* CustomTabBar.swift */; };
+		FAD77E51267B28F7004FDA51 /* CardInstructionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD77E50267B28F7004FDA51 /* CardInstructionVC.swift */; };
 		FADD9E122673954000C79CE8 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD9E112673954000C79CE8 /* Service.swift */; };
 		FADD9E142673959300C79CE8 /* ErrorMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD9E132673959300C79CE8 /* ErrorMessages.swift */; };
 		FADD9E16267395B900C79CE8 /* CardResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD9E15267395B900C79CE8 /* CardResult.swift */; };
@@ -83,6 +84,7 @@
 		FAB5EB21265C2BC000A83569 /* MyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
 		FAB5EB22265C2BC000A83569 /* MyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyTableViewCell.xib; sourceTree = "<group>"; };
 		FAB5EB56265CD38500A83569 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
+		FAD77E50267B28F7004FDA51 /* CardInstructionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardInstructionVC.swift; sourceTree = "<group>"; };
 		FADD9E112673954000C79CE8 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		FADD9E132673959300C79CE8 /* ErrorMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorMessages.swift; path = ../../../../Desktop/Saved/ErrorMessages.swift; sourceTree = "<group>"; };
 		FADD9E15267395B900C79CE8 /* CardResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardResult.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				FA11EE1B26618F4D00B61171 /* LogInVC.swift */,
 				FAB5EB07265C267800A83569 /* ViewController.swift */,
 				FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */,
+				FAD77E50267B28F7004FDA51 /* CardInstructionVC.swift */,
 				FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */,
 				FA11EE202662479D00B61171 /* UserProfileVC.swift */,
 				FA920E1A2668843100706A13 /* ChartVC.swift */,
@@ -366,6 +369,7 @@
 				FAB5EB08265C267800A83569 /* ViewController.swift in Sources */,
 				FA920E1B2668843100706A13 /* ChartVC.swift in Sources */,
 				FADD9E122673954000C79CE8 /* Service.swift in Sources */,
+				FAD77E51267B28F7004FDA51 /* CardInstructionVC.swift in Sources */,
 				FAB5EB19265C26C100A83569 /* CardData.swift in Sources */,
 				FA3660332663B1BD00A69B37 /* UIButton.swift in Sources */,
 				FA3660302663A20B00A69B37 /* Alert.swift in Sources */,

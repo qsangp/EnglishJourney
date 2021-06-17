@@ -38,6 +38,13 @@ class LessonCompleteVC: UIViewController {
             congratMessage.textColor = .label
             congratMessage.text = "Congrats! \nYou have completed the lesson: \(newNameCard) \nAgain: \(clickedData.againButtonPressedLog) \nComplete: \(clickedData.completeButtonPressedLog)"
         }
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(backToLessonsPressed(_:)))
+        swipeLeft.direction = .left
+        self.view.addGestureRecognizer(swipeLeft)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(learnAgainPressed(_:)))
+        swipeRight.direction = .right
+        self.view.addGestureRecognizer(swipeRight)
     }
     
     @IBAction func learnAgainPressed(_ sender: UIButton) {

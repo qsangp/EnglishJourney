@@ -103,7 +103,6 @@ class MyTableViewCell: UITableViewCell {
         
         statusLabel.layer.masksToBounds = true
         statusLabel.layer.cornerRadius = 5
-        statusLabel.text = "Today: \(completionToday) | Total: \(completionMonth)"
         
         if completionMonth >= 20 {
             statusLabel.isHidden = true

@@ -15,7 +15,7 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate, C
         let vc = self.storyboard?.instantiateViewController(identifier: "CardLesson") as! CardLessonVC
         vc.cardLesson = cards
         vc.temporaryCardLesson = cards
-
+        
         self.present(vc, animated: true)
     }
     
@@ -29,7 +29,7 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate, C
     let service = Service()
     var cardParentId = 186
     var menuTitle = ""
-        
+    
     deinit {
         print("VC has no retain cycle")
     }
@@ -42,7 +42,7 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate, C
         self.updateUI()
         setupNavigationBar()
     }
-        
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         checkUserCompleteCard()
@@ -116,7 +116,7 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate, C
     }
     
     func updateUI() {
-                
+        
         if !isMenuOn {
             let cardId = UserDefaults.standard.integer(forKey: "cardParentId")
             menuTitle = "BACK"
@@ -135,9 +135,9 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate, C
         tableView.dataSource = self
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
-        
+    
     @objc private func randomLessonPressed() {
-
+        
     }
 }
 
@@ -160,7 +160,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.cardIdReview = viewModel.getCardIdLearned()
             cell.delegate = self
             cell.selectionStyle = .none
-                        
+            
             return cell
             
         } else {
@@ -178,6 +178,17 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             
             cell.bindData(data: card, completionToday: completionToday, completionMonth: completionMonth)
             
+            if indexPath.row == 0 {
+                cell.statusLabel.isHidden = false
+                cell.statusLabel.text = "Instruction"
+                cell.numberLabel.text = "Đọc kĩ trước khi dùng"
+                cell.statusLabel.backgroundColor = UIColor(red: 0.40, green: 0.78, blue: 0.73, alpha: 1.00)
+                cell.addStars(0)
+            } else {
+                cell.statusLabel.text = "Today: \(completionToday) | Total: \(completionMonth)"
+                
+            }
+            
             return cell
         }
     }
@@ -188,11 +199,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         case true:
             return 210
         default:
-            if indexPath.row == 0 {
-                return 0
-            } else {
-                return 110
-            }
+            return 110
         }
     }
     
@@ -210,11 +217,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         if isMenuOn {
             let cardCateItems = viewModel.cellForRowAt(indexPath: indexPath)
             viewModel.requestChartData(cardId: cardCateItems.id)
-
+            
             for item in cardCateItems.items {
                 viewModel.requestChartDataCell(cardId: item.id)
             }
-                        
+            
             cardParentId = cardCateItems.id
             menuTitle = cardCateItems.title
             UserDefaults.standard.setValue(menuTitle, forKey: "currentCardTitle")
@@ -229,17 +236,24 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             let selectedID = cardLessonItems.id
             UserDefaults.standard.setValue(selectedID, forKey: "cardId")
             print("cardId \(selectedID)")
-                        
+            
             service.fetchFlashCardsData(cateId: selectedID) { [weak self] results in
                 switch results {
                 case .success(let results):
                     if let results = results {
-                        let vc = self?.storyboard?.instantiateViewController(identifier: "CardLesson") as! CardLessonVC
-                        vc.cardLesson = results
-                        vc.temporaryCardLesson = results
-
-                        self?.present(vc, animated: true)
-                        
+                        if indexPath.row == 0 {
+                            let vc = self?.storyboard?.instantiateViewController(identifier: "CardInstruction") as! CardInstructionVC
+                            vc.cardLesson = results
+                            vc.temporaryCardLesson = results
+                            
+                            self?.present(vc, animated: true)
+                        } else {
+                            let vc = self?.storyboard?.instantiateViewController(identifier: "CardLesson") as! CardLessonVC
+                            vc.cardLesson = results
+                            vc.temporaryCardLesson = results
+                            
+                            self?.present(vc, animated: true)
+                        }
                     }
                 case .failure(let error):
                     self?.showError(error: error)

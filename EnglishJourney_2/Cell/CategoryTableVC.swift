@@ -54,12 +54,8 @@ class CategoryTableVC: UITableViewCell {
             switch results {
             case .success(let results):
                 let info = results?[0].backText
-                
-                if self?.traitCollection.userInterfaceStyle == .light || self?.traitCollection.userInterfaceStyle == .unspecified {
-                    self?.text_view.attributedText = info?.htmlAttributedString(fontSize: 14, color: "black")
-                } else if self?.traitCollection.userInterfaceStyle == .dark {
-                    self?.text_view.attributedText = info?.htmlAttributedString(fontSize: 14, color: "white")
-                }
+
+                self?.text_view.attributedText = info?.htmlAttributedString(fontSize: 14, color: "black")
                 
                 if let url = URL(string: results?[0].title ?? "") {
                     self?.cell_image.kf.setImage(with: url)

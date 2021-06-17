@@ -12,7 +12,6 @@ class CardLessonVC: UIViewController {
     
     @IBOutlet weak var lessonLabel: UILabel!
     @IBOutlet weak var audioFrontButton: UIButton!
-    @IBOutlet weak var textFrontLabel: UILabel!
     @IBOutlet weak var showHideButton: UIButton!
     
     @IBOutlet weak var audioBackButton: UIButton!
@@ -53,7 +52,7 @@ class CardLessonVC: UIViewController {
     
     let popUpMessageLabel: UILabel = {
         let label = UILabel()
-        label.text = "Double tap to Show sample"
+        label.text = "Double tap to Show sample \nSwipe left → to click Done \nSwipe right ← to click Again"
         label.textColor = UIColor.label
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -173,11 +172,8 @@ class CardLessonVC: UIViewController {
         // Render HTML
         let htmlString = cardLesson[cardIndex].backText
         
-        if traitCollection.userInterfaceStyle == .light || traitCollection.userInterfaceStyle == .unspecified {
         textBackField.attributedText = htmlString.htmlAttributedString(fontSize: 16, color: "black")
-        } else if traitCollection.userInterfaceStyle == .dark {
-            textBackField.attributedText = htmlString.htmlAttributedString(fontSize: 16, color: "white")
-        }
+
         
         // Autoplay Front Audio
         if autoPlayAudio {
@@ -211,6 +207,14 @@ class CardLessonVC: UIViewController {
         popUpMessageLabel.addGestureRecognizer(tap)
         popUpImage.isUserInteractionEnabled = true
         popUpImage.addGestureRecognizer(tap)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(completeButtonPressed(_:)))
+        swipeLeft.direction = .left
+        self.view.addGestureRecognizer(swipeLeft)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(againButtonPressed(_:)))
+        swipeRight.direction = .right
+        self.view.addGestureRecognizer(swipeRight)
         
     }
     
@@ -351,7 +355,6 @@ class CardLessonVC: UIViewController {
         
         // Write log again button
         let cardId = UserDefaults.standard.integer(forKey: "cardId")
-        
         service.writeLogButtonHits(buttonName: "Again", categoryId: cardId) { results in
             switch results {
             case .success(let results):
