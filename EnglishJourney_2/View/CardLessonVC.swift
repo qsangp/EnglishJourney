@@ -10,7 +10,6 @@ import AVFoundation
 
 class CardLessonVC: UIViewController {
     
-    @IBOutlet weak var lessonLabel: UILabel!
     @IBOutlet weak var audioFrontButton: UIButton!
     @IBOutlet weak var showHideButton: UIButton!
     
@@ -24,11 +23,7 @@ class CardLessonVC: UIViewController {
     @IBOutlet weak var completeButton: UIButton!
     @IBOutlet weak var backToLessonButton: UIButton!
     @IBOutlet weak var audioSlider: UISlider!
-    
-    @IBOutlet weak var constraintFrontCardViewTop: NSLayoutConstraint!
-    @IBOutlet weak var constraintFrontCardBackCard: NSLayoutConstraint!
-    @IBOutlet weak var constraintFrontCardViewBottom: NSLayoutConstraint!
-    
+        
     // Record
     @IBOutlet var recordingTimeLabel: UILabel!
     @IBOutlet var recordButton: UIButton!
@@ -41,14 +36,12 @@ class CardLessonVC: UIViewController {
     var isRecording = false
     var isPlaying = false
     
-    // API
-    let service = Service()
-    
     // Card Lesson
     var viewModel: CardViewModel!
-    var cardLesson = [CardItems]()
-    var temporaryCardLesson = [CardItems]()
+    var cardData = [CardData]()
+    var temporaryCardData = [CardData]()
     var cardIndex = 0
+    var currentCardId = 0
     
     let popUpMessageLabel: UILabel = {
         let label = UILabel()
@@ -81,7 +74,8 @@ class CardLessonVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationController?.setNavigationBarHidden(false, animated: false)
+
         bindViewModel()
         checkRecordPermission()
         updateUI(autoPlayAudio: true)
@@ -144,35 +138,43 @@ class CardLessonVC: UIViewController {
     }
     
     private func bindViewModel() {
-        viewModel = CardViewModel()
+        currentCardId = viewModel.getCurrentCardId()
+        let data = viewModel.getCardData(cardId: currentCardId)
+        if UserDefaults.standard.bool(forKey: "randomSwitch") {
+            cardData = data.shuffled()
+            temporaryCardData = data.shuffled()
+        } else {
+            cardData = data
+            temporaryCardData = data
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: false)
+
     }
     
     func updateUI(autoPlayAudio: Bool) {
         overrideUserInterfaceStyle = .light
-
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.overrideUserInterfaceStyle = .light
+        navigationItem.title = cardData[cardIndex].title.localizedCapitalized
         backCardView.isHidden = true
         textBackField.isScrollEnabled = true
+        
+        textBackField.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
         showHideButton.layer.cornerRadius = 10
         againButton.layer.cornerRadius = 10
         completeButton.layer.cornerRadius = 10
         
-        // Animation
-        constraintFrontCardBackCard.priority = UILayoutPriority.defaultLow
-        constraintFrontCardViewBottom.priority = UILayoutPriority.defaultHigh
-        constraintFrontCardViewTop.constant = 150
-        constraintFrontCardViewBottom.constant = 400
-        
         showHideButton.setTitle("Show Sample", for: .normal)
         showHideButton.setTitleColor(.label, for: .normal)
         
-        let cardName = cardLesson[cardIndex].title
-        lessonLabel.text = cardName
-        
         // Render HTML
-        let htmlString = cardLesson[cardIndex].backText
+        let htmlString = cardData[cardIndex].backText
         
-        textBackField.attributedText = htmlString.htmlAttributedString(fontSize: 16, color: "black")
+        textBackField.attributedText = htmlString.htmlAttributedString(fontSize: 16)
 
         
         // Autoplay Front Audio
@@ -223,15 +225,15 @@ class CardLessonVC: UIViewController {
     }
     
     func resetCardLesson() {
-        cardLesson = temporaryCardLesson
+        cardData = temporaryCardData
     }
     
     //MARK: - Audio Section
     
     @IBAction func audioFrontPressed(_ sender: UIButton) {
         let baseURL = "https://app.ielts-vuive.com/data/audio/"
-        let id = String(cardLesson[cardIndex].id)
-        let audioName = cardLesson[cardIndex].audioFrontName
+        let id = String(cardData[cardIndex].id)
+        let audioName = cardData[cardIndex].audioFrontName
         
         let sourceAudio = "\(baseURL)\(id)/\(audioName)"
         let url = URL(string: sourceAudio)
@@ -249,8 +251,8 @@ class CardLessonVC: UIViewController {
     
     @IBAction func audioBackPressed(_ sender: UIButton) {
         let baseURL = "https://app.ielts-vuive.com/data/audio/"
-        let id = String(cardLesson[cardIndex].id)
-        let audioName = cardLesson[cardIndex].audioBackName
+        let id = String(cardData[cardIndex].id)
+        let audioName = cardData[cardIndex].audioBackName
         avPlayer?.addObserver(self, forKeyPath: "currentTime", options: .new, context: nil)
         
         let sourceAudio = "\(baseURL)\(id)/\(audioName)"
@@ -302,7 +304,6 @@ class CardLessonVC: UIViewController {
         if audioSlider.value == audioSlider.maximumValue {
             audioSlider.value = 0
             avPlayer?.pause()
-            audioBackButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
             audioBackButton.isHidden = false
             pauseButton.isHidden = true
         }
@@ -323,11 +324,6 @@ class CardLessonVC: UIViewController {
             popUpMessageLabel.isHidden = true
             popUpImage.isHidden = true
             
-            constraintFrontCardBackCard.priority = UILayoutPriority.defaultHigh
-            constraintFrontCardViewBottom.priority =
-                UILayoutPriority.defaultLow
-            constraintFrontCardViewTop.constant = 80
-            
         } else {
             showHideButton.setTitle("Show Sample", for: .normal)
             
@@ -336,9 +332,6 @@ class CardLessonVC: UIViewController {
             popUpMessageLabel.isHidden = false
             popUpImage.isHidden = false
             
-            constraintFrontCardBackCard.priority = UILayoutPriority.defaultLow
-            constraintFrontCardViewBottom.priority = UILayoutPriority.defaultHigh
-            constraintFrontCardViewTop.constant = 150
         }
         sender.isSelected = !sender.isSelected
     }
@@ -354,19 +347,10 @@ class CardLessonVC: UIViewController {
         popUpImage.isHidden = false
         
         // Write log again button
-        let cardId = UserDefaults.standard.integer(forKey: "cardId")
-        service.writeLogButtonHits(buttonName: "Again", categoryId: cardId) { results in
-            switch results {
-            case .success(let results):
-                print(cardId)
-                print("write log again button: \(results)")
-            case .failure(let error):
-                print(error)
-            }
-        }
+        viewModel.writeLogButton(.again)
 
         switch cardIndex {
-        case cardLesson.count - 1:
+        case cardData.count - 1:
             cardIndex = -1
             cardIndex += 1
             updateUI(autoPlayAudio: true)
@@ -386,89 +370,45 @@ class CardLessonVC: UIViewController {
         popUpMessageLabel.isHidden = false
         popUpImage.isHidden = false
         
-        // Write log complete button
-        let cardId = UserDefaults.standard.integer(forKey: "cardId")
-
-        service.writeLogButtonHits(buttonName: "Easy", categoryId: cardId) { results in
-            switch results {
-            case .success(let results):
-                print(cardId)
-                print("write log Complete button: \(results)")
-            case .failure(let error):
-                print(error)
-            }
-        }
+        viewModel.writeLogButton(.done)
         
-        if cardIndex == 0 && cardLesson.count == 1 {
+        if cardIndex == 0 && cardData.count == 1 {
             chartData = ChartData(againButtonPressedLog: againButtonPressedLog, completeButtonPressedLog: completeButtonPressedLog)
             
             // Reset Card and Show Complete screen
             resetCardLesson()
             updateUI(autoPlayAudio: false)
             
-            let vc = self.storyboard?.instantiateViewController(identifier: "LessonComplete") as! LessonCompleteVC
-            vc.cardCompleteData = self.cardLesson
-            vc.clickedData = self.chartData
-            self.present(vc, animated: true)
+            performSegue(withIdentifier: "GoToLessonCompleteVC", sender: nil)
             
-        } else if cardIndex == cardLesson.count - 1 {
-            cardLesson.remove(at: cardIndex)
+        } else if cardIndex == cardData.count - 1 {
+            cardData.remove(at: cardIndex)
             cardIndex = 0
             updateUI(autoPlayAudio: true)
         } else {
-            cardLesson.remove(at: cardIndex)
+            cardData.remove(at: cardIndex)
             updateUI(autoPlayAudio: true)
         }
-        
     }
     
     @IBAction func backToLessonButtonPressed(_ sender: UIButton) {
         avPlayer?.replaceCurrentItem(with: nil)
-        cardLesson = [CardItems]()
+        cardData = [CardData]()
         deleteRecordedAudio()
         dismiss(animated: true, completion: nil)
     }
     
-    
-}
-
-// MARK: - Render HTML
-extension String {
-    func htmlAttributedString(fontSize: Int, color: String) -> NSAttributedString? {
-        let htmlTemplate = """
-            <!doctype html>
-            <html>
-              <head>
-                <style>
-                  body {
-                    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-                    font-size: \(fontSize)px;
-                    line-height: 1.4;
-                    color: \(color)
-                  }
-                </style>
-              </head>
-              <body>
-                \(self)
-              </body>
-            </html>
-            """
-        
-        guard let data = htmlTemplate.data(using: .unicode) else {
-            return nil
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "GoToLessonCompleteVC" {
+            if let vc = segue.destination as? LessonCompleteVC {
+                vc.viewModel = viewModel
+                vc.cardCompleteData = self.cardData
+                vc.clickedData = self.chartData
+            }
         }
-        
-        guard let attributedString = try? NSAttributedString(
-            data: data,
-            options: [.documentType: NSAttributedString.DocumentType.html],
-            documentAttributes: nil
-        ) else {
-            return nil
-        }
-        
-        return attributedString
     }
 }
+
 
 
 

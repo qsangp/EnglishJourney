@@ -40,7 +40,7 @@ class ChartVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         removeSubview()
-        viewModel.needReloadChart = { [weak self] in
+        viewModel.needPerformAction = { [weak self] in
             self?.createChart()
         }
         viewModel.needShowError = { [weak self] error in

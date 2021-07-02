@@ -6,52 +6,68 @@
 //
 
 import Foundation
+import Kingfisher
 
 class CardViewModel {
     
     // Service call API
     let service: Service!
+    
     // Callback to view
-    var needReloadTableView: (() -> Void)?
-    var needReloadChart: (() -> Void)?
+    var needPerformAction: (() -> Void)?
     var needShowError: ((ErrorMessage) -> Void)?
     
     // Datasource
-    private var cardCateItems: [CardCateItems] = []
-    private var cardData: [CardItems] = []
+    private var userData: UserData?
+    
+    private var cardCategory: [CardCategory] = []
+    private var cardItemsDescription: [Int:String] = [:]
+
+    private var cardCategoryItems: [CardCategoryItems] = []
     private var chartData: ButtonDataSet?
+    
+    private var cardData: [Int: [CardData]] = [:]
+    private var cardThumbnailImage: [Int:URL] = [:]
     private var numOfCompletionMonth: [Int:Int] = [:]
-    private var numOfCompletionToday: [Int:Int] = [:]
-    private var cardIdLearned: [Int] = []
-    private var userLearnedToday = false        
     
-    private var instructionImages: [Instruction]
+    private var cardCategoryTitle: String = ""
+    private var cardCategoryId: Int = 0
+    private var cardCategoryItemId: Int = 0
     
+    private var cardToReview: [Int:CardCategoryItems] = [:]
+    private var cardToReviewId: [Int:Date] = [:]
+
+
     init() {
         service = Service()
-        
-        instructionImages = []
-        
-        instructionImages.append(Instruction(name: "Chọn danh mục muốn học", image: "HD_1"))
-        instructionImages.append(Instruction(name: "Quá trình học của bạn sẽ được app ghi nhận, càng siêng năng bạn sẽ càng được thưởng nhiều sao.", image: "HD_2"))
-        instructionImages.append(Instruction(name: "Khi chọn một topic, bài học sẽ tự động phát câu hỏi.", image: "HD_3"))
-        instructionImages.append(Instruction(name: "Các bạn sẽ mở Sample ra, bấm nút play để nghe phần mẫu và đọc lại, sau khi đọc xong bấm Again (câu được bấm Again sẽ được lưu lại để chúng ta thực hành trả lời).", image: "HD_4"))
-        instructionImages.append(Instruction(name: "Sang câu tiếp theo và chúng ta lại nghe câu hỏi → mở sample nghe và luyện đọc theo → bấm Again.", image: "HD_5"))
-        instructionImages.append(Instruction(name: "Sau khi hết 1 lượt, câu hỏi đầu tiên sẽ quay lại → chúng ta sẽ nghe câu hỏi và thực hành trả lời (các bạn có thể bấm thu âm lại phần trả lời để so sánh với bài mẫu). \nNếu trả lời thành công → bấm Done \nNếu không thành công → mở sample luyện đọc lại → bấm Again.", image: "HD_6"))
-        instructionImages.append(Instruction(name: "Lặp lại các bước luyện tập, sau khi hoàn thành các bạn sẽ nhận một chiếc cup vàng :D", image: "HD_7"))
-        instructionImages.append(Instruction(name: "Các bạn có thể thử thách trả lời random câu hỏi bằng cách bấm nút random ở màn hình chọn bài.", image: "HD_8"))
-        instructionImages.append(Instruction(name: "Phần hướng dẫn đến đây là hết rồi, chúc các bạn luyện tập vui vẻ :D", image: "HD_1"))
-
     } 
     
-    func requestCard() {
+    func requestCategory() {
         service.fetchFlashCards { [weak self] results in
             guard let strongSelf = self else { return }
             
             switch results {
             case .success(let results):
-                strongSelf.cardCateItems = results ?? []
-                strongSelf.needReloadTableView?()
+                strongSelf.cardCategory = results ?? []
+                for card in strongSelf.cardCategory {
+                    strongSelf.requestLessons(parentId: card.id)
+                }
+                strongSelf.needPerformAction?()
+            case .failure(let error):
+                strongSelf.needShowError?(error)
+            }
+        }
+    }
+    
+    func requestCardData(cardId: Int) {
+        service.fetchFlashCardsData(cardId: cardId) { [weak self] results in
+            guard let strongSelf = self else { return }
+            
+            switch results {
+            case .success(let results):
+                strongSelf.cardData[cardId] = results ?? []
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "PeformAfterLoadingData"), object: nil)
+                strongSelf.needPerformAction?()
             case .failure(let error):
                 strongSelf.needShowError?(error)
             }
@@ -65,7 +81,7 @@ class CardViewModel {
             switch results {
             case .success(let results):
                 strongSelf.chartData = results
-                strongSelf.needReloadChart?()
+                strongSelf.needPerformAction?()
             case .failure(let error):
                 strongSelf.needShowError?(error)
             }
@@ -80,39 +96,58 @@ class CardViewModel {
             case .success(let results):
                 guard let hits = results?.againDataHits else {return}
                 strongSelf.numOfCompletionMonth[cardId] = hits.reduce(0,+)
-                
-                let date = Date()
-                let formatterDay = DateFormatter()
-                formatterDay.dateFormat = "dd"
-                
-                if let currentDay = Int(formatterDay.string(from: date)) {
-                    strongSelf.numOfCompletionToday[cardId] = hits[currentDay - 1]
-                    if hits[currentDay - 1] == 0 && hits.reduce(0,+) < 5 {
-                        strongSelf.cardIdLearned.append(cardId)
-                    }
-                }
-                strongSelf.needReloadTableView?()
+                strongSelf.needPerformAction?()
             case .failure(let error):
                 strongSelf.needShowError?(error)
             }
         }
     }
     
-    func getInstruction() -> [Instruction] {
-        return instructionImages
+    func requestLessons(parentId: Int) {
+        let items = cardCategory.filter({$0.id == parentId})[0].items
+        cardCategoryItems = items.map({ card in
+            var card = card
+            requestChartDataCell(cardId: card.id)
+            requestCardData(cardId: card.id)
+            card.imageURL = self.cardThumbnailImage[card.id]
+            return card
+        })
     }
     
-    func getCardIdLearned() -> [Int] {
-        cardIdLearned = cardIdLearned.uniqued()
-        return cardIdLearned
+    func writeLogButton( _ button: ButtonName) {
+        let currentCardId = getCurrentCardId()
+        service.writeLogButtonHits(buttonName: button.rawValue, cardId: currentCardId) { results in
+            switch results {
+            case .success(let results):
+                print("cardId: \(currentCardId) write log \(button.rawValue) button: \(results)")
+            case .failure(let error):
+                print("fail to write log button \(error.localizedDescription)")
+            }
+        }
     }
     
-    func userHasLearnedToday() -> Bool {
-        if !cardIdLearned.isEmpty {
-            userLearnedToday = true
-            cardIdLearned = cardIdLearned.uniqued()
-        } 
-        return userLearnedToday
+    func saveUserData(name: String, familyName: String, email: String, id: Int, avatarImage: URL) {
+        self.userData = UserData(name: name, familyName: familyName, email: email, id: id, avatarImage: avatarImage)
+    }
+    
+    func saveCurrentCategoryTitle(_ title: String) {
+        self.cardCategoryTitle = title
+    }
+    
+    func saveCurrentCategoryId(categoryId: Int) {
+        self.cardCategoryId = categoryId
+    }
+    
+    func saveCurrentCardId(cardId: Int) {
+        self.cardCategoryItemId = cardId
+    }
+    
+    func saveCardThumbnailImage(cardId: Int, url: URL) {
+        self.cardThumbnailImage[cardId] = url
+    }
+    
+    func saveCardToReview(cardId: Int, time: Date) {
+        cardToReviewId[cardId] = time
     }
     
     func buttonDataHits() -> ButtonDataSet? {
@@ -123,26 +158,68 @@ class CardViewModel {
         return numOfCompletionMonth[cardId] ?? 0
     }
     
-    func numberOfCompletionToday(cardId: Int) -> Int {
-        return numOfCompletionToday[cardId] ?? 0 
-    }
-    
     func numberOfRowsInSection(section: Int) -> Int {
-        return cardCateItems.count
+        return cardCategory.count
     }
     
-    func numberOfRowsInSectionLessons(parentId: Int, section: Int) -> Int {
-        let items = cardCateItems.filter({$0.id == parentId})[0].items
-        return items.count
+    func cellForRowAt(indexPath: IndexPath) -> CardCategory {
+        return cardCategory[indexPath.row]
     }
     
-    func cellForRowAt(indexPath: IndexPath) -> CardCateItems {
-        return cardCateItems[indexPath.row]
+    func getCardCategory() -> [CardCategory] {
+        cardCategory = cardCategory.map({ card in
+            var card = card
+            card.imageURL = cardThumbnailImage[card.id]
+            return card
+        })
+        return cardCategory
     }
     
-    func cellForRowAtLessons(parentId: Int, indexPath: IndexPath) -> CardLessonItems {
-        let items = cardCateItems.filter({$0.id == parentId})[0].items
-        return items[indexPath.row]
+    func getCardCategoryItems() -> [CardCategoryItems] {
+        return cardCategoryItems
+    }
+    
+    func getCardData(cardId: Int) -> [CardData] {
+        return cardData[cardId] ?? []
+    }
+    
+    func getCurrentCardId() -> Int {
+        return cardCategoryItemId
+    }
+    
+    func getCurrentCategoryId() -> Int {
+        return cardCategoryId
+    }
+    
+    func getCurrentCategoryTitle() -> String {
+        return cardCategoryTitle
+    }
+    
+    func getCardToReview() -> [CardCategoryItems] {
+        var results: [CardCategoryItems] = []
+        for (id,logTime) in cardToReviewId {
+            cardCategoryItems = cardCategoryItems.map({ card in
+                var card = card
+                if card.id == id {
+                    card.logTime = logTime
+                    cardToReview[id] = card
+                }
+                return card
+            })
+        }
+        for (_, card) in cardToReview {
+            results.append(card)
+        }
+        return results.sorted(by: {$0.logTime! < $1.logTime!})
+    }
+    
+    func removeCardToReview(cardId: Int) {
+        cardToReview.removeValue(forKey: cardId)
+        cardToReviewId.removeValue(forKey: cardId)
+    }
+    
+    func getCardLog(cardId: Int) -> Date? {
+        return cardToReviewId[cardId]
     }
 }
 
