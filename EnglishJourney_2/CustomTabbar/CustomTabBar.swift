@@ -20,15 +20,16 @@ class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(loadTabBar), name: NSNotification.Name(rawValue: "PeformAfterPresenting"), object: nil)
+
         self.delegate = self
         self.selectedIndex = 0
         
         loadTabBar()
     }
     
-    func loadTabBar() {
-        let tabbarItems: [TabItem] = [.lesson, .progress, .you]
+    @objc func loadTabBar() {
+        let tabbarItems: [TabItem] = [.home, .you]
         
         setupCustomTabMenu(tabbarItems, completion: { viewControllers in
             self.viewControllers = viewControllers

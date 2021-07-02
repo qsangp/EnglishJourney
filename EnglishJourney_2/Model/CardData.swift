@@ -29,9 +29,12 @@ struct FlashCardData: Codable {
 
 struct Data: Codable {
     let title: String
-    let audioFileName, audioFileNameBack: String
-    let textToAudio, backDeck: String
+    let audioFileName, audioFileNameBack: String?
+    let textToAudio, textToAudioBack: String?
+    let prontDeck, backDeck: String?
     let id: Int
+    let description: String?
+    let imageUrl: String?
 }
 
 struct CardCompletion: Codable {

@@ -15,7 +15,7 @@ class UserProfileVC: UIViewController {
     @IBOutlet weak var userProfileInfo: UITextView!
     @IBOutlet weak var supportButton: UIButton!
     @IBOutlet weak var logOutButton: UIButton!
-    var cardViewModel: CardViewModel!
+    var viewModel: CardViewModel!
     
     deinit {
         print("Userprofile VC has no retain cycle")
@@ -23,12 +23,20 @@ class UserProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name(rawValue: "PeformAfterPresenting"), object: nil)
         updateUI()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
         
-    func updateUI() {
+    @objc func updateUI() {
         overrideUserInterfaceStyle = .light
-
+        navigationController?.setNavigationBarHidden(true, animated: false)
+                        
         let userImageURL = UserDefaults.standard.url(forKey: "userImageURL")
         if let url = userImageURL {
             self.userProfileImage.kf.setImage(with: url)
@@ -52,16 +60,10 @@ class UserProfileVC: UIViewController {
         UIApplication.shared.open(url)
     }
     
-    @IBAction func termsOfUseButtonPressed() {
-    }
-    
-    @IBAction func logOutButtonPressed() {
+    @IBAction func logOutButtonPressed() {        
         resetDefaults()
+        KeychainItem.deleteUserIdentifierFromKeychain()
         GIDSignIn.sharedInstance().signOut()
-        print("User has signed out!")
-        self.presentingViewController?.dismiss(animated: true, completion: nil)
-        
+        self.showLoginViewController()
     }
-    
-    
 }

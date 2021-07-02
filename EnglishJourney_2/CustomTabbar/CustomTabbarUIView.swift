@@ -70,6 +70,8 @@ class CustomTabbarUIView: UIView {
             if let url = UserDefaults.standard.url(forKey: "userImageURL") {
                 itemImageView.kf.setImage(with: url)
                 itemImageView.contentMode = .scaleAspectFill
+            } else {
+                itemImageView.image = UIImage(named: "englishjourney")
             }
         }
         itemImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -84,7 +86,7 @@ class CustomTabbarUIView: UIView {
             itemImageView.widthAnchor.constraint(equalToConstant: 22),
             itemImageView.centerXAnchor.constraint(equalTo: tabBarItem.centerXAnchor),
             itemImageView.topAnchor.constraint(equalTo: tabBarItem.topAnchor, constant: 8),
-            itemImageView.leftAnchor.constraint(equalTo: tabBarItem.leftAnchor, constant: 60),
+            itemImageView.leftAnchor.constraint(equalTo: tabBarItem.leftAnchor, constant: 90),
             itemImageView.leadingAnchor.constraint(equalTo: tabBarItem.leadingAnchor, constant: 35),
             itemTitleLabel.heightAnchor.constraint(equalToConstant: 13),
             itemTitleLabel.widthAnchor.constraint(equalTo: tabBarItem.widthAnchor),
@@ -110,7 +112,7 @@ class CustomTabbarUIView: UIView {
         let tabToActivate = subviews[tab]
         let borderWidth = tabToActivate.frame.width - 20
         let borderLayer = CALayer()
-        borderLayer.backgroundColor = UIColor.systemBlue.cgColor
+        borderLayer.backgroundColor = UIColor.black.cgColor
         borderLayer.name = "Active Border"
         borderLayer.frame = CGRect(x: 10, y: 0, width: borderWidth, height: 2)
         

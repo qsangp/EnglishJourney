@@ -20,18 +20,23 @@
 		FA1777E726779CA200D31111 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FA1777E626779CA200D31111 /* Kingfisher */; };
 		FA1777EB26787C9700D31111 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1777EA26787C9700D31111 /* Array.swift */; };
 		FA28022B265E3CEF00BE51E3 /* CardLessonVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */; };
+		FA34F616268589AD00B29580 /* MarkdownKit in Frameworks */ = {isa = PBXBuildFile; productRef = FA34F615268589AD00B29580 /* MarkdownKit */; };
+		FA34F6202685E8D500B29580 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA34F61F2685E8D500B29580 /* HomeViewController.swift */; };
 		FA36602D266399EF00A69B37 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA36602C266399EF00A69B37 /* StringExtension.swift */; };
 		FA3660302663A20B00A69B37 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA36602F2663A20B00A69B37 /* Alert.swift */; };
 		FA3660332663B1BD00A69B37 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3660322663B1BD00A69B37 /* UIButton.swift */; };
+		FA51CA182686771A00DD972B /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA51CA172686771A00DD972B /* Indicator.swift */; };
+		FA625FED268664DC003066DF /* LessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA625FEC268664DC003066DF /* LessonViewController.swift */; };
 		FA6E2DCE266A59300072023A /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E2DCD266A59300072023A /* UserDefault.swift */; };
 		FA6E2DD2266A70CC0072023A /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E2DD1266A70CC0072023A /* UIImageView.swift */; };
 		FA6E2DD4266B2A9F0072023A /* AVRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6E2DD3266B2A9F0072023A /* AVRecorder.swift */; };
 		FA79E23F265F5D3300483E51 /* LessonCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */; };
 		FA79E2542661319500483E51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA79E2532661319500483E51 /* Assets.xcassets */; };
+		FA818E28268C71880012B5B1 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA818E27268C71880012B5B1 /* Timer.swift */; };
+		FA818E2C268C85BF0012B5B1 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA818E2B268C85BF0012B5B1 /* LocalNotificationManager.swift */; };
 		FA920E1B2668843100706A13 /* ChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA920E1A2668843100706A13 /* ChartVC.swift */; };
 		FAB5EB04265C267800A83569 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB03265C267800A83569 /* AppDelegate.swift */; };
 		FAB5EB06265C267800A83569 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB05265C267800A83569 /* SceneDelegate.swift */; };
-		FAB5EB08265C267800A83569 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB07265C267800A83569 /* ViewController.swift */; };
 		FAB5EB0B265C267800A83569 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB5EB09265C267800A83569 /* Main.storyboard */; };
 		FAB5EB10265C267900A83569 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB5EB0E265C267900A83569 /* LaunchScreen.storyboard */; };
 		FAB5EB19265C26C100A83569 /* CardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB18265C26C100A83569 /* CardData.swift */; };
@@ -40,11 +45,10 @@
 		FAB5EB23265C2BC000A83569 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB21265C2BC000A83569 /* MyTableViewCell.swift */; };
 		FAB5EB24265C2BC000A83569 /* MyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB5EB22265C2BC000A83569 /* MyTableViewCell.xib */; };
 		FAB5EB57265CD38500A83569 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EB56265CD38500A83569 /* CustomTabBar.swift */; };
-		FAD77E51267B28F7004FDA51 /* CardInstructionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD77E50267B28F7004FDA51 /* CardInstructionVC.swift */; };
 		FADD9E122673954000C79CE8 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD9E112673954000C79CE8 /* Service.swift */; };
 		FADD9E142673959300C79CE8 /* ErrorMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD9E132673959300C79CE8 /* ErrorMessages.swift */; };
 		FADD9E16267395B900C79CE8 /* CardResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD9E15267395B900C79CE8 /* CardResult.swift */; };
-		FADD9E1C2675D06F00C79CE8 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADD9E1B2675D06F00C79CE8 /* HomeVC.swift */; };
+		FAED689D26841CD8000DEED3 /* KeychainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED689C26841CD8000DEED3 /* KeychainItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,19 +66,23 @@
 		FA1777E22677402D00D31111 /* CategoryTableVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryTableVC.xib; sourceTree = "<group>"; };
 		FA1777EA26787C9700D31111 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardLessonVC.swift; sourceTree = "<group>"; };
+		FA34F61F2685E8D500B29580 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FA36602C266399EF00A69B37 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		FA36602F2663A20B00A69B37 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		FA3660322663B1BD00A69B37 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
+		FA51CA172686771A00DD972B /* Indicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Indicator.swift; sourceTree = "<group>"; };
+		FA625FEC268664DC003066DF /* LessonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LessonViewController.swift; path = ../../../../.Trash/LessonViewController.swift; sourceTree = "<group>"; };
 		FA6E2DCD266A59300072023A /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		FA6E2DD1266A70CC0072023A /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		FA6E2DD3266B2A9F0072023A /* AVRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVRecorder.swift; sourceTree = "<group>"; };
 		FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCompleteVC.swift; sourceTree = "<group>"; };
 		FA79E2532661319500483E51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FA818E27268C71880012B5B1 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
+		FA818E2B268C85BF0012B5B1 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocalNotificationManager.swift; path = ../../../../Downloads/EnglishJourney/EnglishJourney_2/Service/LocalNotificationManager.swift; sourceTree = "<group>"; };
 		FA920E1A2668843100706A13 /* ChartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartVC.swift; sourceTree = "<group>"; };
 		FAB5EB00265C267800A83569 /* EnglishJourney_2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnglishJourney_2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAB5EB03265C267800A83569 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAB5EB05265C267800A83569 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FAB5EB07265C267800A83569 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FAB5EB0A265C267800A83569 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FAB5EB0F265C267900A83569 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FAB5EB11265C267900A83569 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -84,11 +92,11 @@
 		FAB5EB21265C2BC000A83569 /* MyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
 		FAB5EB22265C2BC000A83569 /* MyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyTableViewCell.xib; sourceTree = "<group>"; };
 		FAB5EB56265CD38500A83569 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
-		FAD77E50267B28F7004FDA51 /* CardInstructionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardInstructionVC.swift; sourceTree = "<group>"; };
 		FADD9E112673954000C79CE8 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		FADD9E132673959300C79CE8 /* ErrorMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorMessages.swift; path = ../../../../Desktop/Saved/ErrorMessages.swift; sourceTree = "<group>"; };
 		FADD9E15267395B900C79CE8 /* CardResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardResult.swift; sourceTree = "<group>"; };
-		FADD9E1B2675D06F00C79CE8 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		FAED68992684065C000DEED3 /* EnglishJourney_2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EnglishJourney_2.entitlements; sourceTree = "<group>"; };
+		FAED689C26841CD8000DEED3 /* KeychainItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainItem.swift; path = "../../../../Downloads/ImplementingUserAuthenticationWithSignInWithApple/Juice/Supporting Files/KeychainItem.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +105,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA1777E726779CA200D31111 /* Kingfisher in Frameworks */,
+				FA34F616268589AD00B29580 /* MarkdownKit in Frameworks */,
 				A50798A75793EBB19102085C /* libPods-EnglishJourney_2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -135,6 +144,7 @@
 		FA36602B266399DF00A69B37 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				FAED689C26841CD8000DEED3 /* KeychainItem.swift */,
 				FA36602C266399EF00A69B37 /* StringExtension.swift */,
 				FA3660322663B1BD00A69B37 /* UIButton.swift */,
 				FA6E2DCD266A59300072023A /* UserDefault.swift */,
@@ -142,6 +152,9 @@
 				FA6E2DD3266B2A9F0072023A /* AVRecorder.swift */,
 				FA1675002671E237003A9689 /* Reachability.swift */,
 				FA1777EA26787C9700D31111 /* Array.swift */,
+				FA51CA172686771A00DD972B /* Indicator.swift */,
+				FA818E27268C71880012B5B1 /* Timer.swift */,
+				FA818E2B268C85BF0012B5B1 /* LocalNotificationManager.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -160,13 +173,12 @@
 			isa = PBXGroup;
 			children = (
 				FA11EE1B26618F4D00B61171 /* LogInVC.swift */,
-				FAB5EB07265C267800A83569 /* ViewController.swift */,
+				FA34F61F2685E8D500B29580 /* HomeViewController.swift */,
+				FA625FEC268664DC003066DF /* LessonViewController.swift */,
 				FA28022A265E3CEF00BE51E3 /* CardLessonVC.swift */,
-				FAD77E50267B28F7004FDA51 /* CardInstructionVC.swift */,
 				FA79E23E265F5D3300483E51 /* LessonCompleteVC.swift */,
 				FA11EE202662479D00B61171 /* UserProfileVC.swift */,
 				FA920E1A2668843100706A13 /* ChartVC.swift */,
-				FADD9E1B2675D06F00C79CE8 /* HomeVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -211,6 +223,7 @@
 		FAB5EB02265C267800A83569 /* EnglishJourney_2 */ = {
 			isa = PBXGroup;
 			children = (
+				FAED68992684065C000DEED3 /* EnglishJourney_2.entitlements */,
 				FADD9E102673953300C79CE8 /* Service */,
 				FA0E43C426671B9200178A10 /* CustomTabbar */,
 				FA36602B266399DF00A69B37 /* Extension */,
@@ -259,6 +272,7 @@
 			name = EnglishJourney_2;
 			packageProductDependencies = (
 				FA1777E626779CA200D31111 /* Kingfisher */,
+				FA34F615268589AD00B29580 /* MarkdownKit */,
 			);
 			productName = EnglishJourney_2;
 			productReference = FAB5EB00265C267800A83569 /* EnglishJourney_2.app */;
@@ -289,6 +303,7 @@
 			mainGroup = FAB5EAF7265C267700A83569;
 			packageReferences = (
 				FA1777E526779CA200D31111 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				FA34F614268589AD00B29580 /* XCRemoteSwiftPackageReference "MarkdownKit" */,
 			);
 			productRefGroup = FAB5EB01265C267800A83569 /* Products */;
 			projectDirPath = "";
@@ -362,24 +377,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA818E2C268C85BF0012B5B1 /* LocalNotificationManager.swift in Sources */,
 				FADD9E142673959300C79CE8 /* ErrorMessages.swift in Sources */,
-				FADD9E1C2675D06F00C79CE8 /* HomeVC.swift in Sources */,
 				FA0E43C626671BAC00178A10 /* TabbarItems.swift in Sources */,
+				FA34F6202685E8D500B29580 /* HomeViewController.swift in Sources */,
 				FAB5EB23265C2BC000A83569 /* MyTableViewCell.swift in Sources */,
-				FAB5EB08265C267800A83569 /* ViewController.swift in Sources */,
 				FA920E1B2668843100706A13 /* ChartVC.swift in Sources */,
 				FADD9E122673954000C79CE8 /* Service.swift in Sources */,
-				FAD77E51267B28F7004FDA51 /* CardInstructionVC.swift in Sources */,
+				FA625FED268664DC003066DF /* LessonViewController.swift in Sources */,
+				FA818E28268C71880012B5B1 /* Timer.swift in Sources */,
 				FAB5EB19265C26C100A83569 /* CardData.swift in Sources */,
 				FA3660332663B1BD00A69B37 /* UIButton.swift in Sources */,
 				FA3660302663A20B00A69B37 /* Alert.swift in Sources */,
 				FAB5EB1F265C270D00A83569 /* CardViewModel.swift in Sources */,
+				FA51CA182686771A00DD972B /* Indicator.swift in Sources */,
 				FA28022B265E3CEF00BE51E3 /* CardLessonVC.swift in Sources */,
 				FA79E23F265F5D3300483E51 /* LessonCompleteVC.swift in Sources */,
 				FADD9E16267395B900C79CE8 /* CardResult.swift in Sources */,
 				FAB5EB57265CD38500A83569 /* CustomTabBar.swift in Sources */,
 				FAB5EB04265C267800A83569 /* AppDelegate.swift in Sources */,
 				FA36602D266399EF00A69B37 /* StringExtension.swift in Sources */,
+				FAED689D26841CD8000DEED3 /* KeychainItem.swift in Sources */,
 				FA6E2DCE266A59300072023A /* UserDefault.swift in Sources */,
 				FA11EE1C26618F4D00B61171 /* LogInVC.swift in Sources */,
 				FA6E2DD4266B2A9F0072023A /* AVRecorder.swift in Sources */,
@@ -539,6 +557,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = EnglishJourney_2/EnglishJourney_2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FG4734NR9F;
 				INFOPLIST_FILE = EnglishJourney_2/Info.plist;
@@ -546,6 +565,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ieltsvuive.EnglishJourney;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -559,6 +579,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = EnglishJourney_2/EnglishJourney_2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FG4734NR9F;
 				INFOPLIST_FILE = EnglishJourney_2/Info.plist;
@@ -566,6 +587,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ieltsvuive.EnglishJourney;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -605,6 +627,14 @@
 				minimumVersion = 6.3.0;
 			};
 		};
+		FA34F614268589AD00B29580 /* XCRemoteSwiftPackageReference "MarkdownKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/bmoliveira/MarkdownKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -612,6 +642,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FA1777E526779CA200D31111 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		FA34F615268589AD00B29580 /* MarkdownKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA34F614268589AD00B29580 /* XCRemoteSwiftPackageReference "MarkdownKit" */;
+			productName = MarkdownKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
