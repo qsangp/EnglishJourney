@@ -8,19 +8,13 @@
 import UIKit
 
 enum TabItem: String, CaseIterable {
-    case lesson = "bài học"
-//    case home = "trang chủ"
-    case progress = "tiến độ"
-    case you = "bạn"
+    case home = "home"
+    case you = "you"
 
     var viewController: UIViewController {
         switch self {
-        case .lesson:
-            return ViewController()
-//        case .home:
-//            return HomeVC()
-        case .progress:
-            return ChartVC()
+        case .home:
+            return HomeViewController()
         case .you:
             return UserProfileVC()
         }
@@ -28,12 +22,8 @@ enum TabItem: String, CaseIterable {
 
     var icon: UIImage {
         switch self {
-        case .lesson:
-            return UIImage(named: "tabbarIcon1Colored")!
-//        case .home:
-//            return UIImage(systemName: "house.fill")!
-        case .progress:
-            return UIImage(named: "tabBarIcon2Colored")!
+        case .home:
+            return UIImage.init(systemName: "house")!
         case .you:
             var profileImage = UIImage()
             guard let url = UserDefaults.standard.url(forKey: "userImageURL") else {return profileImage}

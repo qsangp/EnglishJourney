@@ -41,36 +41,47 @@ struct DashboardResult: Codable {
 }
 
 //MARK: Model
-struct CardCateItems {
+struct UserData {
+    let name: String
+    let familyName: String
+    let email: String
+    let id: Int
+    var avatarImage: URL?
+}
+
+struct CardCategory {
     let title: String
     let parentID: Int
     let numOfLession: Int
     let id: Int
-    var items: [CardLessonItems]
+    var items: [CardCategoryItems]
+    var imageURL: URL?
 }
 
-struct CardLessonItems {
+struct CardCategoryItems {
     let title: String
     let parentID: Int
     let numOfLession: Int
     let id: Int
+    var items: [CardData]
+    var imageURL: URL?
+    var logTime: Date?
+    var introduction: String?
 }
 
-struct CardItems {
+struct CardData {
     let title: String
+    let textToAudio, textToAudioBack: String
     let audioFrontName, audioBackName: String
     let frontText, backText: String
     let id: Int
+    let description: String
+    let imageURL: String
 }
 
 struct DashboardItems {
     let total, new, toReview, learned: Int
 }
 
-// Instruction
 
-struct Instruction {
-    let name: String
-    let image: String
-}
 

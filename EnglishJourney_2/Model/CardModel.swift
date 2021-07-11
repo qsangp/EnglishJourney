@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CardCategory {
+struct CardCategoryTemp {
     let title: String
     let numOfLesson: Int
     let id: Int
@@ -20,7 +20,7 @@ struct CardModel {
     let id: Int
 }
 
-struct CardData {
+struct CardDataTemp {
     let cardName: String
     let frontCardAudio: String
     let backCardAudio: String
@@ -42,12 +42,6 @@ struct ButtonDataSet {
 struct CompleteButtonDataSet {
     let labelDataSet: String
     let dataHits: [Int]
-}
-
-struct UserData {
-    let userName: String
-    let userEmail: String
-    let id: Int
 }
 
 struct UserDataFacebook {

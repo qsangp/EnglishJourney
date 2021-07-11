@@ -10,29 +10,111 @@ import AVFoundation
 
 class CardLessonVC: UIViewController {
     
-    @IBOutlet weak var lessonLabel: UILabel!
-    @IBOutlet weak var audioFrontButton: UIButton!
-    @IBOutlet weak var showHideButton: UIButton!
+    let titleLabel: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.textColor = UIColor(red: 0.00, green: 0.64, blue: 0.64, alpha: 1.00)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        label.numberOfLines = 0
+        return label
+    }()
     
+    let statusLabel: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.textColor = UIColor.systemRed
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    let audioFrontButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "headphones"), for: .normal)
+        button.addTarget(self, action: #selector(audioFrontPressed(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let showSampleButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Show Sample", for: .normal)
+        button.addTarget(self, action: #selector(showSample), for: .touchUpInside)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        button.setTitleColor(UIColor(red: 0.00, green: 0.64, blue: 0.64, alpha: 1.00), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let swipeView: UIView = {
+        let v = UIView()
+        v.backgroundColor = .clear
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+        
     @IBOutlet weak var audioBackButton: UIButton!
     @IBOutlet weak var pauseButton: UIButton!
     @IBOutlet weak var playButon: UIButton!
     @IBOutlet weak var textBackField: UITextView!
     @IBOutlet weak var backCardView: UIView!
+    @IBOutlet weak var audioStackView: UIStackView!
     
-    @IBOutlet weak var againButton: UIButton!
-    @IBOutlet weak var completeButton: UIButton!
+    
+    let againButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("I forgot, save card", for: .normal)
+        button.addTarget(self, action: #selector(againButtonPressed(_:)), for: .touchUpInside)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        button.titleLabel?.numberOfLines = 0
+        button.titleLabel?.textAlignment = .center
+        button.setTitleColor(UIColor.systemRed, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let doneButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("I remembered, finish card", for: .normal)
+        button.addTarget(self, action: #selector(completeButtonPressed(_:)), for: .touchUpInside)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        button.titleLabel?.numberOfLines = 0
+        button.titleLabel?.textAlignment = .center
+        button.setTitleColor(UIColor(red: 0.00, green: 0.64, blue: 0.64, alpha: 1.00), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     @IBOutlet weak var backToLessonButton: UIButton!
     @IBOutlet weak var audioSlider: UISlider!
-    
-    @IBOutlet weak var constraintFrontCardViewTop: NSLayoutConstraint!
-    @IBOutlet weak var constraintFrontCardBackCard: NSLayoutConstraint!
-    @IBOutlet weak var constraintFrontCardViewBottom: NSLayoutConstraint!
-    
+        
     // Record
-    @IBOutlet var recordingTimeLabel: UILabel!
-    @IBOutlet var recordButton: UIButton!
-    @IBOutlet var playRecordButton: UIButton!
+    let recordingTimeLabel: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        return label
+    }()
+    
+    let recordButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "microphone"), for: .normal)
+        button.addTarget(self, action: #selector(start_recording), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let playRecordButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Play", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        button.addTarget(self, action: #selector(play_recording), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
     var audioRecorder: AVAudioRecorder!
     var audioPlayer : AVAudioPlayer!
@@ -41,29 +123,30 @@ class CardLessonVC: UIViewController {
     var isRecording = false
     var isPlaying = false
     
-    // API
-    let service = Service()
-    
     // Card Lesson
     var viewModel: CardViewModel!
-    var cardLesson = [CardItems]()
-    var temporaryCardLesson = [CardItems]()
+    var cardData = [CardData]()
+    var temporaryCardData = [CardData]()
     var cardIndex = 0
+    var currentCardId = 0
     
     let popUpMessageLabel: UILabel = {
         let label = UILabel()
-        label.text = "Double tap to Show sample \nSwipe left ← to click Done \nSwipe right → to click Again"
+        label.text = ""
         label.textColor = UIColor.label
         label.textAlignment = .center
         label.numberOfLines = 0
         label.layer.masksToBounds = true
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let popUpImage: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "tap"))
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
+    let backButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "left-arrow"), for: .normal)
+        button.addTarget(self, action: #selector(backToLessonButtonPressed(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     // Audio
@@ -81,7 +164,8 @@ class CardLessonVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        overrideUserInterfaceStyle = .light
+
         bindViewModel()
         checkRecordPermission()
         updateUI(autoPlayAudio: true)
@@ -89,12 +173,13 @@ class CardLessonVC: UIViewController {
     }
     // Record Audio
     
-    @IBAction func start_recording(_ sender: UIButton) {
+    @objc func start_recording() {
         if (isRecording) {
             finishAudioRecording(success: true)
             recordButton.setTitle("Record", for: .normal)
             recordButton.setTitleColor(UIColor.label, for: .normal)
             playRecordButton.isEnabled = true
+            playRecordButton.isHidden = false
             isRecording = false
         }
         else {
@@ -120,12 +205,12 @@ class CardLessonVC: UIViewController {
         }
     }
     
-    @IBAction func play_recording(_ sender: Any) {
+    @objc func play_recording() {
         if(isPlaying) {
             audioPlayer.stop()
             recordButton.isEnabled = true
             playRecordButton.setTitle("Play", for: .normal)
-            playRecordButton.setTitleColor(UIColor.label, for: .normal)
+            playRecordButton.setTitleColor(UIColor.black, for: .normal)
             isPlaying = false
         }
         else {
@@ -144,37 +229,39 @@ class CardLessonVC: UIViewController {
     }
     
     private func bindViewModel() {
-        viewModel = CardViewModel()
+        currentCardId = viewModel.getCurrentCardId()
+        let data = viewModel.getCardData(cardId: currentCardId)
+        if UserDefaults.standard.bool(forKey: "randomSwitch") {
+            cardData = data.shuffled()
+            temporaryCardData = data.shuffled()
+        } else {
+            cardData = data
+            temporaryCardData = data
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        statusLabel.text = ""
+        updateUI(autoPlayAudio: true)
     }
     
     func updateUI(autoPlayAudio: Bool) {
-        overrideUserInterfaceStyle = .light
-
+        navigationController?.setNavigationBarHidden(true, animated: false)
+                
+        setupHeader()
+        setupAudioFront()
+        setupRecord()
+        
         backCardView.isHidden = true
         textBackField.isScrollEnabled = true
-        
-        showHideButton.layer.cornerRadius = 10
-        againButton.layer.cornerRadius = 10
-        completeButton.layer.cornerRadius = 10
-        
-        // Animation
-        constraintFrontCardBackCard.priority = UILayoutPriority.defaultLow
-        constraintFrontCardViewBottom.priority = UILayoutPriority.defaultHigh
-        constraintFrontCardViewTop.constant = 150
-        constraintFrontCardViewBottom.constant = 400
-        
-        showHideButton.setTitle("Show Sample", for: .normal)
-        showHideButton.setTitleColor(.label, for: .normal)
-        
-        let cardName = cardLesson[cardIndex].title
-        lessonLabel.text = cardName
-        
+        textBackField.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+                
         // Render HTML
-        let htmlString = cardLesson[cardIndex].backText
+        let htmlString = cardData[cardIndex].backText
         
-        textBackField.attributedText = htmlString.htmlAttributedString(fontSize: 16, color: "black")
+        textBackField.attributedText = htmlString.htmlAttributedString(fontSize: 16)
 
-        
         // Autoplay Front Audio
         if autoPlayAudio {
             audioFrontButton.sendActions(for: .touchUpInside)
@@ -186,52 +273,108 @@ class CardLessonVC: UIViewController {
         audioSlider.addTarget(self, action: #selector(handleSliderChange), for: .valueChanged)
         Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(updateSlider), userInfo: nil, repeats: true)
         
-        view.addSubview(popUpMessageLabel)
-        popUpMessageLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            popUpMessageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            popUpMessageLabel.topAnchor.constraint(equalTo: showHideButton.bottomAnchor, constant: 60),
-            popUpMessageLabel.widthAnchor.constraint(equalToConstant: 300)
-        ])
-        
-        view.addSubview(popUpImage)
-        NSLayoutConstraint.activate([
-            popUpImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            popUpImage.topAnchor.constraint(equalTo: popUpMessageLabel.bottomAnchor, constant: 60),
-            popUpImage.widthAnchor.constraint(equalToConstant: 100),
-            popUpImage.heightAnchor.constraint(equalToConstant: 100)
-        ])
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(CardLessonVC.tapFunction))
-        popUpMessageLabel.isUserInteractionEnabled = true
-        popUpMessageLabel.addGestureRecognizer(tap)
-        popUpImage.isUserInteractionEnabled = true
-        popUpImage.addGestureRecognizer(tap)
-        
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(completeButtonPressed(_:)))
         swipeLeft.direction = .left
-        self.view.addGestureRecognizer(swipeLeft)
+        self.swipeView.addGestureRecognizer(swipeLeft)
         
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(againButtonPressed(_:)))
         swipeRight.direction = .right
-        self.view.addGestureRecognizer(swipeRight)
+        self.swipeView.addGestureRecognizer(swipeRight)
         
+        let swipeLeftText = UISwipeGestureRecognizer(target: self, action: #selector(completeButtonPressed(_:)))
+        swipeLeftText.direction = .left
+        self.textBackField.addGestureRecognizer(swipeLeftText)
+        
+        let swipeRightText = UISwipeGestureRecognizer(target: self, action: #selector(againButtonPressed(_:)))
+        swipeRightText.direction = .right
+        self.textBackField.addGestureRecognizer(swipeRightText)
     }
     
-    @objc func tapFunction(sender:UITapGestureRecognizer) {
-        showHideButton.sendActions(for: .touchUpInside)
+    func setupHeader() {
+        titleLabel.text = cardData[cardIndex].title.localizedCapitalized
+        view.addSubview(titleLabel)
+        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        titleLabel.widthAnchor.constraint(equalToConstant: view.frame.width/2).isActive = true
+        
+        view.addSubview(backButton)
+        backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+        backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        backButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        backButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        view.addSubview(statusLabel)
+        statusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        statusLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
+        statusLabel.widthAnchor.constraint(equalToConstant: view.frame.width/2).isActive = true
+        
+        view.addSubview(swipeView)
+        swipeView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height/3).isActive = true
+        swipeView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        swipeView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        swipeView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+
     }
     
+    func setupAudioFront() {
+        view.addSubview(audioFrontButton)
+        audioFrontButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        audioFrontButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.frame.width/2).isActive = true
+        audioFrontButton.widthAnchor.constraint(equalToConstant: view.frame.width/4).isActive = true
+        audioFrontButton.heightAnchor.constraint(equalToConstant: view.frame.width/4).isActive = true
+        
+        view.addSubview(popUpMessageLabel)
+        popUpMessageLabel.text = "Playing... \n "
+        popUpMessageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        popUpMessageLabel.topAnchor.constraint(equalTo: audioFrontButton.bottomAnchor, constant: 30).isActive = true
+        popUpMessageLabel.widthAnchor.constraint(equalToConstant: view.frame.width/2).isActive = true
+        
+        view.addSubview(showSampleButton)
+        showSampleButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        showSampleButton.topAnchor.constraint(equalTo: popUpMessageLabel.bottomAnchor).isActive = true
+        showSampleButton.widthAnchor.constraint(equalToConstant: view.frame.width/3).isActive = true
+        showSampleButton.heightAnchor.constraint(equalToConstant: view.frame.width/8).isActive = true
+    }
+    
+    func setupRecord() {
+        view.addSubview(recordButton)
+        recordButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        recordButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -70).isActive = true
+        recordButton.widthAnchor.constraint(equalToConstant: view.frame.width/8).isActive = true
+        recordButton.heightAnchor.constraint(equalToConstant: view.frame.width/8).isActive = true
+        
+        view.addSubview(recordingTimeLabel)
+        recordingTimeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        recordingTimeLabel.topAnchor.constraint(equalTo: recordButton.bottomAnchor, constant: 10).isActive = true
+        recordingTimeLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        view.addSubview(playRecordButton)
+        playRecordButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        playRecordButton.topAnchor.constraint(equalTo: recordingTimeLabel.bottomAnchor, constant: 10).isActive = true
+        playRecordButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        playRecordButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        view.addSubview(againButton)
+        againButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        againButton.trailingAnchor.constraint(equalTo: playRecordButton.leadingAnchor, constant: -5).isActive = true
+        againButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70).isActive = true
+
+        view.addSubview(doneButton)
+        doneButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        doneButton.leadingAnchor.constraint(equalTo: playRecordButton.trailingAnchor, constant: 5).isActive = true
+        doneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70).isActive = true
+    }
+        
     func resetCardLesson() {
-        cardLesson = temporaryCardLesson
+        cardData = temporaryCardData
     }
     
     //MARK: - Audio Section
     
     @IBAction func audioFrontPressed(_ sender: UIButton) {
         let baseURL = "https://app.ielts-vuive.com/data/audio/"
-        let id = String(cardLesson[cardIndex].id)
-        let audioName = cardLesson[cardIndex].audioFrontName
+        let id = String(cardData[cardIndex].id)
+        let audioName = cardData[cardIndex].audioFrontName
         
         let sourceAudio = "\(baseURL)\(id)/\(audioName)"
         let url = URL(string: sourceAudio)
@@ -249,8 +392,8 @@ class CardLessonVC: UIViewController {
     
     @IBAction func audioBackPressed(_ sender: UIButton) {
         let baseURL = "https://app.ielts-vuive.com/data/audio/"
-        let id = String(cardLesson[cardIndex].id)
-        let audioName = cardLesson[cardIndex].audioBackName
+        let id = String(cardData[cardIndex].id)
+        let audioName = cardData[cardIndex].audioBackName
         avPlayer?.addObserver(self, forKeyPath: "currentTime", options: .new, context: nil)
         
         let sourceAudio = "\(baseURL)\(id)/\(audioName)"
@@ -302,9 +445,10 @@ class CardLessonVC: UIViewController {
         if audioSlider.value == audioSlider.maximumValue {
             audioSlider.value = 0
             avPlayer?.pause()
-            audioBackButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
             audioBackButton.isHidden = false
             pauseButton.isHidden = true
+            
+            popUpMessageLabel.text = "Swipe left to finish \nSwipe right to save"
         }
     }
     
@@ -314,59 +458,35 @@ class CardLessonVC: UIViewController {
     
     //MARK: - Lesson Section
     
-    @IBAction func showHideButtonPressed(_ sender: UIButton) {
-        if sender.isSelected {
-            showHideButton.setTitle("Hide Sample", for: .normal)
-            
-            backCardView.isHidden = false
-            audioFrontButton.isHidden = true
-            popUpMessageLabel.isHidden = true
-            popUpImage.isHidden = true
-            
-            constraintFrontCardBackCard.priority = UILayoutPriority.defaultHigh
-            constraintFrontCardViewBottom.priority =
-                UILayoutPriority.defaultLow
-            constraintFrontCardViewTop.constant = 80
-            
-        } else {
-            showHideButton.setTitle("Show Sample", for: .normal)
-            
-            backCardView.isHidden = true
-            audioFrontButton.isHidden = false
-            popUpMessageLabel.isHidden = false
-            popUpImage.isHidden = false
-            
-            constraintFrontCardBackCard.priority = UILayoutPriority.defaultLow
-            constraintFrontCardViewBottom.priority = UILayoutPriority.defaultHigh
-            constraintFrontCardViewTop.constant = 150
-        }
-        sender.isSelected = !sender.isSelected
+    @objc func showSample() {
+        backCardView.fadeIn()
+        audioFrontButton.fadeOut()
+        popUpMessageLabel.fadeOut()
+        showSampleButton.fadeOut()
+        statusLabel.fadeOut()
+        swipeView.isHidden = true
     }
     
     @IBAction func againButtonPressed(_ sender: UIButton) {
         avPlayer?.replaceCurrentItem(with: nil)
         deleteRecordedAudio()
         recordingTimeLabel.text = ""
+        playRecordButton.setTitle("Play", for: .normal)
+        playRecordButton.setTitleColor(UIColor.black, for: .normal)
         againButtonPressedLog += 1
-        audioBackButton.isHidden = false
-        audioFrontButton.isHidden = false
-        popUpMessageLabel.isHidden = false
-        popUpImage.isHidden = false
-        
+        backCardView.fadeOut()
+        audioFrontButton.fadeIn()
+        popUpMessageLabel.fadeIn()
+        showSampleButton.fadeIn()
+        statusLabel.text = "Card was saved, \(cardData.count-1) left"
+        statusLabel.fadeIn()
+        swipeView.isHidden = false
+
         // Write log again button
-        let cardId = UserDefaults.standard.integer(forKey: "cardId")
-        service.writeLogButtonHits(buttonName: "Again", categoryId: cardId) { results in
-            switch results {
-            case .success(let results):
-                print(cardId)
-                print("write log again button: \(results)")
-            case .failure(let error):
-                print(error)
-            }
-        }
+        viewModel.writeLogButton(.again)
 
         switch cardIndex {
-        case cardLesson.count - 1:
+        case cardData.count - 1:
             cardIndex = -1
             cardIndex += 1
             updateUI(autoPlayAudio: true)
@@ -380,95 +500,56 @@ class CardLessonVC: UIViewController {
         avPlayer?.replaceCurrentItem(with: nil)
         deleteRecordedAudio()
         recordingTimeLabel.text = ""
+        playRecordButton.setTitle("Play", for: .normal)
+        playRecordButton.setTitleColor(UIColor.black, for: .normal)
         completeButtonPressedLog += 1
-        audioBackButton.isHidden = false
-        audioFrontButton.isHidden = false
-        popUpMessageLabel.isHidden = false
-        popUpImage.isHidden = false
-        
-        // Write log complete button
-        let cardId = UserDefaults.standard.integer(forKey: "cardId")
+        backCardView.fadeOut()
+        audioFrontButton.fadeIn()
+        popUpMessageLabel.fadeIn()
+        showSampleButton.fadeIn()
+        statusLabel.text = "Card was finished, \(cardData.count-1) left"
+        statusLabel.fadeIn()
+        swipeView.isHidden = false
 
-        service.writeLogButtonHits(buttonName: "Easy", categoryId: cardId) { results in
-            switch results {
-            case .success(let results):
-                print(cardId)
-                print("write log Complete button: \(results)")
-            case .failure(let error):
-                print(error)
-            }
-        }
+        viewModel.writeLogButton(.done)
         
-        if cardIndex == 0 && cardLesson.count == 1 {
+        if cardIndex == 0 && cardData.count == 1 {
             chartData = ChartData(againButtonPressedLog: againButtonPressedLog, completeButtonPressedLog: completeButtonPressedLog)
             
             // Reset Card and Show Complete screen
             resetCardLesson()
             updateUI(autoPlayAudio: false)
             
-            let vc = self.storyboard?.instantiateViewController(identifier: "LessonComplete") as! LessonCompleteVC
-            vc.cardCompleteData = self.cardLesson
-            vc.clickedData = self.chartData
-            self.present(vc, animated: true)
+            performSegue(withIdentifier: "GoToLessonCompleteVC", sender: nil)
             
-        } else if cardIndex == cardLesson.count - 1 {
-            cardLesson.remove(at: cardIndex)
+        } else if cardIndex == cardData.count - 1 {
+            cardData.remove(at: cardIndex)
             cardIndex = 0
             updateUI(autoPlayAudio: true)
         } else {
-            cardLesson.remove(at: cardIndex)
+            cardData.remove(at: cardIndex)
             updateUI(autoPlayAudio: true)
         }
-        
     }
     
     @IBAction func backToLessonButtonPressed(_ sender: UIButton) {
         avPlayer?.replaceCurrentItem(with: nil)
-        cardLesson = [CardItems]()
+        cardData = [CardData]()
         deleteRecordedAudio()
         dismiss(animated: true, completion: nil)
     }
     
-    
-}
-
-// MARK: - Render HTML
-extension String {
-    func htmlAttributedString(fontSize: Int, color: String) -> NSAttributedString? {
-        let htmlTemplate = """
-            <!doctype html>
-            <html>
-              <head>
-                <style>
-                  body {
-                    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-                    font-size: \(fontSize)px;
-                    line-height: 1.4;
-                    color: \(color)
-                  }
-                </style>
-              </head>
-              <body>
-                \(self)
-              </body>
-            </html>
-            """
-        
-        guard let data = htmlTemplate.data(using: .unicode) else {
-            return nil
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "GoToLessonCompleteVC" {
+            if let vc = segue.destination as? LessonCompleteVC {
+                vc.viewModel = viewModel
+                vc.cardCompleteData = self.cardData
+                vc.clickedData = self.chartData
+            }
         }
-        
-        guard let attributedString = try? NSAttributedString(
-            data: data,
-            options: [.documentType: NSAttributedString.DocumentType.html],
-            documentAttributes: nil
-        ) else {
-            return nil
-        }
-        
-        return attributedString
     }
 }
+
 
 
 

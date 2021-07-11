@@ -15,12 +15,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IELTSVV-transparent-whitetext" translatesAutoresizingMaskIntoConstraints="NO" id="SRc-T0-g4w">
-                                <rect key="frame" x="157" y="207.5" width="100" height="481"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="RQB-av-Q75"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NpY-IE-Q0q">
                                 <rect key="frame" x="10" y="791" width="394" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -33,8 +27,6 @@
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="NpY-IE-Q0q" secondAttribute="bottom" constant="50" id="3Tx-mU-h5b"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NpY-IE-Q0q" secondAttribute="trailing" constant="10" id="IS2-oA-ABP"/>
-                            <constraint firstItem="SRc-T0-g4w" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Y6B-le-aIg"/>
-                            <constraint firstItem="SRc-T0-g4w" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="t2g-UN-eE5"/>
                             <constraint firstItem="NpY-IE-Q0q" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="ycv-jr-dSB"/>
                         </constraints>
                     </view>
@@ -44,7 +36,4 @@
             <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="IELTSVV-transparent-whitetext" width="1000" height="481"/>
-    </resources>
 </document>

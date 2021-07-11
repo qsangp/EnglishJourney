@@ -13,6 +13,7 @@ class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     var customTabBar: CustomTabbarUIView!
     var tabBarHeight: CGFloat = 75.0
+    var viewModel: CardViewModel!
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -20,16 +21,18 @@ class CustomTabBarVC: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = CardViewModel()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(loadTabBar), name: NSNotification.Name(rawValue: "PeformAfterPresenting"), object: nil)
+
         self.delegate = self
         self.selectedIndex = 0
         
         loadTabBar()
     }
     
-    func loadTabBar() {
-        let tabbarItems: [TabItem] = [.lesson, .progress, .you]
-        
+    @objc func loadTabBar() {
+        let tabbarItems: [TabItem] = [.home, .you]
         setupCustomTabMenu(tabbarItems, completion: { viewControllers in
             self.viewControllers = viewControllers
         })

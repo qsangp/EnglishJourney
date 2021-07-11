@@ -11,7 +11,7 @@ class Service {
     
     static let shared = Service()
     
-    func fetchFlashCards(completion: @escaping (Swift.Result<[CardCateItems]?, ErrorMessage>) -> Void) {
+    func fetchFlashCards(completion: @escaping (Swift.Result<[CardCategory]?, ErrorMessage>) -> Void) {
         
         guard let token = UserDefaults.standard.string(forKey: "accessToken") else {return}
         let urlString = URL(string:"https://app.ielts-vuive.com/api/services/app/flashCardCategorieService/GetAllCategoriesGranted")
@@ -40,20 +40,20 @@ class Service {
             }
             do {
                 let decodedData = try JSONDecoder().decode(CardCates.self, from: data!)
-                var cardCategory = [CardCateItems]()
-                var cardLessons = [CardLessonItems]()
+                var cardCategory = [CardCategory]()
+                var cardLessons = [CardCategoryItems]()
                 
                 for card in decodedData.result {
                     let parentId = card.parentId
                     let id = card.id
                     
                     if let parentId = parentId {
-                        cardLessons.append(CardLessonItems(title: card.title, parentID: parentId, numOfLession: card.numOfLession, id: id))
+                        cardLessons.append(CardCategoryItems(title: card.title, parentID: parentId, numOfLession: card.numOfLession, id: id, items: [CardData](), imageURL: nil, logTime: nil, introduction: ""))
                     } else {
-                        cardCategory.append(CardCateItems(title: card.title, parentID: 0, numOfLession: card.numOfLession, id: card.id, items: [CardLessonItems]()))
+                        cardCategory.append(CardCategory(title: card.title, parentID: 0, numOfLession: card.numOfLession, id: card.id, items: [CardCategoryItems](), imageURL: nil))
                     }
                 }
-                print(cardCategory)
+                                
                 cardCategory = cardCategory.map({ card in
                     var card = card
                     let lesson = cardLessons.filter({$0.parentID == card.id})
@@ -74,13 +74,13 @@ class Service {
     }
     
     
-    func fetchFlashCardsData(cateId: Int, completion: @escaping (Swift.Result<[CardItems]?, ErrorMessage>) -> Void) {
+    func fetchFlashCardsData(cardId: Int, completion: @escaping (Swift.Result<[CardData]?, ErrorMessage>) -> Void) {
         
         let userId = UserDefaults.standard.integer(forKey: "userId")
 
         let urlStringData = "https://app.ielts-vuive.com/api/services/app/flashCardLessionService/GetAllLessionsByCateId?id="
         
-        let stringId = String(cateId)
+        let stringId = String(cardId)
         let userIdString = String(userId)
         let newUrl = "\(urlStringData)\(stringId)&userId=\(userIdString)"
         let urlStringDataID = URL(string: newUrl)
@@ -108,9 +108,9 @@ class Service {
             }
             do {
                 let decodedData = try JSONDecoder().decode(FlashCardData.self, from: data!)
-                var cardItems = [CardItems]()
+                var cardItems = [CardData]()
                 for card in decodedData.result {
-                    cardItems.append(CardItems(title: card.title, audioFrontName: card.audioFileName, audioBackName: card.audioFileNameBack, frontText: card.textToAudio, backText: card.backDeck, id: card.id))
+                    cardItems.append(CardData(title: card.title, textToAudio: card.textToAudio ?? "", textToAudioBack: card.textToAudioBack ?? "", audioFrontName: card.audioFileName ?? "", audioBackName: card.audioFileNameBack ?? "", frontText: card.prontDeck ?? "", backText: card.backDeck ?? "", id: card.id, description: card.description ?? "", imageURL: card.imageUrl ?? ""))
                 }
                 DispatchQueue.main.async {
                     completion(.success(cardItems))
@@ -124,7 +124,62 @@ class Service {
         }.resume()
     }
     
-    func fetchChartData(cardId: Int, completion: @escaping (Swift.Result<ButtonDataSet?, ErrorMessage>) -> Void) {
+    func fetchChartDataTotal(completion: @escaping (Swift.Result<ButtonDataSet?, ErrorMessage>) -> Void) {
+        
+        let date = Date()
+        let formatterMonth = DateFormatter()
+        formatterMonth.dateFormat = "MM"
+        let formatterYear = DateFormatter()
+        formatterYear.dateFormat = "yyyy"
+        
+        guard let token = UserDefaults.standard.string(forKey: "accessToken"),
+              let currentMonth = Int(formatterMonth.string(from: date)),
+              let currentYear = Int(formatterYear.string(from: date)) else {return}
+        
+        let userId = UserDefaults.standard.integer(forKey: "userId")
+        
+        guard let urlRequestUserLogIn = URL(string: "https://app.ielts-vuive.com/api/services/app/flashCardLessionService/GetReportDataLessionBarChart?month=\(currentMonth)&year=\(currentYear)&userId=\(userId)") else { return }
+        var request = URLRequest(url: urlRequestUserLogIn)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue( "Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 30.0
+        sessionConfig.timeoutIntervalForResource = 60.0
+        let session = URLSession(configuration: sessionConfig)
+        session.dataTask(with: request) { (data, response, error) in
+            
+            if let _ = error {
+                completion(.failure(.invalidData))
+                return
+            }
+            guard let response = response as? HTTPURLResponse,
+                  response.statusCode == 200 else {
+                print("fetch data hits response: \(response!)")
+                completion(.failure(.invalidResponse))
+                return
+            }
+            do {
+                let decodedData = try JSONDecoder().decode(ChartDataLog.self, from: data!)
+                let againDataHits = decodedData.result.dataSets[0].dataHits
+                let completeDataHits = decodedData.result.dataSets[1].dataHits
+                let buttonDataSet = ButtonDataSet(againDataHits: againDataHits, completeDataHits: completeDataHits)
+                
+                DispatchQueue.main.async {
+                    completion(.success(buttonDataSet))
+                }
+            }
+            catch {
+                DispatchQueue.main.async {
+                    completion(.failure(.invalidData))
+                }
+            }
+        }.resume()
+    }
+    
+    func fetchChartDataCard(cardId: Int, completion: @escaping (Swift.Result<ButtonDataSet?, ErrorMessage>) -> Void) {
         
         let date = Date()
         let formatterMonth = DateFormatter()
@@ -179,7 +234,7 @@ class Service {
         }.resume()
     }
     
-    func writeLogButtonHits(buttonName: String, categoryId: Int, completion: @escaping (Swift.Result<Bool, ErrorMessage>) -> Void) {
+    func writeLogButtonHits(buttonName: String, cardId: Int, completion: @escaping (Swift.Result<Bool, ErrorMessage>) -> Void) {
         
         guard let token = UserDefaults.standard.string(forKey: "accessToken") else {return}
         
@@ -188,7 +243,7 @@ class Service {
         guard let urlRequestUserLogIn = URL(string: "https://app.ielts-vuive.com/api/services/app/flashCardLessionService/WriteLog\(buttonName)"),
               let payLoad = """
                     {
-                      "cardCategoryId": \(categoryId),
+                      "cardCategoryId": \(cardId),
                       "userId": \(userId)
                     }
                     """.data(using: .utf8) else { return }
@@ -333,7 +388,7 @@ class Service {
     
     func createUser(name: String, email: String, completion: @escaping (String?) -> ()) {
         
-        fetchLogin(email: "admin", password: "admin123", completion: { results in
+        fetchLogin(email: "admin", password: "s@ng7nQ-ij", completion: { results in
             switch results {
             case .success(let accessToken):
                 
@@ -345,7 +400,7 @@ class Service {
                     "surname": "\(name)",
                     "userName": "\(email)",
                     "emailAddress": "\(email)",
-                    "password": "\(name)7nQ-ij",
+                    "password": "s@ng7nQ-ij",
                     "isActive": true,
                   },
                   "assignedRoleNames": [
@@ -422,7 +477,7 @@ class Service {
             do {
                 let decodedData = try JSONDecoder().decode(UserProfile.self, from: data!)
                 let user = decodedData.result.user
-                let userData = UserData(userName: user.name, userEmail: user.emailAddress, id: user.id)
+                let userData = UserData(name: user.name, familyName: user.surname, email: user.emailAddress, id: user.id, avatarImage: nil)
                 UserDefaults.standard.setValue(user.id, forKey: "userId")
                 DispatchQueue.main.async {
                     completion(.success(userData))

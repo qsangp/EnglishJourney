@@ -13,7 +13,7 @@ import Foundation
 import CoreGraphics
 
 @objc(IChartHighlighter)
-public protocol IHighlighter: AnyObject
+public protocol IHighlighter: class
 {
     /// - Parameters:
     ///   - x:
